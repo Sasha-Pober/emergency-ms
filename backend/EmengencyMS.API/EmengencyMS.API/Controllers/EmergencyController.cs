@@ -1,6 +1,15 @@
-﻿namespace EmengencyMS.API.Controllers
+﻿using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.AspNetCore.Mvc;
+
+namespace EmengencyMS.API.Controllers
 {
-    public class EmergencyController
+    [ApiController]
+    public class EmergencyController : ControllerBase
     {
+        [HttpGet]
+        public IActionResult GetEmergencies()
+        {
+            return Ok();
+        }
     }
 }
