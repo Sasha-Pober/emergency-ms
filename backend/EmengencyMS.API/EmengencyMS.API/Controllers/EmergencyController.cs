@@ -9,7 +9,7 @@ namespace EmengencyMS.API.Controllers
         [HttpGet]
         public IActionResult GetEmergencies()
         {
-            return Ok(object);
+            return Ok(100);
         }
     }
 }
