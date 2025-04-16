@@ -1,15 +1,19 @@
-﻿namespace EmengencyMS.API
+﻿using Microsoft.Extensions.Configuration;
+
+namespace EmengencyMS.API
 {
     public class Startup
     {
         readonly string AllowedOrigin = "allowedOrigin";
 
-        public Startup(IConfiguration configuration)
+        private readonly IConfiguration _сonfiguration;
+
+        public Startup(IWebHostEnvironment environment)
         {
-            Configuration = configuration;
+            _сonfiguration = new ConfigurationBuilder().AddEnvironmentVariables()
+                .AddJsonFile("appsettings.json", false, true).Build();
         }
 
-        public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -21,7 +25,7 @@
                     );
             });
 
-            services.AddControllers();
+            services.AddControllers().AddApplicationPart(typeof(Presentation.Controllers.EmergencyController).Assembly);
 
         }
 
