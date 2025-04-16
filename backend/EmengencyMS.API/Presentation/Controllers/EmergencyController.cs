@@ -1,7 +1,6 @@
-﻿using Microsoft.AspNetCore.Http.HttpResults;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 
-namespace EmengencyMS.API.Controllers
+namespace Presentation.Controllers
 {
     [ApiController]
     public class EmergencyController : ControllerBase
