@@ -11,8 +11,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Services", "Services\Servic
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Presentation", "Presentation\Presentation.csproj", "{7B4EEC39-8670-4373-8FE6-1AFE5A95FB7E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Services.Abstractions", "Services.Abstractions\Services.Abstractions.csproj", "{298EBB66-599F-484E-82BA-D9B44DC2ABE1}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure", "Infrastructure\Infrastructure.csproj", "{8FD7A931-8A62-40B0-9F11-F6A64CC2DCAD}"
 EndProject
 Global
@@ -37,10 +35,6 @@ Global
 		{7B4EEC39-8670-4373-8FE6-1AFE5A95FB7E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7B4EEC39-8670-4373-8FE6-1AFE5A95FB7E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7B4EEC39-8670-4373-8FE6-1AFE5A95FB7E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{298EBB66-599F-484E-82BA-D9B44DC2ABE1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{298EBB66-599F-484E-82BA-D9B44DC2ABE1}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{298EBB66-599F-484E-82BA-D9B44DC2ABE1}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{298EBB66-599F-484E-82BA-D9B44DC2ABE1}.Release|Any CPU.Build.0 = Release|Any CPU
 		{8FD7A931-8A62-40B0-9F11-F6A64CC2DCAD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{8FD7A931-8A62-40B0-9F11-F6A64CC2DCAD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8FD7A931-8A62-40B0-9F11-F6A64CC2DCAD}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -48,5 +42,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {440DFB75-2303-48A0-8D6B-B19E32C3149D}
 	EndGlobalSection
 EndGlobal
