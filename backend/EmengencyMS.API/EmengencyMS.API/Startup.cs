@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Infrastructure;
+using Presentation;
+using Swashbuckle.AspNetCore.Swagger;
 
 namespace EmengencyMS.API
 {
@@ -25,7 +27,10 @@ namespace EmengencyMS.API
                     );
             });
 
+            services.ConfigureInfrastructure();
+            services.ConfigurePresentation();
             services.AddControllers().AddApplicationPart(typeof(Presentation.Controllers.EmergencyController).Assembly);
+            services.AddSwaggerGen();
 
         }
 
@@ -35,6 +40,8 @@ namespace EmengencyMS.API
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseSwagger();
+                app.UseSwaggerUI();
             }
 
             app.UseCors(AllowedOrigin);

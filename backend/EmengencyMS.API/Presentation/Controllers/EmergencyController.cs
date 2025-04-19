@@ -1,14 +1,23 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Presentation.Contracts.Emergency;
+using Presentation.Enums;
+using Presentation.Mappings;
+using Services.Interfaces;
 
 namespace Presentation.Controllers
 {
     [ApiController]
-    public class EmergencyController : ControllerBase
+    [Route("api/[controller]")]
+    public class EmergencyController(IEmergencyService emergencyService) 
+        : ControllerBase
     {
         [HttpGet]
-        public IActionResult GetEmergencies()
+        [ProducesResponseType(typeof(IEnumerable<EmergencyResponse>), 200)]
+        public async Task<IActionResult> GetEmergencies(int page, int pageSize)
         {
-            return Ok(100);
+            var result = await emergencyService.GetEmergencies(page, pageSize);
+
+            return Ok(result.Select(x => x.MapToResponse()));
         }
     }
 }
