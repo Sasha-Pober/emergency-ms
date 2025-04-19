@@ -17,4 +17,5 @@ public class EmergencyDTO
     public string? Description { get; set; }
     public LocationDTO Location { get; set; }
     public SourceDTO Source { get; set; }
+
 }

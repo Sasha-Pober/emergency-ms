@@ -1,7 +1,9 @@
-﻿using Presentation.Enums;
+﻿using Presentation.Contracts.Location;
+using Presentation.Contracts.Source;
+using Presentation.Enums;
 using Services.DTO;
 
-namespace Presentation.Requests;
+namespace Presentation.Contracts.Emergency;
 
 public class CreateEmergency
 {
@@ -17,7 +19,6 @@ public class CreateEmergency
     public double? Duration { get; set; }
     public CreateLocation Location { get; set; }
     public CreateSource Source { get; set; }
-
 
     public EmergencyDTO MapToDTO()
     {
