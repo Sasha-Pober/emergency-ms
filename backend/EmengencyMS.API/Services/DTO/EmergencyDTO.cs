@@ -5,6 +5,7 @@ public class EmergencyDTO
     public int Id { get; set; }
     public string? Title { get; set; }
     public int EmergencyTypeId { get; set; }
+    public int? EmergencySubTypeId { get; set; }
     public DateTime AccidentDate { get; set; }
     public DateTime? DateEntered { get; set; }
     public int LocationId { get; set; }

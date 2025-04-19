@@ -1,6 +1,7 @@
 ﻿using Presentation.Contracts.Emergency;
 using Presentation.Contracts.Location;
 using Presentation.Contracts.Source;
+using Presentation.Enums;
 using Services.DTO;
 
 namespace Presentation.Mappings;
@@ -13,9 +14,11 @@ internal static class MappingHelper
         {
             Id = dto.Id,
             Title = dto.Title,
+            EmergencyType = (EmergencyType)dto.EmergencyTypeId,
+            EmergencySubType = dto.EmergencySubTypeId.HasValue ? (EmergencySubType)dto.EmergencySubTypeId : null,
             Description = dto.Description,
             AccidentDate = dto.AccidentDate,
-            DateEntered = dto.DateEntered,
+            DateEntered = dto.DateEntered.HasValue ? dto.DateEntered : null,
             Severity = dto.Severity,
             Casualties = dto.Casualties,
             Injured = dto.Injured,
@@ -40,7 +43,7 @@ internal static class MappingHelper
         };
     }
 
-    internal static SourceResponse? MapSource(this SourceDTO dto)
+    internal static SourceResponse MapSource(this SourceDTO dto)
     {
         if (dto == null) return null;
 

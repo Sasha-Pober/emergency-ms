@@ -15,16 +15,21 @@ internal class EmergencyRepository : IEmergencyRepository
         _connectionString = configuration.GetConnectionString("Main");
     }
 
-    public Task<IEnumerable<Emergency>> GetEmergencies(int page, int pagesize)
+    public async Task<IEnumerable<Emergency>> GetEmergencies(int page, int pagesize)
     {
-        using var connection = new SqlConnection(_connectionString);
-
-        connection.Open();
-
-        return connection.QueryAsync<Emergency>(
+        using (var connection = new SqlConnection(_connectionString))
+        {
+            return await connection.QueryAsync<Emergency, Location, Source, Emergency>(
             "[dbo].[GetEmergenciesByPage]",
+            (emergency, location, source) =>
+            {
+                emergency.Location = location;
+                emergency.Source = source;
+                return emergency;
+            },
             new { Page = page, Pagesize = pagesize },
             commandType: System.Data.CommandType.StoredProcedure
             );
+        }
     }
 }
