@@ -19,5 +19,18 @@ namespace Presentation.Controllers
 
             return Ok(result.Select(x => x.MapToResponse()));
         }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateEmergency([FromBody] CreateEmergency request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request");
+            }
+            var emergency = request.MapToDTO();
+
+            await emergencyService.CreateEmergency(emergency);
+            return CreatedAtAction(nameof(GetEmergencies), new { id = emergency.Id }, emergency);
+        }
     }
 }

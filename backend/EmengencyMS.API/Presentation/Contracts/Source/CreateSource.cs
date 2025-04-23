@@ -7,14 +7,5 @@ namespace Presentation.Contracts.Source
         public string? Name { get; set; }
         public string? Url { get; set; }
         public SourceType? SourceType { get; set; }
-        internal SourceDTO MapToDTO()
-        {
-            return new SourceDTO
-            {
-                Name = Name,
-                Url = Url,
-                SourceType = (int)SourceType
-            };
-        }
     }
 }

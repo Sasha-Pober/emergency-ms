@@ -1,4 +1,6 @@
-﻿namespace Presentation.Contracts.Location;
+﻿using Presentation.Enums;
+
+namespace Presentation.Contracts.Location;
 
 internal class LocationResponse
 {

@@ -2,6 +2,7 @@
 using Presentation.Contracts.Source;
 using Presentation.Enums;
 using Services.DTO;
+using System.ComponentModel.DataAnnotations;
 
 namespace Presentation.Contracts.Emergency;
 
@@ -12,6 +13,7 @@ public class CreateEmergency
     public EmergencyType EmergencyType { get; set; }
     public EmergencySubType EmergencySubType { get; set; }
     public DateTime AccidentDate { get; set; }
+    [Range(1, 10)]
     public int? Severity { get; set; }
     public int? Casualties { get; set; }
     public int? Injured { get; set; }
@@ -19,24 +21,5 @@ public class CreateEmergency
     public double? Duration { get; set; }
     public CreateLocation Location { get; set; }
     public CreateSource Source { get; set; }
-
-    public EmergencyDTO MapToDTO()
-    {
-        return new EmergencyDTO
-        {
-            Title = Title,
-            Description = Description,
-            EmergencyTypeId = (int)EmergencyType,
-            AccidentDate = AccidentDate,
-            DateEntered = DateTime.Now,
-            Severity = Severity,
-            Casualties = Casualties,
-            Injured = Injured,
-            EconomicLoss = EconomicLoss,
-            Duration = Duration,
-            Location = Location.MapToDTO(),
-            Source = Source.MapToDTO()
-        };
-    }
 
 }
