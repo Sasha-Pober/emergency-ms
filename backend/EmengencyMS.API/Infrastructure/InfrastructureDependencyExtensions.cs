@@ -6,6 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
+using Infrastructure.Sender;
 
 namespace Infrastructure;
 
@@ -16,13 +17,13 @@ public static class InfrastructureDependencyExtensions
         var connectionString = configuration.GetConnectionString("Main");
         services.AddTransient<SqlConnection>(_ => new SqlConnection(connectionString));
         services.AddScoped<IEmergencyRepository, EmergencyRepository>();
+
         services.AddAuthorizationCore();
-        services.AddAuthentication().AddCookie(IdentityConstants.ApplicationScheme);
-        services.Configure<IdentityOptions>(options =>
-        {
-            options.SignIn.RequireConfirmedEmail = false;
-        });
-        services.AddIdentityCore<ApplicationUser>().AddEntityFrameworkStores<AppDbContext>().AddSignInManager();
+        services.AddAuthentication()
+            .AddCookie(IdentityConstants.ApplicationScheme)
+            .AddBearerToken(IdentityConstants.BearerScheme);
+
+        services.AddIdentityCore<ApplicationUser>().AddEntityFrameworkStores<AppDbContext>().AddApiEndpoints();
 
         services.AddDbContext<AppDbContext>(options =>
         {

@@ -54,8 +54,8 @@ namespace EmengencyMS.API
 
             app.UseEndpoints(endpoints =>
             {
-                //endpoints.MapIdentityApi<ApplicationUser>();
                 endpoints.MapControllers();
+                endpoints.MapIdentityApi<ApplicationUser>();
             });
         }
     }
