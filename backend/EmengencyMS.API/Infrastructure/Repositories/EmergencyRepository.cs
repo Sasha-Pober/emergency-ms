@@ -6,24 +6,16 @@ using Dapper;
 
 namespace Infrastructure.Repositories;
 
-internal class EmergencyRepository : IEmergencyRepository
+internal class EmergencyRepository(SqlConnection connection) : IEmergencyRepository
 {
-    private readonly string _connectionString;
 
-    public EmergencyRepository(IConfiguration configuration)
+    public async Task<int> CreateEmergency(Emergency emergencyEntity)
     {
-        _connectionString = configuration.GetConnectionString("Main");
-    }
-
-    public async Task CreateEmergency(Emergency emergencyEntity)
-    {
-        using var connection = new SqlConnection(_connectionString);
-        
         var emergencyTable = emergencyEntity.ToEmergencyDataTable();
         var locationTable = emergencyEntity.Location.ToLocationDataTable();
         var sourceTable = emergencyEntity.Source.ToSourceDataTable();
 
-        await connection.ExecuteAsync(
+        return await connection.ExecuteAsync(
             "[dbo].[CreateEmergency]",
             new
             {
@@ -38,19 +30,34 @@ internal class EmergencyRepository : IEmergencyRepository
 
     public Task<IEnumerable<Emergency>> GetEmergencies(int page, int pagesize)
     {
-        using (var connection = new SqlConnection(_connectionString))
+
+        return connection.QueryAsync<Emergency, Location, Source, Emergency>(
+        "[dbo].[GetEmergenciesByPage]",
+        (emergency, location, source) =>
         {
-            return connection.QueryAsync<Emergency, Location, Source, Emergency>(
-            "[dbo].[GetEmergenciesByPage]",
-            (emergency, location, source) =>
-            {
-                emergency.Location = location;
-                emergency.Source = source;
-                return emergency;
-            },
-            new { Page = page, Pagesize = pagesize },
-            commandType: System.Data.CommandType.StoredProcedure
-            );
-        }
+            emergency.Location = location;
+            emergency.Source = source;
+            return emergency;
+        },
+        new { Page = page, Pagesize = pagesize },
+        commandType: System.Data.CommandType.StoredProcedure
+        );
+    }
+
+    public async Task<IEnumerable<Emergency>> GetEmergenciesForPeriod(DateTime startDate, DateTime endDate)
+    {
+
+        return await connection.QueryAsync<Emergency, Location, Source, Emergency>(
+        "[dbo].[GetEmergenciesForPeriod]",
+        (emergency, location, source) =>
+        {
+            emergency.Location = location;
+            emergency.Source = source;
+            return emergency;
+        },
+        new { StartDate = startDate, EndDate = endDate },
+        commandType: System.Data.CommandType.StoredProcedure
+        );
+
     }
 }

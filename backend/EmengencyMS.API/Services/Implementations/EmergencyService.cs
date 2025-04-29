@@ -8,15 +8,21 @@ namespace Services.Implementations;
 internal class EmergencyService(IEmergencyRepository repository) 
     : IEmergencyService
 {
-    public async Task CreateEmergency(EmergencyDTO emergency)
+    public async Task<int> CreateEmergency(EmergencyDTO emergency)
     {
         var emergencyEntity = emergency.MapToEntity();
-        await repository.CreateEmergency(emergencyEntity);
+        return await repository.CreateEmergency(emergencyEntity);
     }
 
-    public async Task<IEnumerable<EmergencyDTO>> GetEmergencies(int page, int pagesize)
+    public async Task<IEnumerable<EmergencyDTO>> GetAllEmergencies(int page, int pagesize)
     {
         var emergencies = await repository.GetEmergencies(page, pagesize);
+        return emergencies.Select(x => x.MapToDTO());
+    }
+
+    public async Task<IEnumerable<EmergencyDTO>> GetEmergenciesForPeriod(DateTime startDate, DateTime endDate)
+    {
+        var emergencies = await repository.GetEmergenciesForPeriod(startDate, endDate);
         return emergencies.Select(x => x.MapToDTO());
     }
 }

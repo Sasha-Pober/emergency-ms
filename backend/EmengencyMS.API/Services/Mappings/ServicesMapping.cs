@@ -3,7 +3,7 @@ using Services.DTO;
 
 namespace Services.Mappings;
 
-internal static class MappingHelper
+internal static class ServicesMapping
 {
     internal static EmergencyDTO MapToDTO(this Emergency emergency)
     {
@@ -16,6 +16,7 @@ internal static class MappingHelper
             AccidentDate = emergency.AccidentDate,
             Casualties = emergency.Casualties,
             EmergencyTypeId = emergency.EmergencyTypeId,
+            EmergencySubTypeId = emergency.EmergencySubTypeId,
             LocationId = emergency.LocationId,
             EconomicLoss = emergency.EconomicLoss,
             Severity = emergency.Severity,

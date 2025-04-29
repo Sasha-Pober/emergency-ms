@@ -1,4 +1,5 @@
 ﻿using Infrastructure;
+using Microsoft.AspNetCore.Identity;
 using Presentation;
 using Swashbuckle.AspNetCore.Swagger;
 
@@ -27,11 +28,10 @@ namespace EmengencyMS.API
                     );
             });
 
-            services.ConfigureInfrastructure();
+            services.ConfigureInfrastructure(_сonfiguration);
             services.ConfigurePresentation();
             services.AddControllers().AddApplicationPart(typeof(Presentation.Controllers.EmergencyController).Assembly);
             services.AddSwaggerGen();
-
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -54,6 +54,7 @@ namespace EmengencyMS.API
 
             app.UseEndpoints(endpoints =>
             {
+                //endpoints.MapIdentityApi<ApplicationUser>();
                 endpoints.MapControllers();
             });
         }

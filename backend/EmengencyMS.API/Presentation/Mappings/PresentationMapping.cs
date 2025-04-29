@@ -8,7 +8,7 @@ using System.Xml.Linq;
 
 namespace Presentation.Mappings;
 
-internal static class MappingHelper
+internal static class PresentationMapping
 {
     internal static EmergencyResponse MapToResponse(this EmergencyDTO dto)
     {
