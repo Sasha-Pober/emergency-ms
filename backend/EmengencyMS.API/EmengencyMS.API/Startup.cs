@@ -1,7 +1,5 @@
 ﻿using Infrastructure;
-using Microsoft.AspNetCore.Identity;
 using Presentation;
-using Swashbuckle.AspNetCore.Swagger;
 
 namespace EmengencyMS.API
 {

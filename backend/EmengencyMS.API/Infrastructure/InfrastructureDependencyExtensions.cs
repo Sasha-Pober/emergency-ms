@@ -6,7 +6,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
-using Infrastructure.Sender;
 
 namespace Infrastructure;
 
@@ -18,12 +17,11 @@ public static class InfrastructureDependencyExtensions
         services.AddTransient<SqlConnection>(_ => new SqlConnection(connectionString));
         services.AddScoped<IEmergencyRepository, EmergencyRepository>();
 
-        services.AddAuthorizationCore();
+        services.AddAuthorization();
         services.AddAuthentication()
-            .AddCookie(IdentityConstants.ApplicationScheme)
             .AddBearerToken(IdentityConstants.BearerScheme);
 
-        services.AddIdentityCore<ApplicationUser>().AddEntityFrameworkStores<AppDbContext>().AddApiEndpoints();
+        services.AddIdentityCore<ApplicationUser>().AddRoles<ApplicationRole>().AddEntityFrameworkStores<AppDbContext>().AddApiEndpoints();
 
         services.AddDbContext<AppDbContext>(options =>
         {

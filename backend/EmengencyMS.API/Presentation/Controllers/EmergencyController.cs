@@ -1,6 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Presentation.Contracts.Emergency;
-using Presentation.Enums;
 using Presentation.Mappings;
 using Services.Interfaces;
 
@@ -21,6 +21,7 @@ namespace Presentation.Controllers
         }
 
         [HttpPost]
+        [Authorize(AuthenticationSchemes = "Identity.Bearer", Roles = "Admin,Manager")]
         public async Task<IActionResult> CreateEmergency([FromBody] CreateEmergency request)
         {
             if (request == null)

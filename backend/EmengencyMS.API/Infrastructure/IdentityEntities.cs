@@ -2,4 +2,6 @@
 
 namespace Infrastructure;
 
-public class ApplicationUser : IdentityUser { }
+public class ApplicationUser : IdentityUser<int> { }
+
+public class ApplicationRole : IdentityRole<int> { }
