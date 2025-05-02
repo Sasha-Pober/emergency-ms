@@ -93,4 +93,13 @@ internal static class ServicesMapping
         };
 
     }
+
+    internal static EmergencyTypeDTO MapToDTO(this EmergencyType emergencyType)
+    {
+        return new EmergencyTypeDTO
+        {
+            Id = emergencyType.Id,
+            Name = emergencyType.Name
+        };
+    }
 }

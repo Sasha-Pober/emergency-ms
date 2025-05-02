@@ -44,10 +44,10 @@ internal class EmergencyRepository(SqlConnection connection) : IEmergencyReposit
         );
     }
 
-    public async Task<IEnumerable<Emergency>> GetEmergenciesForPeriod(DateTime startDate, DateTime endDate)
+    public Task<IEnumerable<Emergency>> GetEmergenciesForPeriod(DateTime startDate, DateTime endDate)
     {
 
-        return await connection.QueryAsync<Emergency, Location, Source, Emergency>(
+        return connection.QueryAsync<Emergency, Location, Source, Emergency>(
         "[dbo].[GetEmergenciesForPeriod]",
         (emergency, location, source) =>
         {
@@ -59,5 +59,11 @@ internal class EmergencyRepository(SqlConnection connection) : IEmergencyReposit
         commandType: System.Data.CommandType.StoredProcedure
         );
 
+    }
+
+    public Task<IEnumerable<EmergencyType>> GetEmergencyTypes()
+    {
+        return connection.QueryAsync<EmergencyType>("[dbo].[GetEmergencyTypes]",
+            commandType: System.Data.CommandType.StoredProcedure);
     }
 }

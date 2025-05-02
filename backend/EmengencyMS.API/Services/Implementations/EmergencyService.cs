@@ -1,4 +1,5 @@
-﻿using Domain.Interfaces;
+﻿using Domain.Entities;
+using Domain.Interfaces;
 using Services.DTO;
 using Services.Interfaces;
 using Services.Mappings;
@@ -24,5 +25,11 @@ internal class EmergencyService(IEmergencyRepository repository)
     {
         var emergencies = await repository.GetEmergenciesForPeriod(startDate, endDate);
         return emergencies.Select(x => x.MapToDTO());
+    }
+
+    public async Task<IEnumerable<EmergencyTypeDTO>> GetEmergencyTypes()
+    {
+        var result = await repository.GetEmergencyTypes();
+        return result.Select(x => x.MapToDTO());
     }
 }

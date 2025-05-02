@@ -1,5 +1,6 @@
 ﻿using Domain.Entities;
 using Presentation.Contracts.Emergency;
+using Presentation.Contracts.EmergencyType;
 using Presentation.Contracts.Location;
 using Presentation.Contracts.Source;
 using Presentation.Enums;
@@ -16,7 +17,7 @@ internal static class PresentationMapping
         {
             Id = dto.Id,
             Title = dto.Title,
-            EmergencyType = (EmergencyType)dto.EmergencyTypeId,
+            EmergencyType = (Enums.EmergencyType)dto.EmergencyTypeId,
             EmergencySubType = dto.EmergencySubTypeId.HasValue ? (EmergencySubType)dto.EmergencySubTypeId : null,
             Description = dto.Description,
             AccidentDate = dto.AccidentDate,
@@ -99,4 +100,12 @@ internal static class PresentationMapping
         };
     }
 
+    internal static EmergencyTypeResponse MapToResponse(this EmergencyTypeDTO emergencyType)
+    {
+        return new EmergencyTypeResponse
+        {
+            Id = emergencyType.Id,
+            Name = emergencyType.Name,
+        };
+    }
 }

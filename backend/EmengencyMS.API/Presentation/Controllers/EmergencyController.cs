@@ -7,7 +7,7 @@ using Services.Interfaces;
 namespace Presentation.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/emergencies")]
     public class EmergencyController(IEmergencyService emergencyService) 
         : ControllerBase
     {
@@ -38,6 +38,13 @@ namespace Presentation.Controllers
         public async Task<IActionResult> GetEmergenciesForPeriod([FromQuery] DateTime startDate, [FromQuery] DateTime endDate)
         {
             var result = await emergencyService.GetEmergenciesForPeriod(startDate, endDate);
+            return Ok(result.Select(x => x.MapToResponse()));
+        }
+
+        [HttpGet("types")]
+        public async Task<IActionResult> GetEmergencyTypes()
+        {
+            var result = await emergencyService.GetEmergencyTypes();
             return Ok(result.Select(x => x.MapToResponse()));
         }
     }

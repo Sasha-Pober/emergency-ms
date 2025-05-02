@@ -1,0 +1,13 @@
+<div class="main-container">
+    <div class="controls">
+      <label for="emergencyType">Filter by Emergency Type:</label>
+      <select id="emergencyType" (change)="onFilterChange($event)">
+        <option value="">All</option>
+        <option *ngFor="let type of emergencyTypes" [value]="type">{{ type.name }}</option>
+      </select>
+    </div>
+  
+    <div class="map-container">
+      <app-map [filteredType]="selectedType"></app-map>
+    </div>
+  </div>
