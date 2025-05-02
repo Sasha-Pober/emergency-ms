@@ -9,7 +9,7 @@ internal class EmergencyResponse
     public int Id { get; set; }
     public string? Title { get; set; }
     public string? Description { get; set; }
-    public EmergencyType? EmergencyType { get; set; }
+    public Enums.EmergencyType? EmergencyType { get; set; }
     public EmergencySubType? EmergencySubType { get; set; }
     public DateTime AccidentDate { get; set; }
     public DateTime? DateEntered { get; set; }
