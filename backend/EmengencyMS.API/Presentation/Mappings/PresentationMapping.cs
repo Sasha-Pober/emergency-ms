@@ -1,6 +1,7 @@
 ﻿using Domain.Entities;
 using Presentation.Contracts.Emergency;
 using Presentation.Contracts.EmergencyType;
+using Presentation.Contracts.EmergencyTypes;
 using Presentation.Contracts.Location;
 using Presentation.Contracts.Source;
 using Presentation.Enums;
@@ -17,8 +18,8 @@ internal static class PresentationMapping
         {
             Id = dto.Id,
             Title = dto.Title,
-            EmergencyType = (Enums.EmergencyType)dto.EmergencyTypeId,
-            EmergencySubType = dto.EmergencySubTypeId.HasValue ? (EmergencySubType)dto.EmergencySubTypeId : null,
+            EmergencyType = dto.EmergencyTypeId,
+            EmergencySubType = dto.EmergencySubTypeId,
             Description = dto.Description,
             AccidentDate = dto.AccidentDate,
             DateEntered = dto.DateEntered.HasValue ? dto.DateEntered : null,
@@ -65,8 +66,8 @@ internal static class PresentationMapping
         {
             Title = entity.Title,
             Description = entity.Description,
-            EmergencyTypeId = (int)entity.EmergencyType,
-            EmergencySubTypeId = (int)entity.EmergencySubType,
+            EmergencyTypeId = entity.EmergencyType,
+            EmergencySubTypeId = entity.EmergencySubType,
             AccidentDate = entity.AccidentDate,
             DateEntered = DateTime.Now,
             Severity = entity.Severity,
@@ -103,6 +104,15 @@ internal static class PresentationMapping
     internal static EmergencyTypeResponse MapToResponse(this EmergencyTypeDTO emergencyType)
     {
         return new EmergencyTypeResponse
+        {
+            Id = emergencyType.Id,
+            Name = emergencyType.Name,
+        };
+    }
+
+    internal static EmergencySubTypeResponse MapToResponse(this EmergencySubTypeDTO emergencyType)
+    {
+        return new EmergencySubTypeResponse
         {
             Id = emergencyType.Id,
             Name = emergencyType.Name,

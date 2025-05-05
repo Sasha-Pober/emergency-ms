@@ -29,6 +29,10 @@ export class EmergencyService {
   getEmergencyTypes(): Observable<EmergencyTypeEntity[]> {
     return this.http.get<EmergencyTypeEntity[]>(`${this.apiUrl}/api/emergencies/types`);
   }
+
+  getEmergencySubTypes(): Observable<EmergencyTypeEntity[]> {
+    return this.http.get<EmergencyTypeEntity[]>(`${this.apiUrl}/api/emergencies/subtypes`);
+  }
   /**
    * Create a new emergency.
    * @param emergency The emergency object to create.
