@@ -27,6 +27,12 @@ internal class EmergencyService(IEmergencyRepository repository)
         return emergencies.Select(x => x.MapToDTO());
     }
 
+    public async Task<IEnumerable<EmergencySubTypeDTO>> GetEmergencySubTypes()
+    {
+        var result = await repository.GetEmergencySubTypes();
+        return result.Select(x => x.MapToDTO());
+    }
+
     public async Task<IEnumerable<EmergencyTypeDTO>> GetEmergencyTypes()
     {
         var result = await repository.GetEmergencyTypes();

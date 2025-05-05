@@ -10,8 +10,8 @@ public class CreateEmergency
 {
     public string? Title { get; set; }
     public string? Description { get; set; }
-    public Enums.EmergencyType EmergencyType { get; set; }
-    public EmergencySubType EmergencySubType { get; set; }
+    public int EmergencyType { get; set; }
+    public int? EmergencySubType { get; set; }
     public DateTime AccidentDate { get; set; }
     [Range(1, 10)]
     public int? Severity { get; set; }

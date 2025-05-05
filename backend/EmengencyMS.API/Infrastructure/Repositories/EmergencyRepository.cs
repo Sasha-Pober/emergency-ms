@@ -61,6 +61,12 @@ internal class EmergencyRepository(SqlConnection connection) : IEmergencyReposit
 
     }
 
+    public Task<IEnumerable<EmergencySubType>> GetEmergencySubTypes()
+    {
+        return connection.QueryAsync<EmergencySubType>("[dbo].[GetEmergencySubTypes]",
+            commandType: System.Data.CommandType.StoredProcedure);
+    }
+
     public Task<IEnumerable<EmergencyType>> GetEmergencyTypes()
     {
         return connection.QueryAsync<EmergencyType>("[dbo].[GetEmergencyTypes]",

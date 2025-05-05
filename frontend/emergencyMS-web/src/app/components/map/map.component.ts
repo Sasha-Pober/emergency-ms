@@ -1,7 +1,7 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import * as L from 'leaflet';
 import { EmergencyService } from '../../services/emergency/emergency.service';
-import { EmergencyType } from '../../enums/EmergencyType';
+import { Emergency } from '../../models/Emergency';
 
 @Component({
   selector: 'app-map',
@@ -9,17 +9,17 @@ import { EmergencyType } from '../../enums/EmergencyType';
   styleUrls: ['./map.component.css']
 })
 export class MapComponent implements OnChanges {
-  @Input() filteredType: string = ''; // Input for filtering emergencies by type
+  @Input() filteredType: number = 0; // Input for filtering emergencies by type
+  @Input() filteredSubType: number = 0; // Input for filtering emergencies by type
 
   private map: L.Map | any;
-  private markers: { lat: number; lng: number; popup: string }[] = [];
+  private markers: { lat: number; lng: number; popupTitle: string, popupDescription: string}[] = [];
+  private emergencies: Emergency[] = [];
 
-  constructor(private emergencyService: EmergencyService) {}
+  constructor(private emergencyService: EmergencyService) { }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes['filteredType']) {
-      this.updateMarkers();
-    }
+    this.updateMarkers(this.filteredType, this.filteredSubType);
   }
 
   ngOnInit(): void {
@@ -29,22 +29,31 @@ export class MapComponent implements OnChanges {
 
   private fetchEmergencies(): void {
     this.emergencyService.getAllEmergencies(1, 100).subscribe(data => {
+      this.emergencies = data;
       this.markers = data
-        .filter(dat => !this.filteredType || dat.emergencyType?.toString() === this.filteredType)
+        .filter(dat => (!this.filteredType || dat.emergencyType === this.filteredType)
+          && (!this.filteredSubType || dat.emergencySubType === this.filteredSubType))
         .map(dat => ({
           lat: dat.location.latitude!,
           lng: dat.location.longitude!,
-          popup: dat.description!
+          popupTitle: dat.title!,
+          popupDescription: dat.description!
         }));
       this.updateMarkers();
     });
   }
 
-  private updateMarkers(): void {
+  private updateMarkers(type: number = 0, subType: number = 0): void {
+    let markersToAdd = this.markers;
+    let emergenciesQuery: Emergency[] = this.emergencies;
+
     if (!this.map) {
       console.error('Map is not initialized');
       return;
     }
+
+    console.log('Filtered Type:', this.filteredType);
+    console.log('Filtered SubType:', this.filteredSubType);
 
     // Clear existing markers
     this.map.eachLayer((layer: L.Marker) => {
@@ -53,11 +62,41 @@ export class MapComponent implements OnChanges {
       }
     });
 
+    emergenciesQuery = this.emergencies.filter(dat => {
+      if (type !== 0 && subType !== 0) {
+        return dat.emergencyType === type && dat.emergencySubType === subType;
+      } else if (type !== 0) {
+        return dat.emergencyType === type;
+      } else if (subType !== 0) {
+        return dat.emergencySubType === subType;
+      }
+      return true;
+    });
+    console.log('Filtered Emergencies:', emergenciesQuery);
+
+
+    markersToAdd = emergenciesQuery
+      .map(dat => ({
+        lat: dat.location.latitude!,
+        lng: dat.location.longitude!,
+        popupTitle: dat.title!,
+        popupDescription: dat.description!
+      }));
+
     // Add new markers
-    this.markers.forEach(marker => {
-      L.marker([marker.lat, marker.lng])
+    markersToAdd.forEach(marker => {
+      L.marker([marker.lat, marker.lng], {
+        icon: L.icon(
+          {
+            iconUrl: `../../assets/marker-blue.png`,
+            iconSize: [30.5, 50],
+            iconAnchor: [12, 41],
+            popupAnchor: [1, -31],
+            shadowSize: [41, 41]
+          })
+      })
         .addTo(this.map)
-        .bindPopup(marker.popup);
+        .bindPopup(`<h3>${marker.popupTitle}</h3>${marker.popupDescription}`);
     });
   }
 

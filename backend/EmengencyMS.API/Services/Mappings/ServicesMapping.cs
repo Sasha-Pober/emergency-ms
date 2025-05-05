@@ -102,4 +102,13 @@ internal static class ServicesMapping
             Name = emergencyType.Name
         };
     }
+
+    internal static EmergencySubTypeDTO MapToDTO(this EmergencySubType emergencyType)
+    {
+        return new EmergencySubTypeDTO
+        {
+            Id = emergencyType.Id,
+            Name = emergencyType.Name
+        };
+    }
 }
