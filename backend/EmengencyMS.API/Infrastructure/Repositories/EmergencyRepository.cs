@@ -12,7 +12,7 @@ internal class EmergencyRepository(SqlConnection connection) : IEmergencyReposit
     public async Task<int> CreateEmergency(Emergency emergencyEntity)
     {
         var emergencyTable = emergencyEntity.ToEmergencyDataTable();
-        var locationTable = emergencyEntity.Location.ToLocationDataTable();
+        var locationTable = emergencyEntity.Location.ToLocationDataTable(emergencyEntity.Street);
         var sourceTable = emergencyEntity.Source.ToSourceDataTable();
 
         return await connection.ExecuteAsync(
@@ -31,12 +31,13 @@ internal class EmergencyRepository(SqlConnection connection) : IEmergencyReposit
     public Task<IEnumerable<Emergency>> GetEmergencies(int page, int pagesize)
     {
 
-        return connection.QueryAsync<Emergency, Location, Source, Emergency>(
+        return connection.QueryAsync<Emergency, Location, Source, Street, Emergency>(
         "[dbo].[GetEmergenciesByPage]",
-        (emergency, location, source) =>
+        (emergency, location, source, street) =>
         {
             emergency.Location = location;
             emergency.Source = source;
+            emergency.Street = street;
             return emergency;
         },
         new { Page = page, Pagesize = pagesize },

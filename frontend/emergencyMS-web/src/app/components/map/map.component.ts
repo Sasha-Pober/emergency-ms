@@ -13,8 +13,17 @@ export class MapComponent implements OnChanges {
   @Input() filteredSubType: number = 0; // Input for filtering emergencies by type
 
   private map: L.Map | any;
-  private markers: { lat: number; lng: number; popupTitle: string, popupDescription: string}[] = [];
+  //private markers: { lat: number; lng: number; popupTitle: string, popupDescription: string}[] = [];
   private emergencies: Emergency[] = [];
+
+  private mainIcon = L.icon(
+    {
+      iconUrl: `../../assets/marker-blue.png`,
+      iconSize: [30.5, 50],
+      iconAnchor: [12, 41],
+      popupAnchor: [1, -31],
+      shadowSize: [41, 41]
+    });
 
   constructor(private emergencyService: EmergencyService) { }
 
@@ -30,21 +39,21 @@ export class MapComponent implements OnChanges {
   private fetchEmergencies(): void {
     this.emergencyService.getAllEmergencies(1, 100).subscribe(data => {
       this.emergencies = data;
-      this.markers = data
-        .filter(dat => (!this.filteredType || dat.emergencyType === this.filteredType)
-          && (!this.filteredSubType || dat.emergencySubType === this.filteredSubType))
-        .map(dat => ({
-          lat: dat.location.latitude!,
-          lng: dat.location.longitude!,
-          popupTitle: dat.title!,
-          popupDescription: dat.description!
-        }));
+      // this.markers = data
+      //   .filter(dat => (!this.filteredType || dat.emergencyType === this.filteredType)
+      //     && (!this.filteredSubType || dat.emergencySubType === this.filteredSubType))
+      //   .map(dat => ({
+      //     lat: dat.location.latitude!,
+      //     lng: dat.location.longitude!,
+      //     popupTitle: dat.title!,
+      //     popupDescription: dat.description!
+      //   }));
       this.updateMarkers();
     });
   }
 
   private updateMarkers(type: number = 0, subType: number = 0): void {
-    let markersToAdd = this.markers;
+    //let markersToAdd = this.markers;
     let emergenciesQuery: Emergency[] = this.emergencies;
 
     if (!this.map) {
@@ -75,28 +84,21 @@ export class MapComponent implements OnChanges {
     console.log('Filtered Emergencies:', emergenciesQuery);
 
 
-    markersToAdd = emergenciesQuery
-      .map(dat => ({
-        lat: dat.location.latitude!,
-        lng: dat.location.longitude!,
-        popupTitle: dat.title!,
-        popupDescription: dat.description!
-      }));
+    // markersToAdd = emergenciesQuery
+    //   .map(dat => ({
+    //     lat: dat.location.latitude!,
+    //     lng: dat.location.longitude!,
+    //     popupTitle: dat.title!,
+    //     popupDescription: dat.description!
+    //   }));
 
     // Add new markers
-    markersToAdd.forEach(marker => {
-      L.marker([marker.lat, marker.lng], {
-        icon: L.icon(
-          {
-            iconUrl: `../../assets/marker-blue.png`,
-            iconSize: [30.5, 50],
-            iconAnchor: [12, 41],
-            popupAnchor: [1, -31],
-            shadowSize: [41, 41]
-          })
+    emergenciesQuery.forEach(emer => {
+      L.marker([emer.location.latitude!, emer.location.longitude!], {
+        icon: this.mainIcon
       })
         .addTo(this.map)
-        .bindPopup(`<h3>${marker.popupTitle}</h3>${marker.popupDescription}`);
+        .bindPopup(`<h3>${emer.title}</h3>${emer.description}<br> вул. ${emer.street.streetName}, ${emer.street.houseNr!}`);
     });
   }
 

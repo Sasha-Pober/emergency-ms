@@ -1,5 +1,6 @@
 ﻿using Presentation.Contracts.Location;
 using Presentation.Contracts.Source;
+using Presentation.Contracts.Street;
 using Presentation.Enums;
 using Services.DTO;
 using System.ComponentModel.DataAnnotations;
@@ -21,5 +22,6 @@ public class CreateEmergency
     public double? Duration { get; set; }
     public CreateLocation Location { get; set; }
     public CreateSource Source { get; set; }
+    public CreateStreet Street { get; set; }
 
 }
