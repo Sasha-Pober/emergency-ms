@@ -2,13 +2,14 @@
 using Microsoft.AspNetCore.Mvc;
 using Presentation.Contracts.Emergency;
 using Presentation.Mappings;
+using Services.DTO;
 using Services.Interfaces;
 
 namespace Presentation.Controllers
 {
     [ApiController]
     [Route("api/emergencies")]
-    public class EmergencyController(IEmergencyService emergencyService) 
+    public class EmergencyController(IEmergencyService emergencyService, IImageService imageService) 
         : ControllerBase
     {
         [HttpGet]
@@ -22,7 +23,8 @@ namespace Presentation.Controllers
 
         [HttpPost]
         [Authorize(AuthenticationSchemes = "Identity.Bearer", Roles = "Admin,Manager")]
-        public async Task<IActionResult> CreateEmergency([FromBody] CreateEmergency request)
+        [Consumes("multipart/form-data")]
+        public async Task<IActionResult> CreateEmergency([FromForm] CreateEmergency request)
         {
             if (request == null)
             {
@@ -30,7 +32,12 @@ namespace Presentation.Controllers
             }
             var emergency = request.MapToDTO();
 
-            var result = await emergencyService.CreateEmergency(emergency);
+            var emergencyId = await emergencyService.CreateEmergency(emergency);
+
+            if (request.Images != null && request.Images.Count > 0 && emergencyId != 0)
+            {
+                await imageService.UploadImages(request.Images, Request.Scheme, Request.Host.Value, emergencyId);
+            }
             return CreatedAtAction(nameof(GetAllEmergencies), new { id = emergency.Id }, emergency);
         }
 

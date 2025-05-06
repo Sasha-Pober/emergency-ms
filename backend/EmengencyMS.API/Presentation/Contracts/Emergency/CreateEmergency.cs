@@ -1,4 +1,5 @@
-﻿using Presentation.Contracts.Location;
+﻿using Microsoft.AspNetCore.Http;
+using Presentation.Contracts.Location;
 using Presentation.Contracts.Source;
 using Presentation.Contracts.Street;
 using Presentation.Enums;
@@ -23,5 +24,6 @@ public class CreateEmergency
     public CreateLocation Location { get; set; }
     public CreateSource Source { get; set; }
     public CreateStreet Street { get; set; }
+    public IList<IFormFile> Images { get; set; }
 
 }

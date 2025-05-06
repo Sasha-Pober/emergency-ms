@@ -49,6 +49,7 @@ namespace EmengencyMS.API
 
             app.UseAuthentication();
             app.UseAuthorization();
+            app.UseStaticFiles();
 
             app.UseEndpoints(endpoints =>
             {
