@@ -13,6 +13,7 @@ export class MainComponent implements OnInit {
   emergencySubTypes: EmergencySubType[] = []; 
   selectedType: number = 0;
   selectedSubType: number = 0;
+  isSidebarOpen: boolean = true; 
 
   constructor(private emergencyService: EmergencyService) {}
 
@@ -41,5 +42,9 @@ export class MainComponent implements OnInit {
   onSubTypeChange(event: Event): void {
     const target = event.target as HTMLSelectElement;
     this.selectedSubType = parseInt(target.value);
+  }
+
+  toggleSidebar(): void {
+    this.isSidebarOpen = !this.isSidebarOpen; // Toggle sidebar state
   }
 }

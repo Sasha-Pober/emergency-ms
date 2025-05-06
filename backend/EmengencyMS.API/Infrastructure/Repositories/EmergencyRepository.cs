@@ -47,12 +47,13 @@ internal class EmergencyRepository(SqlConnection connection) : IEmergencyReposit
     public Task<IEnumerable<Emergency>> GetEmergenciesForPeriod(DateTime startDate, DateTime endDate)
     {
 
-        return connection.QueryAsync<Emergency, Location, Source, Emergency>(
+        return connection.QueryAsync<Emergency, Location, Source, Street, Emergency>(
         "[dbo].[GetEmergenciesForPeriod]",
-        (emergency, location, source) =>
+        (emergency, location, source, street) =>
         {
             emergency.Location = location;
             emergency.Source = source;
+            emergency.Street = street;
             return emergency;
         },
         new { StartDate = startDate, EndDate = endDate },

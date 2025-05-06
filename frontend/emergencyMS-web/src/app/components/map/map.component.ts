@@ -83,15 +83,6 @@ export class MapComponent implements OnChanges {
     });
     console.log('Filtered Emergencies:', emergenciesQuery);
 
-
-    // markersToAdd = emergenciesQuery
-    //   .map(dat => ({
-    //     lat: dat.location.latitude!,
-    //     lng: dat.location.longitude!,
-    //     popupTitle: dat.title!,
-    //     popupDescription: dat.description!
-    //   }));
-
     // Add new markers
     emergenciesQuery.forEach(emer => {
       L.marker([emer.location.latitude!, emer.location.longitude!], {
@@ -105,9 +96,11 @@ export class MapComponent implements OnChanges {
   private initMap(): void {
     this.map = L.map('map', {
       center: [48.505, 32.09],
-      zoom: 7
+      zoom: 7,
+      zoomControl: true
     });
 
+    this.map.zoomControl.setPosition('bottomright'); // Set zoom control position
     L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
       maxZoom: 19,
       attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'

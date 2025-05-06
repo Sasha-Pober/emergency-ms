@@ -1,19 +1,31 @@
 <div class="main-container">
-    <div class="controls">
-      <p>Фільтри :</p>
+  <!-- Sidebar -->
+  <div class="controls" [class.open]="isSidebarOpen">
+    <p>Фільтри :</p>
+    <div class="filter-row">
       <label for="emergencyType">Тип:</label>
       <select id="emergencyType" (change)="onTypeChange($event)">
         <option value="0">Усі</option>
         <option *ngFor="let type of emergencyTypes" [value]="type.id">{{ type.name }}</option>
       </select>
+    </div>
+    <br>
+    <div class="filter-row">
       <label for="emergencySubType">Підтип:</label>
       <select id="emergencySubType" (change)="onSubTypeChange($event)">
         <option value="0">Усі</option>
         <option *ngFor="let subtype of emergencySubTypes" [value]="subtype.id">{{ subtype.name }}</option>
       </select>
     </div>
-  
-    <div class="map-container">
-      <app-map [filteredType]="selectedType" [filteredSubType] = "selectedSubType"></app-map>
-    </div>
   </div>
+
+  <!-- Toggle Button -->
+  <button class="toggle-button" (click)="toggleSidebar()">
+    <span class="material-icons">menu</span>
+  </button>
+
+  <!-- Map Container -->
+  <div class="map-container" [class.sidebar-open]="isSidebarOpen">
+    <app-map [filteredType]="selectedType" [filteredSubType]="selectedSubType"></app-map>
+  </div>
+</div>

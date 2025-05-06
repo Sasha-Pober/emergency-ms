@@ -1,34 +1,97 @@
 .main-container {
   height: 100vh;
-  display: flex;
+  display: flex; /* Sidebar and map are side by side */
   flex-direction: row;
-  justify-content: right;
+  position: relative;
 }
 
 .controls {
+  flex-direction: column;
+  background-color: whitesmoke; /* Sidebar background */
+  width: 18em; /* Sidebar width */
+  height: 100%; /* Full height */
   padding: 1em;
-  position: fixed;
-  margin: 10px 0.5em;
-  background-color: whitesmoke;
-  border-radius: 20px;
-  border: 1px solid grey;
-  z-index: 2;
+  position: fixed; /* Fixed to the viewport */
+  top: 0;
+  left: 0;
+  z-index: 1; /* Ensure it is above the map */
+  overflow-y: auto; /* Scrollable if content overflows */
+  transform: translateX(-100%); /* Hidden by default */
+  transition: transform 0.3s ease; /* Smooth slide-in/out effect */
+}
+
+.controls p {
+  font-weight: 600;
+  font-size: 1.5em;
+  text-align: center;
+}
+
+.filter-row {
+  display: flex;
+  align-items: center; /* Align label and input vertically */
+}
+
+.filter-row label {
+  flex-grow: 2; /* Allow the label to take the remaining space */
+  max-width: 5em; /* Limit label width */
+  text-align: center; /* Align label text to the right */
+}
+
+.filter-row select {
+  flex-grow: 1; /* Allow the dropdown to take the remaining space */
+}
+
+.controls.open {
+  transform: translateX(0); /* Slide in when open */
 }
 
 .map-container {
-  flex: 1;
-  z-index: 1;
+  flex-grow: 1; /* Map takes the remaining space */
   position: relative;
+  width: 100%; /* Full width when sidebar is hidden */
+  transition: width 0.3s ease, margin-left 0.3s ease; /* Smooth adjustment when sidebar is toggled */
+}
+
+.map-container.sidebar-open {
+  margin-left: 20em; /* Adjust map position when sidebar is open */
+  width: calc(100% - 20em); /* Reduce width to accommodate the sidebar */
+}
+
+.controls select{
+  margin: 2%;
+}
+
+.controls label{
+  width: 5%;
 }
 
 #map {
   height: 100%;
   width: 100%;
+  z-index: 1; /* Ensure the map is below the sidebar */
 }
 
-p {
-  font-size: 18px;
-  font-weight: bold;
-  margin: 1em ;
-  text-align: center;
+.toggle-button {
+  position: fixed; /* Fixed to the viewport */
+  top: 1em;
+  left: 0;;
+  z-index: 1000; /* Ensure the button is above the sidebar */
+  padding: 1em 1.5em;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 0 1em 1em 0;
+  cursor: pointer;
+  transition: left 0.3s ease;
+
+}
+
+.toggle-button:hover {
+  background-color: #0056b3;
+}
+
+.controls.open + .toggle-button {
+  transform: translateX(0); /* Hidden by default */
+  left: 24em; /* Move the button to the top-right corner when the sidebar is open */
+  transition: width 0.3s ease, left 0.3s ease;
 }
