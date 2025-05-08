@@ -17,12 +17,21 @@
         <option *ngFor="let subtype of emergencySubTypes" [value]="subtype.id">{{ subtype.name }}</option>
       </select>
     </div>
+
+    <!-- Buttons at the bottom -->
+    <div class="sidebar-footer">
+      <button *ngIf="!isLoggedIn" class="login-button" (click)="navigateToLogin()">Увійти</button>
+      <button *ngIf="isLoggedIn" class="logout-button" (click)="logout()">Вийти</button>
+    </div>
   </div>
+
 
   <!-- Toggle Button -->
   <button class="toggle-button" (click)="toggleSidebar()">
     <span class="material-icons">menu</span>
   </button>
+
+
 
   <!-- Map Container -->
   <div class="map-container" [class.sidebar-open]="isSidebarOpen">

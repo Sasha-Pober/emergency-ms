@@ -1,0 +1,72 @@
+<div class="login-container">
+    <h2 *ngIf="isLoginMode">Увійти</h2>
+    <h2 *ngIf="!isLoginMode">Зареєструватися</h2>
+  
+    <form *ngIf="isLoginMode; else registerForm" (ngSubmit)="login()">
+      <div class="form-group">
+        <label for="username">Електронна пошта</label>
+        <input
+          type="text"
+          id="username"
+          [(ngModel)]="username"
+          name="username"
+          required
+        />
+      </div>
+      <div class="form-group">
+        <label for="password">Пароль</label>
+        <input
+          type="password"
+          id="password"
+          [(ngModel)]="password"
+          name="password"
+          required
+        />
+      </div>
+      <button type="submit" class="login-button">Login</button>
+      <p *ngIf="errorMessage" class="error-message">{{ errorMessage }}</p>
+    </form>
+  
+    <ng-template #registerForm>
+      <form (ngSubmit)="register()">
+        <div class="form-group">
+          <label for="username">Електронна пошта</label>
+          <input
+            type="text"
+            id="username"
+            [(ngModel)]="username"
+            name="username"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <label for="password">Пароль</label>
+          <input
+            type="password"
+            id="password"
+            [(ngModel)]="password"
+            name="password"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <label for="confirmPassword">Підтвердіть пароль</label>
+          <input
+            type="password"
+            id="confirmPassword"
+            [(ngModel)]="confirmPassword"
+            name="confirmPassword"
+            required
+          />
+        </div>
+        <button type="submit" class="login-button">Зареєструватися</button>
+        <p *ngIf="errorMessage" class="error-message">{{ errorMessage }}</p>
+      </form>
+    </ng-template>
+  
+    <p class="toggle-link">
+      <a (click)="toggleMode()">
+        {{ isLoginMode ? 'Немає облікового запису? Зареєструйтесь тут' : 'Вже маєте обліковий запис? Увійдіть тут' }}
+      </a>
+    </p>
+  </div>

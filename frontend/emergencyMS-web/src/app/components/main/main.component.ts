@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { EmergencyService } from '../../services/emergency/emergency.service';
 import { EmergencyTypeEntity } from '../../models/EmergencyTypeEntity';
 import { EmergencySubType } from '../../models/EmergencySubType';
+import { AuthService } from '../../services/auth/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-main',
@@ -13,13 +15,19 @@ export class MainComponent implements OnInit {
   emergencySubTypes: EmergencySubType[] = []; 
   selectedType: number = 0;
   selectedSubType: number = 0;
-  isSidebarOpen: boolean = true; 
 
-  constructor(private emergencyService: EmergencyService) {}
+  isSidebarOpen: boolean = true; 
+  isLoggedIn: boolean = false;
+
+  constructor(
+    private emergencyService: EmergencyService, 
+    private authService: AuthService, 
+    private router: Router) {}
 
   ngOnInit(): void {
     this.fetchEmergencyTypes();
     this.fetchEmergencySubTypes();
+    this.isLoggedIn = this.authService.isLoggedIn();
   }
 
   fetchEmergencyTypes(): void {
@@ -45,6 +53,15 @@ export class MainComponent implements OnInit {
   }
 
   toggleSidebar(): void {
-    this.isSidebarOpen = !this.isSidebarOpen; // Toggle sidebar state
+    this.isSidebarOpen = !this.isSidebarOpen;
+  }
+
+  navigateToLogin(): void {
+    this.router.navigate(['/login']);
+  }
+
+  logout(): void {
+    this.authService.logout();
+    this.isLoggedIn = false;
   }
 }

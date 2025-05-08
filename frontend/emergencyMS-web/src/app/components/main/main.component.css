@@ -6,7 +6,6 @@
 }
 
 .controls {
-  flex-direction: column;
   background-color: whitesmoke; /* Sidebar background */
   width: 18em; /* Sidebar width */
   height: 100%; /* Full height */
@@ -39,6 +38,17 @@
 
 .filter-row select {
   flex-grow: 1; /* Allow the dropdown to take the remaining space */
+  padding: 2%;
+  border: 1px solid #ccc;
+  border-radius: 2em;
+  background-color: #f9f9f9;
+  font-size: 1em;
+  color: #333;
+  appearance: none; /* Remove default browser styling */
+  background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg xmlns%3D%22http%3A//www.w3.org/2000/svg%22 viewBox%3D%220 0 4 5%22%3E%3Cpath fill%3D%22%23333%22 d%3D%22M2 0L0 2h4zM2 5L0 3h4z%22/%3E%3C/svg%3E');
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 5%;
 }
 
 .controls.open {
@@ -94,4 +104,28 @@
   transform: translateX(0); /* Hidden by default */
   left: 24em; /* Move the button to the top-right corner when the sidebar is open */
   transition: width 0.3s ease, left 0.3s ease;
+}
+
+.sidebar-footer {
+  position: relative;
+  top: 30em;
+  padding: 1em;
+  text-align: center;
+}
+
+.login-button,
+.logout-button {
+  width: 100%;
+  padding: 1em;
+  background-color: #dadadb;
+  color: rgb(0, 0, 0);
+  border: 1px solid grey;
+  border-radius: 2em;
+  cursor: pointer;
+  font-size: 1em;
+}
+
+.login-button:hover,
+.logout-button:hover {
+  background-color: #a8a8a8;
 }
