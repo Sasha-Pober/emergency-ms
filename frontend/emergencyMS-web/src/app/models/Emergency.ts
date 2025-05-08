@@ -1,5 +1,6 @@
 import { Source } from "./Source";
 import { Location } from "./Location";
+import { Street } from "./Street";
 
 export interface Emergency {
     id: number;
@@ -16,4 +17,5 @@ export interface Emergency {
     duration?: number;
     location: Location;
     source: Source;
+    street: Street;
 }

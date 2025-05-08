@@ -38,9 +38,9 @@ namespace EmengencyMS.API
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseSwagger();
-                app.UseSwaggerUI();
             }
+            app.UseSwagger();
+            app.UseSwaggerUI();
 
             app.UseCors(AllowedOrigin);
             app.UseHttpsRedirection();
@@ -49,6 +49,7 @@ namespace EmengencyMS.API
 
             app.UseAuthentication();
             app.UseAuthorization();
+            app.UseStaticFiles();
 
             app.UseEndpoints(endpoints =>
             {

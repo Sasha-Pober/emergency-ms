@@ -9,5 +9,6 @@ public static class ServicesDependecyExtensions
     public static void ConfigureServices(this IServiceCollection services)
     {
         services.AddScoped<IEmergencyService, EmergencyService>();
+        services.AddScoped<IImageService, ImageService>();
     }
 }

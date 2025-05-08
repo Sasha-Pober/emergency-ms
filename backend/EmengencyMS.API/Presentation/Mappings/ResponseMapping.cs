@@ -4,13 +4,13 @@ using Presentation.Contracts.EmergencyType;
 using Presentation.Contracts.EmergencyTypes;
 using Presentation.Contracts.Location;
 using Presentation.Contracts.Source;
+using Presentation.Contracts.Street;
 using Presentation.Enums;
 using Services.DTO;
-using System.Xml.Linq;
 
 namespace Presentation.Mappings;
 
-internal static class PresentationMapping
+internal static class ResponseMapping
 {
     internal static EmergencyResponse MapToResponse(this EmergencyDTO dto)
     {
@@ -30,6 +30,7 @@ internal static class PresentationMapping
             Duration = dto.Duration,
             Location = dto.Location.MapLocation(),
             Source = dto.Source.MapSource(),
+            Street = dto.Street.MapToResponse(),
         };
     }
 
@@ -60,47 +61,6 @@ internal static class PresentationMapping
         };
     }
 
-    internal static EmergencyDTO MapToDTO(this CreateEmergency entity)
-    {
-        return new EmergencyDTO
-        {
-            Title = entity.Title,
-            Description = entity.Description,
-            EmergencyTypeId = entity.EmergencyType,
-            EmergencySubTypeId = entity.EmergencySubType,
-            AccidentDate = entity.AccidentDate,
-            DateEntered = DateTime.Now,
-            Severity = entity.Severity,
-            Casualties = entity.Casualties,
-            Injured = entity.Injured,
-            EconomicLoss = entity.EconomicLoss,
-            Duration = entity.Duration,
-            Location = entity.Location.MapToDTO(),
-            Source = entity.Source.MapToDTO()
-        };
-    }
-
-    internal static LocationDTO MapToDTO(this CreateLocation location)
-    {
-        return new LocationDTO
-        {
-            Name = location.Name,
-            RegionTypeId = (int)location.RegionType,
-            Latitude = location.Latitude,
-            Longitude = location.Longitude
-        };
-    }
-
-    internal static SourceDTO MapToDTO(this CreateSource source)
-    {
-        return new SourceDTO
-        {
-            Name = source.Name,
-            Url = source.Url,
-            SourceTypeId = (int)source.SourceType
-        };
-    }
-
     internal static EmergencyTypeResponse MapToResponse(this EmergencyTypeDTO emergencyType)
     {
         return new EmergencyTypeResponse
@@ -116,6 +76,16 @@ internal static class PresentationMapping
         {
             Id = emergencyType.Id,
             Name = emergencyType.Name,
+        };
+    }
+
+    internal static StreetResponse MapToResponse(this StreetDTO street)
+    {
+        return new StreetResponse
+        {
+            Id = street.Id,
+            StreetName = street.StreetName,
+            HouseNr = street.HouseNr
         };
     }
 }

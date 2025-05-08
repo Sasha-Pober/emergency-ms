@@ -18,5 +18,6 @@ public class Emergency
     public string? Description { get; set; }
     public Location Location { get; set; }
     public Source Source { get; set; }
+    public Street Street { get; set; }
 }
 

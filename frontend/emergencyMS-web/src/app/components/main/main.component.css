@@ -1,35 +1,131 @@
 .main-container {
   height: 100vh;
-  display: flex;
+  display: flex; /* Sidebar and map are side by side */
   flex-direction: row;
-  justify-content: center;
+  position: relative;
 }
 
 .controls {
-  flex-direction: column;
+  background-color: whitesmoke; /* Sidebar background */
+  width: 18em; /* Sidebar width */
+  height: 100%; /* Full height */
   padding: 1em;
-  position: fixed;
-  margin: 10px auto;
-  background-color: whitesmoke;
-  border-radius: 20px;
-  border: 1px solid grey;
-  z-index: 2;
+  position: fixed; /* Fixed to the viewport */
+  top: 0;
+  left: 0;
+  z-index: 1; /* Ensure it is above the map */
+  overflow-y: auto; /* Scrollable if content overflows */
+  transform: translateX(-100%); /* Hidden by default */
+  transition: transform 0.3s ease; /* Smooth slide-in/out effect */
+}
+
+.controls p {
+  font-weight: 600;
+  font-size: 1.5em;
+  text-align: center;
+}
+
+.filter-row {
+  display: flex;
+  align-items: center; /* Align label and input vertically */
+}
+
+.filter-row label {
+  flex-grow: 2; /* Allow the label to take the remaining space */
+  max-width: 5em; /* Limit label width */
+  text-align: center; /* Align label text to the right */
+}
+
+.filter-row select {
+  flex-grow: 1; /* Allow the dropdown to take the remaining space */
+  padding: 2%;
+  border: 1px solid #ccc;
+  border-radius: 2em;
+  background-color: #f9f9f9;
+  font-size: 1em;
+  color: #333;
+  appearance: none; /* Remove default browser styling */
+  background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg xmlns%3D%22http%3A//www.w3.org/2000/svg%22 viewBox%3D%220 0 4 5%22%3E%3Cpath fill%3D%22%23333%22 d%3D%22M2 0L0 2h4zM2 5L0 3h4z%22/%3E%3C/svg%3E');
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 5%;
+}
+
+.controls.open {
+  transform: translateX(0); /* Slide in when open */
 }
 
 .map-container {
-  flex: 1;
-  z-index: 1;
+  flex-grow: 1; /* Map takes the remaining space */
   position: relative;
+  width: 100%; /* Full width when sidebar is hidden */
+  transition: width 0.3s ease, margin-left 0.3s ease; /* Smooth adjustment when sidebar is toggled */
+}
+
+.map-container.sidebar-open {
+  margin-left: 20em; /* Adjust map position when sidebar is open */
+  width: calc(100% - 20em); /* Reduce width to accommodate the sidebar */
+}
+
+.controls select{
+  margin: 2%;
+}
+
+.controls label{
+  width: 5%;
 }
 
 #map {
   height: 100%;
   width: 100%;
+  z-index: 1; /* Ensure the map is below the sidebar */
 }
 
-p {
-  font-size: 18px;
-  font-weight: bold;
-  margin: 1em ;
+.toggle-button {
+  position: fixed; /* Fixed to the viewport */
+  top: 1em;
+  left: 0;;
+  z-index: 1000; /* Ensure the button is above the sidebar */
+  padding: 1em 1.5em;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 0 1em 1em 0;
+  cursor: pointer;
+  transition: left 0.3s ease;
+
+}
+
+.toggle-button:hover {
+  background-color: #0056b3;
+}
+
+.controls.open + .toggle-button {
+  transform: translateX(0); /* Hidden by default */
+  left: 24em; /* Move the button to the top-right corner when the sidebar is open */
+  transition: width 0.3s ease, left 0.3s ease;
+}
+
+.sidebar-footer {
+  position: relative;
+  top: 30em;
+  padding: 1em;
   text-align: center;
+}
+
+.login-button,
+.logout-button {
+  width: 100%;
+  padding: 1em;
+  background-color: #dadadb;
+  color: rgb(0, 0, 0);
+  border: 1px solid grey;
+  border-radius: 2em;
+  cursor: pointer;
+  font-size: 1em;
+}
+
+.login-button:hover,
+.logout-button:hover {
+  background-color: #a8a8a8;
 }

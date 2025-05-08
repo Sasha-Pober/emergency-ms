@@ -16,6 +16,7 @@ public static class InfrastructureDependencyExtensions
         var connectionString = configuration.GetConnectionString("Main");
         services.AddTransient<SqlConnection>(_ => new SqlConnection(connectionString));
         services.AddScoped<IEmergencyRepository, EmergencyRepository>();
+        services.AddScoped<IImageRepository, ImageRepository>();
 
         services.AddAuthorization();
         services.AddAuthentication()

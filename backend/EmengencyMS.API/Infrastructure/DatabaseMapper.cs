@@ -37,19 +37,23 @@ internal static class DatabaseMapper
         return table;
     }
 
-    internal static DataTable ToLocationDataTable(this Location location)
+    internal static DataTable ToLocationDataTable(this Location location, Street street)
     {
         var table = new DataTable();
         table.Columns.Add("Name", typeof(string));
         table.Columns.Add("RegionTypeId", typeof(int));
         table.Columns.Add("Latitude", typeof(double));
         table.Columns.Add("Longitude", typeof(double));
+        table.Columns.Add("StreetName", typeof(string));
+        table.Columns.Add("HouseNr", typeof(int));
 
         table.Rows.Add(
             location.Name,
             location.RegionTypeId,
             location.Latitude,
-            location.Longitude
+            location.Longitude,
+            street.StreetName,
+            street.HouseNr
         );
         return table;
     }
@@ -69,5 +73,22 @@ internal static class DatabaseMapper
         return table;
     }
 
+    internal static DataTable ToImageDataTable(this ICollection<Image> image)
+    {
+        var table = new DataTable();
+        table.Columns.Add("EmergencyId", typeof(int));
+        table.Columns.Add("ImagePath", typeof(string));
+        table.Columns.Add("FileName", typeof(string));
+
+        foreach (var item in image)
+        {
+            table.Rows.Add(
+                item.EmergencyId,
+                item.ImagePath,
+                item.FileName
+            );
+        }
+        return table;
+    }
 
 }

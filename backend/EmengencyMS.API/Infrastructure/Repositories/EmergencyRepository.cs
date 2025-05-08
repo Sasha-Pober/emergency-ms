@@ -9,13 +9,13 @@ namespace Infrastructure.Repositories;
 internal class EmergencyRepository(SqlConnection connection) : IEmergencyRepository
 {
 
-    public async Task<int> CreateEmergency(Emergency emergencyEntity)
+    public Task<int> CreateEmergency(Emergency emergencyEntity)
     {
         var emergencyTable = emergencyEntity.ToEmergencyDataTable();
-        var locationTable = emergencyEntity.Location.ToLocationDataTable();
+        var locationTable = emergencyEntity.Location.ToLocationDataTable(emergencyEntity.Street);
         var sourceTable = emergencyEntity.Source.ToSourceDataTable();
 
-        return await connection.ExecuteAsync(
+        return connection.QuerySingleAsync<int>(
             "[dbo].[CreateEmergency]",
             new
             {
@@ -25,18 +25,18 @@ internal class EmergencyRepository(SqlConnection connection) : IEmergencyReposit
             },
             commandType: System.Data.CommandType.StoredProcedure
         );
-        
     }
 
     public Task<IEnumerable<Emergency>> GetEmergencies(int page, int pagesize)
     {
 
-        return connection.QueryAsync<Emergency, Location, Source, Emergency>(
+        return connection.QueryAsync<Emergency, Location, Source, Street, Emergency>(
         "[dbo].[GetEmergenciesByPage]",
-        (emergency, location, source) =>
+        (emergency, location, source, street) =>
         {
             emergency.Location = location;
             emergency.Source = source;
+            emergency.Street = street;
             return emergency;
         },
         new { Page = page, Pagesize = pagesize },
@@ -47,12 +47,13 @@ internal class EmergencyRepository(SqlConnection connection) : IEmergencyReposit
     public Task<IEnumerable<Emergency>> GetEmergenciesForPeriod(DateTime startDate, DateTime endDate)
     {
 
-        return connection.QueryAsync<Emergency, Location, Source, Emergency>(
+        return connection.QueryAsync<Emergency, Location, Source, Street, Emergency>(
         "[dbo].[GetEmergenciesForPeriod]",
-        (emergency, location, source) =>
+        (emergency, location, source, street) =>
         {
             emergency.Location = location;
             emergency.Source = source;
+            emergency.Street = street;
             return emergency;
         },
         new { StartDate = startDate, EndDate = endDate },

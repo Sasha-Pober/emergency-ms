@@ -1,5 +1,6 @@
 ﻿using Presentation.Contracts.Location;
 using Presentation.Contracts.Source;
+using Presentation.Contracts.Street;
 using Presentation.Enums;
 
 namespace Presentation.Contracts.Emergency;
@@ -20,4 +21,5 @@ internal class EmergencyResponse
     public double? Duration { get; set; }
     public LocationResponse Location { get; set; }
     public SourceResponse Source { get; set; }
+    public StreetResponse Street { get; set; }
 }
