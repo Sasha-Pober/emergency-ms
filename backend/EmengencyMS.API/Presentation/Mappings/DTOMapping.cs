@@ -34,7 +34,7 @@ internal static class DTOMapping
         return new LocationDTO
         {
             Name = location.Name,
-            RegionTypeId = (int)location.RegionType,
+            RegionTypeId = location.RegionTypeId,
             Latitude = location.Latitude,
             Longitude = location.Longitude
         };
@@ -46,7 +46,7 @@ internal static class DTOMapping
         {
             Name = source.Name,
             Url = source.Url,
-            SourceTypeId = (int)source.SourceType
+            SourceTypeId = source.SourceTypeId
         };
     }
 

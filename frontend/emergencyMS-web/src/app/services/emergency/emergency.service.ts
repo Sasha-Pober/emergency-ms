@@ -2,7 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Emergency } from '../../models/Emergency';
-import { EmergencyTypeEntity } from '../../models/EmergencyTypeEntity';
+import { EmergencyTypeEntity } from '../../models/types/EmergencyTypeEntity';
 
 @Injectable({
   providedIn: 'root'
@@ -39,4 +39,6 @@ export class EmergencyService {
 
     return this.http.get<Emergency[]>(`${this.apiUrl}/period`, { params });
   }
+
+  
 }

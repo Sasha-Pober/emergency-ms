@@ -1,0 +1,244 @@
+<div class="new-emergency-form">
+  <h2>Create a New Emergency</h2>
+  <form (ngSubmit)="onSubmit()" #emergencyForm="ngForm">
+    <!-- Emergency Title -->
+    <div>
+      <label for="title">Title:</label>
+      <input
+        type="text"
+        id="title"
+        name="title"
+        [(ngModel)]="emergency.title"
+        required
+      />
+    </div>
+
+    <!-- Emergency Description -->
+    <div>
+      <label for="description">Description:</label>
+      <textarea
+        id="description"
+        name="description"
+        [(ngModel)]="emergency.description"
+        required
+      ></textarea>
+    </div>
+
+    <!-- Emergency Type -->
+    <div>
+      <label for="emergencyType">Emergency Type:</label>
+      <select
+        id="emergencyType"
+        name="emergencyType"
+        [(ngModel)]="emergency.emergencyType"
+        required
+      >
+        <option value="0" disabled>Select Type</option>
+        <option value="1">Type 1</option>
+        <option value="2">Type 2</option>
+        <option value="3">Type 3</option>
+      </select>
+    </div>
+
+    <!-- Emergency SubType -->
+    <div>
+      <label for="emergencySubType">Emergency SubType:</label>
+      <select
+        id="emergencySubType"
+        name="emergencySubType"
+        [(ngModel)]="emergency.emergencySubType"
+      >
+        <option value="" disabled>Select SubType</option>
+        <option value="1">SubType 1</option>
+        <option value="2">SubType 2</option>
+        <option value="3">SubType 3</option>
+      </select>
+    </div>
+
+    <!-- Accident Date -->
+    <div>
+      <label for="accidentDate">Accident Date:</label>
+      <input
+        type="date"
+        id="accidentDate"
+        name="accidentDate"
+        [(ngModel)]="emergency.accidentDate"
+        required
+      />
+    </div>
+
+    <!-- Severity -->
+    <div>
+      <label for="severity">Severity (1-10):</label>
+      <input
+        type="number"
+        id="severity"
+        name="severity"
+        [(ngModel)]="emergency.severity"
+        min="1"
+        max="10"
+      />
+    </div>
+
+    <!-- Casualties -->
+    <div>
+      <label for="casualties">Casualties:</label>
+      <input
+        type="number"
+        id="casualties"
+        name="casualties"
+        [(ngModel)]="emergency.casualties"
+      />
+    </div>
+
+    <!-- Injured -->
+    <div>
+      <label for="injured">Injured:</label>
+      <input
+        type="number"
+        id="injured"
+        name="injured"
+        [(ngModel)]="emergency.injured"
+      />
+    </div>
+
+    <!-- Economic Loss -->
+    <div>
+      <label for="economicLoss">Economic Loss:</label>
+      <input
+        type="number"
+        id="economicLoss"
+        name="economicLoss"
+        [(ngModel)]="emergency.economicLoss"
+        step="0.01"
+      />
+    </div>
+
+    <!-- Duration -->
+    <div>
+      <label for="duration">Duration (hours):</label>
+      <input
+        type="number"
+        id="duration"
+        name="duration"
+        [(ngModel)]="emergency.duration"
+        step="0.1"
+      />
+    </div>
+
+    <!-- Location -->
+    <div>
+      <label for="locationName">Location Name:</label>
+      <input
+        type="text"
+        id="locationName"
+        name="locationName"
+        [(ngModel)]="emergency.location.name"
+        required
+      />
+    </div>
+    <div>
+      <label for="regionType">Region Type:</label>
+      <select
+        id="regionType"
+        name="regionType"
+        [(ngModel)]="emergency.location.regionTypeId"
+      >
+        <option value="" disabled>Select Region Type</option>
+        <option value="1">Urban</option>
+        <option value="2">Rural</option>
+      </select>
+    </div>
+    <div>
+      <label for="latitude">Latitude:</label>
+      <input
+        type="number"
+        id="latitude"
+        name="latitude"
+        [(ngModel)]="emergency.location.latitude"
+        step="0.000001"
+      />
+    </div>
+    <div>
+      <label for="longitude">Longitude:</label>
+      <input
+        type="number"
+        id="longitude"
+        name="longitude"
+        [(ngModel)]="emergency.location.longitude"
+        step="0.000001"
+      />
+    </div>
+
+    <!-- Source -->
+    <div>
+      <label for="sourceName">Source Name:</label>
+      <input
+        type="text"
+        id="sourceName"
+        name="sourceName"
+        [(ngModel)]="emergency.source.name"
+      />
+    </div>
+    <div>
+      <label for="sourceUrl">Source URL:</label>
+      <input
+        type="url"
+        id="sourceUrl"
+        name="sourceUrl"
+        [(ngModel)]="emergency.source.url"
+      />
+    </div>
+    <div>
+      <label for="sourceType">Source Type:</label>
+      <select
+        id="sourceType"
+        name="sourceType"
+        [(ngModel)]="emergency.source.sourceTypeId"
+      >
+        <option value="" disabled>Select Source Type</option>
+        <option value="1">Internal</option>
+        <option value="2">External</option>
+      </select>
+    </div>
+
+    <!-- Street -->
+    <div>
+      <label for="streetName">Street Name:</label>
+      <input
+        type="text"
+        id="streetName"
+        name="streetName"
+        [(ngModel)]="emergency.street.streetName"
+        required
+      />
+    </div>
+    <div>
+      <label for="houseNr">House Number:</label>
+      <input
+        type="number"
+        id="houseNr"
+        name="houseNr"
+        [(ngModel)]="emergency.street.houseNr"
+        required
+      />
+    </div>
+
+    <!-- Photo Upload -->
+    <div>
+      <label for="photos">Upload Photos:</label>
+      <input
+        type="file"
+        id="photos"
+        name="photos"
+        (change)="onFileSelected($event)"
+        multiple
+      />
+    </div>
+
+    <!-- Submit Button -->
+    <button type="submit" [disabled]="!emergencyForm.form.valid">
+      Submit
+    </button>
+  </form>
+</div>

@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { CreateEmergency } from '../../requests/CreateEmergency';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-dashboard',
@@ -6,5 +8,9 @@ import { Component } from '@angular/core';
   styleUrl: './user-dashboard.component.css'
 })
 export class UserDashboardComponent {
+  constructor(private router: Router) {}
 
+  navigateToCreateEmergency(): void {
+    this.router.navigate(['/createEmergency']); // Adjust the route if necessary
+  }
 }

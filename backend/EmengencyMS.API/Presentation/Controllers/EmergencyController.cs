@@ -2,14 +2,13 @@
 using Microsoft.AspNetCore.Mvc;
 using Presentation.Contracts.Emergency;
 using Presentation.Mappings;
-using Services.DTO;
 using Services.Interfaces;
 
 namespace Presentation.Controllers
 {
     [ApiController]
     [Route("api/emergencies")]
-    public class EmergencyController(IEmergencyService emergencyService, IImageService imageService) 
+    public class EmergencyController(IEmergencyService emergencyService, IImageService imageService)
         : ControllerBase
     {
         [HttpGet]
