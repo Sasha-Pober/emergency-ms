@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { EmergencyService } from '../../services/emergency/emergency.service';
-import { EmergencyTypeEntity } from '../../models/EmergencyTypeEntity';
-import { EmergencySubType } from '../../models/EmergencySubType';
+import { EmergencyTypeEntity } from '../../models/types/EmergencyTypeEntity';
+import { EmergencySubType } from '../../models/types/EmergencySubType';
 import { AuthService } from '../../services/auth/auth.service';
 import { Router } from '@angular/router';
 

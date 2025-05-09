@@ -1,9 +1,7 @@
-import { RegionType } from "../enums/RegionType";
-
 export interface Location {
     id: number;
     name: string;
-    regionType?: RegionType;
+    regionTypeId?: number;
     latitude?: number;
     longitude?: number;
 }

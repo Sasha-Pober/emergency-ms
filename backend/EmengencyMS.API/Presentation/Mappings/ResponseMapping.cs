@@ -1,11 +1,9 @@
-﻿using Domain.Entities;
-using Presentation.Contracts.Emergency;
+﻿using Presentation.Contracts.Emergency;
 using Presentation.Contracts.EmergencyType;
 using Presentation.Contracts.EmergencyTypes;
 using Presentation.Contracts.Location;
 using Presentation.Contracts.Source;
 using Presentation.Contracts.Street;
-using Presentation.Enums;
 using Services.DTO;
 
 namespace Presentation.Mappings;
@@ -42,7 +40,7 @@ internal static class ResponseMapping
         {
             Id = dto.Id,
             Name = dto.Name,
-            RegionType = dto.RegionTypeId.HasValue ? (RegionType)dto.RegionTypeId.Value : null,
+            RegionTypeId = dto.RegionTypeId.Value,
             Latitude = dto.Latitude,
             Longitude = dto.Longitude
         };
@@ -57,7 +55,7 @@ internal static class ResponseMapping
             Id = dto.Id,
             Name = dto.Name,
             Url = dto.Url,
-            SourceType = dto.SourceTypeId.HasValue ? (SourceType)dto.SourceTypeId.Value : null
+            SourceTypeId = dto.SourceTypeId
         };
     }
 

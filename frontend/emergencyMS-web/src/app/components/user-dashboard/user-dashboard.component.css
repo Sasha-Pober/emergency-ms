@@ -1,0 +1,55 @@
+.dashboard-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Full viewport height */
+  background-color: #f8f9fa; /* Light background for better visibility */
+}
+
+.main-page-link {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+}
+
+.main-page-link button {
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  color: white;
+  background-color: #007bff; /* Primary button color */
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.main-page-link button:hover {
+  background-color: #0056b3; /* Darker shade on hover */
+}
+
+.main-page-link button:focus {
+  outline: none;
+  box-shadow: 0 0 5px #0056b3;
+}
+
+.create-emergency-btn {
+  padding: 15px 30px;
+  font-size: 18px;
+  font-weight: bold;
+  color: white;
+  background-color: #007bff; /* Primary button color */
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.create-emergency-btn:hover {
+  background-color: #0056b3; /* Darker shade on hover */
+}
+
+.create-emergency-btn:focus {
+  outline: none;
+  box-shadow: 0 0 5px #0056b3;
+}

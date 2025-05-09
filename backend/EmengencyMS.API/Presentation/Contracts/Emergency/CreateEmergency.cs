@@ -2,8 +2,6 @@
 using Presentation.Contracts.Location;
 using Presentation.Contracts.Source;
 using Presentation.Contracts.Street;
-using Presentation.Enums;
-using Services.DTO;
 using System.ComponentModel.DataAnnotations;
 
 namespace Presentation.Contracts.Emergency;
