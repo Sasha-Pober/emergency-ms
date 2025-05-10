@@ -1,55 +1,55 @@
-.dashboard-container {
+.dashboard-layout {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh; /* Full viewport height */
-  background-color: #f8f9fa; /* Light background for better visibility */
+  min-height: 100vh;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
-.main-page-link {
-  position: absolute;
-  top: 10px;
-  left: 10px;
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  width: 25%;
+  height: auto;
+  background-color: #f8f9fa; /* Light gray background */
+  padding: 2% 1%;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
 }
 
-.main-page-link button {
-  padding: 10px 20px;
-  font-size: 16px;
+.main-buttons {
+  padding: 4vh 0;
+  border-bottom: 1px solid #007bff;
+}
+
+.sidebar-btn, .back-button {
+  display: block;
+  width: 100%;
+  padding: 4% 4%;
+  margin-bottom: 2%;
+  font-size: 1em;
   font-weight: bold;
-  color: white;
-  background-color: #007bff; /* Primary button color */
-  border: none;
-  border-radius: 5px;
+  color: #007bff;
+  background-color: white;
+  border: 1px solid #007bff;
+  border-radius: 1em;
+  text-align: center;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-.main-page-link button:hover {
-  background-color: #0056b3; /* Darker shade on hover */
+.sidebar-buttons{
+  width: 100%;
+  margin: 10% 0;
 }
 
-.main-page-link button:focus {
-  outline: none;
-  box-shadow: 0 0 5px #0056b3;
+.sidebar-buttons h3{
+  text-align: center;
 }
 
-.create-emergency-btn {
-  padding: 15px 30px;
-  font-size: 18px;
-  font-weight: bold;
+.sidebar-btn:hover {
+  background-color: #007bff;
   color: white;
-  background-color: #007bff; /* Primary button color */
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
 }
 
-.create-emergency-btn:hover {
-  background-color: #0056b3; /* Darker shade on hover */
-}
-
-.create-emergency-btn:focus {
-  outline: none;
-  box-shadow: 0 0 5px #0056b3;
+.main-content {
+  flex: 1;
 }

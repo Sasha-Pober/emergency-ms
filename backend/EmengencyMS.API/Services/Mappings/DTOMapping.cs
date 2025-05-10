@@ -1,4 +1,5 @@
 ﻿using Domain.Entities;
+using Domain.Entities.Types;
 using Services.DTO;
 
 namespace Services.Mappings;
@@ -70,6 +71,24 @@ internal static class DTOMapping
         };
     }
 
+    internal static RegionTypeDTO MapToDTO(this RegionType emergencyType)
+    {
+        return new RegionTypeDTO
+        {
+            Id = emergencyType.Id,
+            Name = emergencyType.Name
+        };
+    }
+
+    internal static SourceTypeDTO MapToDTO(this SourceType emergencyType)
+    {
+        return new SourceTypeDTO
+        {
+            Id = emergencyType.Id,
+            Name = emergencyType.Name
+        };
+    }
+
     internal static StreetDTO MapToDTO(this Street street)
     {
         return new StreetDTO
@@ -77,6 +96,17 @@ internal static class DTOMapping
             Id = street.Id,
             StreetName = street.StreetName,
             HouseNr = street.HouseNr
+        };
+    }
+
+    internal static TypeDTO MapToDTO(this TypeEntity type)
+    {
+        return new TypeDTO
+        {
+            Types = type.Types.Select(x => x.MapToDTO()),
+            SubTypes = type.SubTypes.Select(x => x.MapToDTO()),
+            RegionTypes = type.RegionTypes.Select(x => x.MapToDTO()),
+            SourceTypes = type.SourceTypes.Select(x => x.MapToDTO()),
         };
     }
 }

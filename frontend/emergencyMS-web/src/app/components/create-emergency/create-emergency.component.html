@@ -1,9 +1,10 @@
 <div class="new-emergency-form">
-  <h2>Create a New Emergency</h2>
+  <h1>Додати нову надзвичайну ситуацію</h1>
   <form (ngSubmit)="onSubmit()" #emergencyForm="ngForm">
+    <h2>Загальні відомості</h2>
     <!-- Emergency Title -->
     <div>
-      <label for="title">Title:</label>
+      <label for="title">Назва:</label>
       <input
         type="text"
         id="title"
@@ -15,7 +16,7 @@
 
     <!-- Emergency Description -->
     <div>
-      <label for="description">Description:</label>
+      <label for="description">Опис:</label>
       <textarea
         id="description"
         name="description"
@@ -26,38 +27,35 @@
 
     <!-- Emergency Type -->
     <div>
-      <label for="emergencyType">Emergency Type:</label>
+      <label for="emergencyType">Тип НС:</label>
       <select
         id="emergencyType"
         name="emergencyType"
         [(ngModel)]="emergency.emergencyType"
         required
       >
-        <option value="0" disabled>Select Type</option>
-        <option value="1">Type 1</option>
-        <option value="2">Type 2</option>
-        <option value="3">Type 3</option>
+        <option value="" disabled>Обрати</option>
+        <option *ngFor="let type of types.types" [value]="type.id">{{type.name}}</option>
       </select>
     </div>
 
     <!-- Emergency SubType -->
     <div>
-      <label for="emergencySubType">Emergency SubType:</label>
+      <label for="emergencySubType">Підтип:</label>
       <select
         id="emergencySubType"
         name="emergencySubType"
         [(ngModel)]="emergency.emergencySubType"
+        required
       >
-        <option value="" disabled>Select SubType</option>
-        <option value="1">SubType 1</option>
-        <option value="2">SubType 2</option>
-        <option value="3">SubType 3</option>
+        <option value="" disabled>Обрати</option>
+        <option *ngFor="let type of types.subTypes" [value]="type.id">{{type.name}}</option>
       </select>
     </div>
 
     <!-- Accident Date -->
     <div>
-      <label for="accidentDate">Accident Date:</label>
+      <label for="accidentDate">Дата ситуації:</label>
       <input
         type="date"
         id="accidentDate"
@@ -69,7 +67,7 @@
 
     <!-- Severity -->
     <div>
-      <label for="severity">Severity (1-10):</label>
+      <label for="severity">Серйозність ситуації (1-10):</label>
       <input
         type="number"
         id="severity"
@@ -82,9 +80,8 @@
 
     <!-- Casualties -->
     <div>
-      <label for="casualties">Casualties:</label>
+      <label for="casualties">Кількість загиблих:</label>
       <input
-        type="number"
         id="casualties"
         name="casualties"
         [(ngModel)]="emergency.casualties"
@@ -93,9 +90,8 @@
 
     <!-- Injured -->
     <div>
-      <label for="injured">Injured:</label>
+      <label for="injured">Кількість поранених:</label>
       <input
-        type="number"
         id="injured"
         name="injured"
         [(ngModel)]="emergency.injured"
@@ -104,31 +100,28 @@
 
     <!-- Economic Loss -->
     <div>
-      <label for="economicLoss">Economic Loss:</label>
+      <label for="economicLoss">Економічні втрати:</label>
       <input
-        type="number"
         id="economicLoss"
         name="economicLoss"
         [(ngModel)]="emergency.economicLoss"
-        step="0.01"
       />
     </div>
 
     <!-- Duration -->
     <div>
-      <label for="duration">Duration (hours):</label>
+      <label for="duration">Тривалість ліквідації наслідків (годин):</label>
       <input
-        type="number"
         id="duration"
         name="duration"
         [(ngModel)]="emergency.duration"
-        step="0.1"
       />
     </div>
 
+    <h2>Місце події</h2>
     <!-- Location -->
     <div>
-      <label for="locationName">Location Name:</label>
+      <label for="locationName">Назва локації інциденту:</label>
       <input
         type="text"
         id="locationName"
@@ -138,19 +131,18 @@
       />
     </div>
     <div>
-      <label for="regionType">Region Type:</label>
+      <label for="regionType">Тип локації:</label>
       <select
         id="regionType"
         name="regionType"
         [(ngModel)]="emergency.location.regionTypeId"
       >
-        <option value="" disabled>Select Region Type</option>
-        <option value="1">Urban</option>
-        <option value="2">Rural</option>
+        <option value="" disabled>Обрати</option>
+        <option *ngFor="let type of types.regionTypes" [value]="type.id">{{type.name}}</option>
       </select>
     </div>
     <div>
-      <label for="latitude">Latitude:</label>
+      <label for="latitude">Широта:</label>
       <input
         type="number"
         id="latitude"
@@ -160,7 +152,7 @@
       />
     </div>
     <div>
-      <label for="longitude">Longitude:</label>
+      <label for="longitude">Довгота:</label>
       <input
         type="number"
         id="longitude"
@@ -170,41 +162,9 @@
       />
     </div>
 
-    <!-- Source -->
-    <div>
-      <label for="sourceName">Source Name:</label>
-      <input
-        type="text"
-        id="sourceName"
-        name="sourceName"
-        [(ngModel)]="emergency.source.name"
-      />
-    </div>
-    <div>
-      <label for="sourceUrl">Source URL:</label>
-      <input
-        type="url"
-        id="sourceUrl"
-        name="sourceUrl"
-        [(ngModel)]="emergency.source.url"
-      />
-    </div>
-    <div>
-      <label for="sourceType">Source Type:</label>
-      <select
-        id="sourceType"
-        name="sourceType"
-        [(ngModel)]="emergency.source.sourceTypeId"
-      >
-        <option value="" disabled>Select Source Type</option>
-        <option value="1">Internal</option>
-        <option value="2">External</option>
-      </select>
-    </div>
-
     <!-- Street -->
     <div>
-      <label for="streetName">Street Name:</label>
+      <label for="streetName">Вулиця:</label>
       <input
         type="text"
         id="streetName"
@@ -214,7 +174,7 @@
       />
     </div>
     <div>
-      <label for="houseNr">House Number:</label>
+      <label for="houseNr">Номер будинку:</label>
       <input
         type="number"
         id="houseNr"
@@ -224,9 +184,45 @@
       />
     </div>
 
+    <h2>Джерело інформації</h2>
+    <!-- Source -->
+    <div>
+      <label for="sourceName">Назва джерела інформації:</label>
+      <input
+        type="text"
+        id="sourceName"
+        name="sourceName"
+        [(ngModel)]="emergency.source.name"
+        required
+      />
+    </div>
+    <div>
+      <label for="sourceUrl">Посилання:</label>
+      <input
+        type="url"
+        id="sourceUrl"
+        name="sourceUrl"
+        [(ngModel)]="emergency.source.url"
+        required
+      />
+    </div>
+    <div>
+      <label for="sourceType">Тип джерела інформації:</label>
+      <select
+        id="sourceType"
+        name="sourceType"
+        [(ngModel)]="emergency.source.sourceTypeId"
+        required
+      >
+        <option value="" disabled>Обрати</option>
+        <option *ngFor="let type of types.sourceTypes" [value]="type.id">{{type.name}}</option>
+      </select>
+    </div>
+
+    <h2>Додаткові дані</h2>
     <!-- Photo Upload -->
     <div>
-      <label for="photos">Upload Photos:</label>
+      <label for="photos">Завантажити фото:</label>
       <input
         type="file"
         id="photos"
@@ -238,7 +234,7 @@
 
     <!-- Submit Button -->
     <button type="submit" [disabled]="!emergencyForm.form.valid">
-      Submit
+      Додати
     </button>
   </form>
 </div>

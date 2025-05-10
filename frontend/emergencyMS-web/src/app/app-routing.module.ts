@@ -9,8 +9,10 @@ import { CreateEmergencyComponent } from './components/create-emergency/create-e
 const routes: Routes = [
   { path: 'main', component: MainComponent },
   { path: 'login', component: LoginComponent, }, 
-  {path: 'dashboard', component: UserDashboardComponent, canActivate: [AuthGuard]},
-  {path: 'createEmergency', component: CreateEmergencyComponent, canActivate: [AuthGuard]},
+  {path: 'dashboard', component: UserDashboardComponent, children: 
+    [
+      {path: 'createEmergency', component: CreateEmergencyComponent}
+    ], canActivate: [AuthGuard]},
   { path: '**', redirectTo: 'main' }
 ];
 

@@ -10,5 +10,6 @@ public static class ServicesDependecyExtensions
     {
         services.AddScoped<IEmergencyService, EmergencyService>();
         services.AddScoped<IImageService, ImageService>();
+        services.AddScoped<ITypeService, TypeService>();
     }
 }

@@ -5,7 +5,7 @@ import { SourceType } from "./SourceType";
 
 export interface TypeEntity {
     types: EmergencyTypeEntity[];
-    subtypes : EmergencySubType[];
+    subTypes : EmergencySubType[];
     regionTypes: RegionType[];
     sourceTypes: SourceType[];
 }

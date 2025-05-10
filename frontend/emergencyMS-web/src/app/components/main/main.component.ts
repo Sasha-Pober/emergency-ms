@@ -63,5 +63,10 @@ export class MainComponent implements OnInit {
   logout(): void {
     this.authService.logout();
     this.isLoggedIn = false;
+    alert('Успішно вийшли з системи');
+  }
+
+  goToDashboard(): void {
+    this.router.navigate(['/dashboard']);
   }
 }
