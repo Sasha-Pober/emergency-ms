@@ -2,6 +2,8 @@ import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import * as L from 'leaflet';
 import { EmergencyService } from '../../services/emergency/emergency.service';
 import { Emergency } from '../../models/Emergency';
+import { MapService } from '../../services/map/map.service';
+
 
 @Component({
   selector: 'app-map',
@@ -13,19 +15,27 @@ export class MapComponent implements OnChanges {
   @Input() filteredSubType: number = 0; // Input for filtering emergencies by type
 
   private map: L.Map | any;
-  //private markers: { lat: number; lng: number; popupTitle: string, popupDescription: string}[] = [];
+  private geoJson: L.GeoJSON | any;
+  private defaultStyle = {
+    color: '#3388ff',
+    weight: 2,
+    fillOpacity: 0.1
+  };
   private emergencies: Emergency[] = [];
+  private originalEmergencies: Emergency[] = [];
+  private statesData: any;
+
 
   private mainIcon = L.icon(
     {
-      iconUrl: `../../assets/marker-blue.png`,
-      iconSize: [30.5, 50],
+      iconUrl: `../../assets/image.png`,
+      iconSize: [30, 35],
       iconAnchor: [12, 41],
       popupAnchor: [1, -31],
       shadowSize: [41, 41]
     });
 
-  constructor(private emergencyService: EmergencyService) { }
+  constructor(private emergencyService: EmergencyService, private mapService: MapService) { }
 
   ngOnChanges(changes: SimpleChanges): void {
     this.updateMarkers(this.filteredType, this.filteredSubType);
@@ -33,27 +43,83 @@ export class MapComponent implements OnChanges {
 
   ngOnInit(): void {
     this.initMap();
+    this.GetStateBoundaries();
     this.fetchEmergencies();
   }
+
+  private GetStateBoundaries(): void {
+    this.mapService.getGeoJsonData().subscribe(data => {
+      this.statesData = data;
+
+      this.geoJson = L.geoJson(this.statesData, {
+        style: this.defaultStyle,
+        onEachFeature: (feature, layer) => {
+          layer.on({
+            mouseover: this.highlightFeature,
+            mouseout: this.resetHighlight,
+            click: this.zoomToFeature.bind(this)
+          });
+        }
+      }).addTo(this.map);
+
+      this.map.fitBounds(this.geoJson.getBounds()); // автоцентрування карти
+    });
+  }
+
+  highlightFeature(e: any): void {
+    var layer = e.target;
+
+    layer.setStyle({
+      weight: 5,
+      color: 'yellow',
+      dashArray: '',
+      fillOpacity: 0.1
+    });
+
+    layer.bringToFront();
+  }
+
+  resetHighlight(e: any): void {
+    var layer = e.target;
+
+    layer.setStyle({
+      weight: 2,
+      color: '#3388ff',
+      dashArray: '',
+      fillOpacity: 0.1
+    });
+
+    layer.bringToBack();
+  }
+
+  zoomToFeature(e : any): void {
+    this.fetchEmergenciesByCoords([e.target._bounds._northEast, e.target._bounds._southWest]);
+    this.map.fitBounds(e.target.getBounds());
+  }
+
 
   private fetchEmergencies(): void {
     this.emergencyService.getAllEmergencies(1, 100).subscribe(data => {
       this.emergencies = data;
-      // this.markers = data
-      //   .filter(dat => (!this.filteredType || dat.emergencyType === this.filteredType)
-      //     && (!this.filteredSubType || dat.emergencySubType === this.filteredSubType))
-      //   .map(dat => ({
-      //     lat: dat.location.latitude!,
-      //     lng: dat.location.longitude!,
-      //     popupTitle: dat.title!,
-      //     popupDescription: dat.description!
-      //   }));
-      this.updateMarkers();
+      this.originalEmergencies = data;
+      this.updateMarkers(this.filteredType, this.filteredSubType);
     });
   }
 
+  private fetchEmergenciesByCoords(coords: {lat: number, lng: number}[]): void {
+    console.log('Fetching emergencies by coordinates:', coords);
+    // this.emergencies = this.originalEmergencies.filter(emer => {
+    //   return (
+    //     emer.location.latitude! <= coords[0].lat &&
+    //     emer.location.latitude! >= coords[1].lat &&
+    //     emer.location.longitude! <= coords[0].lng &&
+    //     emer.location.longitude! >= coords[1].lng
+    //   );
+    // });
+    //this.updateMarkers(this.filteredType, this.filteredSubType);
+  }
+
   private updateMarkers(type: number = 0, subType: number = 0): void {
-    //let markersToAdd = this.markers;
     let emergenciesQuery: Emergency[] = this.emergencies;
 
     if (!this.map) {
@@ -96,8 +162,11 @@ export class MapComponent implements OnChanges {
   private initMap(): void {
     this.map = L.map('map', {
       center: [48.505, 32.09],
-      zoom: 7,
-      zoomControl: true
+      zoomControl: true,
+      zoom: 6,
+      minZoom: 6,
+      maxBounds: [[44,22], [52, 40]],
+      maxBoundsViscosity: 1.0,
     });
 
     this.map.zoomControl.setPosition('bottomright'); // Set zoom control position

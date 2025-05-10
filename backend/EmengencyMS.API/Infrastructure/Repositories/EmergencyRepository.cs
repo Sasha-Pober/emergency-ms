@@ -1,8 +1,8 @@
-﻿using Domain.Entities;
+﻿using Dapper;
+using Domain.Entities;
+using Domain.Entities.Types;
 using Domain.Interfaces;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Data.SqlClient;
-using Dapper;
 
 namespace Infrastructure.Repositories;
 

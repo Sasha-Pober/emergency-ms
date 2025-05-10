@@ -1,11 +1,10 @@
 ﻿using Domain.Interfaces;
 using Infrastructure.Repositories;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure;
 
@@ -17,6 +16,7 @@ public static class InfrastructureDependencyExtensions
         services.AddTransient<SqlConnection>(_ => new SqlConnection(connectionString));
         services.AddScoped<IEmergencyRepository, EmergencyRepository>();
         services.AddScoped<IImageRepository, ImageRepository>();
+        services.AddScoped<ITypeRepository, TypeRepository>();
 
         services.AddAuthorization();
         services.AddAuthentication()

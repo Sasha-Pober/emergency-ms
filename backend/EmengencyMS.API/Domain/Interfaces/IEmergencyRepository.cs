@@ -1,5 +1,6 @@
 ﻿
 using Domain.Entities;
+using Domain.Entities.Types;
 
 namespace Domain.Interfaces;
 

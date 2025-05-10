@@ -1,8 +1,23 @@
-<div class="main-page-link">
-  <button routerLink="/main">Main Page</button>
-</div>
-<div class="dashboard-container">
-  <button class="create-emergency-btn" (click)="navigateToCreateEmergency()">
-    Create Emergency
-  </button>
+<div class="dashboard-layout">
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <div class="main-buttons" (click)="clearView()">
+      <button routerLink="/main" class="back-button">
+        На головну
+      </button>
+    </div>
+    <div class="sidebar-buttons">
+      <h3>Доступні дії:</h3>
+      <button routerLink="/dashboard/createEmergency" class="sidebar-btn">
+        Додати НС
+      </button>
+    </div>
+
+    <!-- Add more sidebar buttons as needed -->
+  </div>
+
+  <!-- Main Content Area -->
+  <div class="main-content">
+    <router-outlet></router-outlet>
+  </div>
 </div>

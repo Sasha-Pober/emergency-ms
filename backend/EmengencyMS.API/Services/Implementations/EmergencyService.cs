@@ -1,12 +1,11 @@
-﻿using Domain.Entities;
-using Domain.Interfaces;
+﻿using Domain.Interfaces;
 using Services.DTO;
 using Services.Interfaces;
 using Services.Mappings;
 
 namespace Services.Implementations;
 
-internal class EmergencyService(IEmergencyRepository repository) 
+internal class EmergencyService(IEmergencyRepository repository)
     : IEmergencyService
 {
     public async Task<int> CreateEmergency(EmergencyDTO emergency)

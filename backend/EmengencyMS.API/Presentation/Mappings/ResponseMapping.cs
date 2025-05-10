@@ -1,9 +1,8 @@
 ﻿using Presentation.Contracts.Emergency;
-using Presentation.Contracts.EmergencyType;
-using Presentation.Contracts.EmergencyTypes;
 using Presentation.Contracts.Location;
 using Presentation.Contracts.Source;
 using Presentation.Contracts.Street;
+using Presentation.Contracts.Types;
 using Services.DTO;
 
 namespace Presentation.Mappings;
@@ -77,6 +76,24 @@ internal static class ResponseMapping
         };
     }
 
+    internal static RegionTypeResponse MapToResponse(this RegionTypeDTO emergencyType)
+    {
+        return new RegionTypeResponse
+        {
+            Id = emergencyType.Id,
+            Name = emergencyType.Name,
+        };
+    }
+
+    internal static SourceTypeResponse MapToResponse(this SourceTypeDTO emergencyType)
+    {
+        return new SourceTypeResponse
+        {
+            Id = emergencyType.Id,
+            Name = emergencyType.Name,
+        };
+    }
+
     internal static StreetResponse MapToResponse(this StreetDTO street)
     {
         return new StreetResponse
@@ -84,6 +101,17 @@ internal static class ResponseMapping
             Id = street.Id,
             StreetName = street.StreetName,
             HouseNr = street.HouseNr
+        };
+    }
+
+    internal static TypeResponse MapToResponse(this TypeDTO type)
+    {
+        return new TypeResponse
+        {
+            Types = type.Types.Select(t => t.MapToResponse()),
+            SubTypes = type.SubTypes.Select(t => t.MapToResponse()),
+            RegionTypes = type.RegionTypes.Select(t => t.MapToResponse()),
+            SourceTypes = type.SourceTypes.Select(t => t.MapToResponse()),
         };
     }
 }
