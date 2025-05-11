@@ -39,7 +39,7 @@ internal static class ResponseMapping
         {
             Id = dto.Id,
             Name = dto.Name,
-            RegionTypeId = dto.RegionTypeId.Value,
+            RegionId = dto.RegionId.Value,
             Latitude = dto.Latitude,
             Longitude = dto.Longitude
         };
@@ -76,9 +76,9 @@ internal static class ResponseMapping
         };
     }
 
-    internal static RegionTypeResponse MapToResponse(this RegionTypeDTO emergencyType)
+    internal static RegionResponse MapToResponse(this RegionTypeDTO emergencyType)
     {
-        return new RegionTypeResponse
+        return new RegionResponse
         {
             Id = emergencyType.Id,
             Name = emergencyType.Name,

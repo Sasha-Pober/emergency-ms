@@ -46,19 +46,5 @@ namespace Presentation.Controllers
             var result = await emergencyService.GetEmergenciesForPeriod(startDate, endDate);
             return Ok(result.Select(x => x.MapToResponse()));
         }
-
-        [HttpGet("types")]
-        public async Task<IActionResult> GetEmergencyTypes()
-        {
-            var result = await emergencyService.GetEmergencyTypes();
-            return Ok(result.Select(x => x.MapToResponse()));
-        }
-
-        [HttpGet("subtypes")]
-        public async Task<IActionResult> GetEmergencySubTypes()
-        {
-            var result = await emergencyService.GetEmergencySubTypes();
-            return Ok(result.Select(x => x.MapToResponse()));
-        }
     }
 }

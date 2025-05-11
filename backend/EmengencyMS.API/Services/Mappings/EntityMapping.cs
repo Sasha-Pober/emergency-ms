@@ -34,7 +34,7 @@ internal static class EntityMapping
             Latitude = locationDTO.Latitude,
             Longitude = locationDTO.Longitude,
             Name = locationDTO.Name,
-            RegionTypeId = locationDTO.RegionTypeId
+            RegionId = locationDTO.RegionId
         };
     }
 

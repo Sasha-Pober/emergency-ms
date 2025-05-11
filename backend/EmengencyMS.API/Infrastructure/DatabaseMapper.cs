@@ -49,7 +49,7 @@ internal static class DatabaseMapper
 
         table.Rows.Add(
             location.Name,
-            location.RegionTypeId,
+            location.RegionId,
             location.Latitude,
             location.Longitude,
             street.StreetName,

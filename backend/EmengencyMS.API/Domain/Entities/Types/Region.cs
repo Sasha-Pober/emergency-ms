@@ -1,5 +1,5 @@
 ﻿namespace Domain.Entities.Types;
 
-public class RegionType : EmergencyType
+public class Region : EmergencyType
 {
 }

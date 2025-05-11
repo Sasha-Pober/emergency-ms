@@ -1,6 +1,5 @@
 ﻿using Dapper;
 using Domain.Entities;
-using Domain.Entities.Types;
 using Domain.Interfaces;
 using Microsoft.Data.SqlClient;
 
@@ -60,17 +59,5 @@ internal class EmergencyRepository(SqlConnection connection) : IEmergencyReposit
         commandType: System.Data.CommandType.StoredProcedure
         );
 
-    }
-
-    public Task<IEnumerable<EmergencySubType>> GetEmergencySubTypes()
-    {
-        return connection.QueryAsync<EmergencySubType>("[dbo].[GetEmergencySubTypes]",
-            commandType: System.Data.CommandType.StoredProcedure);
-    }
-
-    public Task<IEnumerable<EmergencyType>> GetEmergencyTypes()
-    {
-        return connection.QueryAsync<EmergencyType>("[dbo].[GetEmergencyTypes]",
-            commandType: System.Data.CommandType.StoredProcedure);
     }
 }
