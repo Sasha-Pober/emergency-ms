@@ -2,5 +2,5 @@
 
 internal interface IAnalyticsService
 {
-    Task<IEnumerable<AnalyticsResult>> GetAnalyticsResults();
+    //Task<IEnumerable<AnalyticsResult>> GetAnalyticsResults();
 }

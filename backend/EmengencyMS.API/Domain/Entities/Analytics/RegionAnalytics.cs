@@ -6,6 +6,6 @@ public class RegionAnalytics
     public string RegionName { get; set; }
     public int TotalCasualties { get; set; }
     public int TotalInjured { get; set; }
-    public decimal TotalLoss { get; set; }
+    public double TotalLoss { get; set; }
     public double TotalHours { get; set; }
 }
