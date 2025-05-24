@@ -1,4 +1,5 @@
 ﻿using Domain.Interfaces;
+using Infrastructure.Algorithms;
 using Infrastructure.Repositories;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Data.SqlClient;
@@ -13,10 +14,14 @@ public static class InfrastructureDependencyExtensions
     public static void ConfigureInfrastructure(this IServiceCollection services, IConfiguration configuration)
     {
         var connectionString = configuration.GetConnectionString("Main");
+
         services.AddTransient<SqlConnection>(_ => new SqlConnection(connectionString));
+        services.AddScoped<IVikorSolver, VikorSolver>();
         services.AddScoped<IEmergencyRepository, EmergencyRepository>();
         services.AddScoped<IImageRepository, ImageRepository>();
         services.AddScoped<ITypeRepository, TypeRepository>();
+        services.AddScoped<IAnalyticsRepository, AnalyticsRepository>();
+
 
         services.AddAuthorization();
         services.AddAuthentication()

@@ -7,7 +7,7 @@ namespace Infrastructure.Repositories
 {
     internal class AnalyticsRepository(SqlConnection connection) : IAnalyticsRepository
     {
-        public Task<IEnumerable<RegionAnalytics>> GetRegionAnalyticsAsync(int regionId)
+        public Task<IEnumerable<RegionAnalytics>> GetRegionsAnalyticsAsync()
         {
             return connection.QueryAsync<RegionAnalytics>(
                 "[dbo].[GetAnalyticsByRegion]",

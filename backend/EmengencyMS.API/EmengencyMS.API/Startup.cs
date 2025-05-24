@@ -1,7 +1,7 @@
 ﻿using Infrastructure;
 using Presentation;
 
-namespace EmengencyMS.API
+namespace EmergencyMS.API
 {
     public class Startup
     {

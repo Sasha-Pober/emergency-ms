@@ -1,6 +1,8 @@
-﻿namespace Services.Interfaces;
+﻿using Services.DTO.Analytics;
 
-internal interface IAnalyticsService
+namespace Services.Interfaces;
+
+public interface IAnalyticsService
 {
-    //Task<IEnumerable<AnalyticsResult>> GetAnalyticsResults();
+    Task<AnalyticsResponseDTO> GetAnalyticsResults();
 }

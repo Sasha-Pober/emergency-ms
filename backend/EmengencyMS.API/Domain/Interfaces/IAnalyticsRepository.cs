@@ -4,5 +4,5 @@ namespace Domain.Interfaces;
 
 public interface IAnalyticsRepository
 {
-    Task<IEnumerable<RegionAnalytics>> GetRegionAnalyticsAsync(int regionId);
+    Task<IEnumerable<RegionAnalytics>> GetRegionsAnalyticsAsync();
 }
