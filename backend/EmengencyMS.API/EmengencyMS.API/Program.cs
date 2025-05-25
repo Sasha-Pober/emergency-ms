@@ -1,4 +1,4 @@
-using EmengencyMS.API;
+using EmergencyMS.API;
 
 public class Program
 {

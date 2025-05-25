@@ -21,7 +21,7 @@ namespace Presentation.Controllers
         }
 
         [HttpPost]
-        [Authorize(AuthenticationSchemes = "Identity.Bearer", Roles = "Admin,Manager")]
+        [Authorize(AuthenticationSchemes = "Identity.Bearer", Roles = "Manager")]
         [Consumes("multipart/form-data")]
         public async Task<IActionResult> CreateEmergency([FromForm] CreateEmergency request)
         {
@@ -44,20 +44,6 @@ namespace Presentation.Controllers
         public async Task<IActionResult> GetEmergenciesForPeriod([FromQuery] DateTime startDate, [FromQuery] DateTime endDate)
         {
             var result = await emergencyService.GetEmergenciesForPeriod(startDate, endDate);
-            return Ok(result.Select(x => x.MapToResponse()));
-        }
-
-        [HttpGet("types")]
-        public async Task<IActionResult> GetEmergencyTypes()
-        {
-            var result = await emergencyService.GetEmergencyTypes();
-            return Ok(result.Select(x => x.MapToResponse()));
-        }
-
-        [HttpGet("subtypes")]
-        public async Task<IActionResult> GetEmergencySubTypes()
-        {
-            var result = await emergencyService.GetEmergencySubTypes();
             return Ok(result.Select(x => x.MapToResponse()));
         }
     }

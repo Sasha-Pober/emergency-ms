@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.12.35707.178
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmengencyMS.API", "EmengencyMS.API\EmengencyMS.API.csproj", "{16A42C27-AC60-44FC-A928-A80C612C718B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmergencyMS.API", "EmengencyMS.API\EmergencyMS.API.csproj", "{16A42C27-AC60-44FC-A928-A80C612C718B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "Domain\Domain.csproj", "{55E9D47B-0579-4248-B865-8F2E4D0B1C33}"
 EndProject

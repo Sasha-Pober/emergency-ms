@@ -38,7 +38,7 @@ internal static class DTOMapping
             Latitude = location.Latitude,
             Longitude = location.Longitude,
             Name = location.Name,
-            RegionTypeId = location.RegionTypeId
+            RegionId = location.RegionId
         };
     }
 
@@ -71,7 +71,7 @@ internal static class DTOMapping
         };
     }
 
-    internal static RegionTypeDTO MapToDTO(this RegionType emergencyType)
+    internal static RegionTypeDTO MapToDTO(this Region emergencyType)
     {
         return new RegionTypeDTO
         {
@@ -105,7 +105,7 @@ internal static class DTOMapping
         {
             Types = type.Types.Select(x => x.MapToDTO()),
             SubTypes = type.SubTypes.Select(x => x.MapToDTO()),
-            RegionTypes = type.RegionTypes.Select(x => x.MapToDTO()),
+            RegionTypes = type.Regions.Select(x => x.MapToDTO()),
             SourceTypes = type.SourceTypes.Select(x => x.MapToDTO()),
         };
     }
