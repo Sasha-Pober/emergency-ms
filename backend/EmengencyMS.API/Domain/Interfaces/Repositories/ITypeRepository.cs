@@ -1,7 +1,6 @@
-﻿using Domain.Entities;
-using Domain.Entities.Types;
+﻿using Domain.Entities.Types;
 
-namespace Domain.Interfaces;
+namespace Domain.Interfaces.Repositories;
 
 public interface ITypeRepository
 {

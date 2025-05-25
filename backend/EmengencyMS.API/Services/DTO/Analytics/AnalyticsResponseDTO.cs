@@ -2,6 +2,6 @@
 
 public class AnalyticsResponseDTO
 {
-    public IList<AnalyticsResultDTO> Results { get; set; }
-    public IList<AnalyticsResultDTO> BestAlternatives { get; set; }
+    public List<RegionAnalyticsDTO> Results { get; set; }
+    public List<RegionAnalyticsDTO> BestAlternatives { get; set; }
 }

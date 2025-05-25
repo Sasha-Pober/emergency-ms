@@ -1,6 +1,4 @@
-﻿using Domain.Entities.Types;
-
-namespace Domain.Entities;
+﻿namespace Domain.Entities.Types;
 
 public class TypeEntity
 {

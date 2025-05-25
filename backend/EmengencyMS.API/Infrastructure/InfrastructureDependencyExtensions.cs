@@ -1,4 +1,5 @@
-﻿using Domain.Interfaces;
+﻿using Domain.Interfaces.Analytics;
+using Domain.Interfaces.Repositories;
 using Infrastructure.Algorithms;
 using Infrastructure.Repositories;
 using Microsoft.AspNetCore.Identity;

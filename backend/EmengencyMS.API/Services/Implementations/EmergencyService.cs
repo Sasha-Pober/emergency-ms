@@ -1,4 +1,4 @@
-﻿using Domain.Interfaces;
+﻿using Domain.Interfaces.Repositories;
 using Services.DTO;
 using Services.Interfaces;
 using Services.Mappings;

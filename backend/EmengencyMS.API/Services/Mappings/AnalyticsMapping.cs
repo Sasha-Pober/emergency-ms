@@ -9,19 +9,24 @@ internal static class AnalyticsMapping
     {
         return new AnalyticsResponseDTO
         {
-            BestAlternatives = vikorResults.BestAlternatives.Select(x => new AnalyticsResultDTO
+            BestAlternatives = vikorResults.BestAlternatives.Select(x => new RegionAnalyticsDTO
             {
-                Name = x.Name,
-                S = x.S,
-                R = x.R,
-                Q = x.Q,
+                RegionId = x.RegionId,
+                RegionName = x.RegionName,
+                TotalCasualties = x.TotalCasualties,
+                TotalInjured = x.TotalInjured,
+                TotalLoss = x.TotalLoss,
+                TotalHours = x.TotalHours
             }).ToList(),
-            Results = vikorResults.Results.Select(x => new AnalyticsResultDTO
+
+            Results = vikorResults.Results.Select(x => new RegionAnalyticsDTO
             {
-                Name = x.Name,
-                S = x.S,
-                R = x.R,
-                Q = x.Q,
+                RegionId = x.RegionId,
+                RegionName = x.RegionName,
+                TotalCasualties = x.TotalCasualties,
+                TotalInjured = x.TotalInjured,
+                TotalLoss = x.TotalLoss,
+                TotalHours = x.TotalHours
             }).ToList()
         };
     }

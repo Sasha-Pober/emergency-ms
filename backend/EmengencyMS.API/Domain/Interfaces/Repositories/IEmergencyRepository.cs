@@ -1,7 +1,6 @@
-﻿
-using Domain.Entities;
+﻿using Domain.Entities;
 
-namespace Domain.Interfaces;
+namespace Domain.Interfaces.Repositories;
 
 public interface IEmergencyRepository
 {

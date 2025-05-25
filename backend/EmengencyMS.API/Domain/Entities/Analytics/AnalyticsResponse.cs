@@ -2,6 +2,6 @@
 
 public class AnalyticsResponse
 {
-    public IList<AnalyticsResult> Results { get; set; }
-    public IList<AnalyticsResult> BestAlternatives { get; set; }
+    public List<RegionAnalytics> Results { get; set; }
+    public List<RegionAnalytics> BestAlternatives { get; set; }
 }

@@ -1,4 +1,5 @@
-﻿using Domain.Interfaces;
+﻿using Domain.Interfaces.Analytics;
+using Domain.Interfaces.Repositories;
 using Services.DTO.Analytics;
 using Services.Interfaces;
 using Services.Mappings;

@@ -1,6 +1,6 @@
 ﻿using Domain.Entities.Analytics;
 
-namespace Domain.Interfaces;
+namespace Domain.Interfaces.Repositories;
 
 public interface IAnalyticsRepository
 {

@@ -1,8 +1,7 @@
-﻿namespace Domain.Entities.Analytics;
+﻿namespace Presentation.Contracts.Analytics;
 
-public class AnalyticsResult
+internal class AnalyticsResultResponse
 {
-    public int Id { get; set; }
     public string Name { get; set; }
     public double S { get; set; } // сукупне відхилення
     public double R { get; set; } // максимальне відхилення

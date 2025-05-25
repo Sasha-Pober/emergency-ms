@@ -1,9 +1,11 @@
-﻿using Presentation.Contracts.Emergency;
+﻿using Presentation.Contracts.Analytics;
+using Presentation.Contracts.Emergency;
 using Presentation.Contracts.Location;
 using Presentation.Contracts.Source;
 using Presentation.Contracts.Street;
 using Presentation.Contracts.Types;
 using Services.DTO;
+using Services.DTO.Analytics;
 
 namespace Presentation.Mappings;
 
@@ -112,6 +114,28 @@ internal static class ResponseMapping
             SubTypes = type.SubTypes.Select(t => t.MapToResponse()),
             RegionTypes = type.RegionTypes.Select(t => t.MapToResponse()),
             SourceTypes = type.SourceTypes.Select(t => t.MapToResponse()),
+        };
+    }
+
+    internal static RegionAnalyticsResponse MapToResponse(this RegionAnalyticsDTO dto)
+    {
+        return new RegionAnalyticsResponse
+        {
+            RegionId = dto.RegionId,
+            RegionName = dto.RegionName,
+            TotalCasualties = dto.TotalCasualties,
+            TotalInjured = dto.TotalInjured,
+            TotalLoss = dto.TotalLoss,
+            TotalHours = dto.TotalHours
+        };
+    }
+
+    internal static AnalyticsResponse MapToResponse(this AnalyticsResponseDTO dto)
+    {
+        return new AnalyticsResponse
+        {
+            BestAlternatives = dto.BestAlternatives.Select(a => a.MapToResponse()).ToList(),
+            Results = dto.Results.Select(r => r.MapToResponse()).ToList()
         };
     }
 }

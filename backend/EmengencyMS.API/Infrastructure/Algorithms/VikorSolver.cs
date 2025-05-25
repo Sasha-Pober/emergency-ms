@@ -1,5 +1,5 @@
 ﻿using Domain.Entities.Analytics;
-using Domain.Interfaces;
+using Domain.Interfaces.Analytics;
 
 namespace Infrastructure.Algorithms;
 
@@ -7,16 +7,27 @@ public class VikorSolver : IVikorSolver
 {
     public AnalyticsResponse GetAnalytics(IEnumerable<RegionAnalytics> info)
     {
-        IList<double> weights = [0.4, 0.3, 0.2, 0.1];
+        IList<double> weights = [0.4, 0.2, 0.2, 0.2];
 
         double v = 0.5;
 
         var (results, bestAlternatives) = CalculateVIKOR(info.ToList(), weights, v);
 
+        var resultOrder = info.Join(results, info => info.RegionId, result => result.Id,
+            (info, result) => new RegionAnalytics
+            {
+                RegionId = info.RegionId,
+                RegionName = info.RegionName,
+                TotalCasualties = info.TotalCasualties,
+                TotalInjured = info.TotalInjured,
+                TotalLoss = info.TotalLoss,
+                TotalHours = info.TotalHours
+            }).ToList();
+
         return new AnalyticsResponse
         {
-            Results = results,
-            BestAlternatives = bestAlternatives
+            Results = resultOrder,
+            BestAlternatives = info.Where(info => bestAlternatives.Any(ba => ba.Id == info.RegionId)).ToList()
         };
 
     }
@@ -52,8 +63,8 @@ public class VikorSolver : IVikorSolver
         for (int j = 0; j < m; j++)
         {
             var column = Enumerable.Range(0, n).Select(i => matrix[i, j]);
-            fstar[j] = column.Min();
-            fminus[j] = column.Max();
+            fstar[j] = column.Max();
+            fminus[j] = column.Min();
         }
 
         var S = new double[n];
@@ -86,7 +97,8 @@ public class VikorSolver : IVikorSolver
 
             results.Add(new AnalyticsResult
             {
-                Name = $"Alt {i + 1}",
+                Id = info[i].RegionId,
+                Name = info[i].RegionName,
                 S = S[i],
                 R = R[i],
                 Q = q
@@ -123,7 +135,7 @@ public class VikorSolver : IVikorSolver
 
         Console.WriteLine($"{rangeByS[0].Name} {rangeByR[0].Name} {results[0].Name}");
 
-        return rangeByS[0].Name == results[0].Name || rangeByR[0].Name == results[0].Name;
+        return rangeByS[0].Id == results[0].Id || rangeByR[0].Id == results[0].Id;
     }
 
     private IList<AnalyticsResult> GetBestAlternatives(IList<AnalyticsResult> results)
