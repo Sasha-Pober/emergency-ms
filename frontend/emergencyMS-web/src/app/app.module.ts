@@ -10,6 +10,8 @@ import { LoginComponent } from './components/login/login.component';
 import { FormsModule } from '@angular/forms';
 import { UserDashboardComponent } from './components/user-dashboard/user-dashboard.component';
 import { CreateEmergencyComponent } from './components/create-emergency/create-emergency.component';
+import { EmergencyDetailComponent } from './components/emergency-detail/emergency-detail.component';
+import { AnalyticsComponent } from './components/analytics/analytics.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +20,9 @@ import { CreateEmergencyComponent } from './components/create-emergency/create-e
     MainComponent,
     LoginComponent,
     UserDashboardComponent,
-    CreateEmergencyComponent
+    CreateEmergencyComponent,
+    EmergencyDetailComponent,
+    AnalyticsComponent
   ],
   imports: [
     BrowserModule,

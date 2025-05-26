@@ -5,7 +5,7 @@ using Services.Interfaces;
 namespace Presentation.Controllers;
 
 [ApiController]
-[Route("api/types")]
+[Route("api")]
 public class TypeController(ITypeService typeService) : ControllerBase
 {
     [HttpGet]

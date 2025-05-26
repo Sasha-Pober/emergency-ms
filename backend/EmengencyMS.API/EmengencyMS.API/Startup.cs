@@ -1,4 +1,5 @@
-﻿using Infrastructure;
+﻿using Domain.Entities;
+using Infrastructure;
 using Presentation;
 
 namespace EmergencyMS.API
@@ -29,6 +30,8 @@ namespace EmergencyMS.API
             services.ConfigureInfrastructure(_сonfiguration);
             services.ConfigurePresentation();
             services.AddControllers().AddApplicationPart(typeof(Presentation.Controllers.EmergencyController).Assembly);
+
+
             services.AddSwaggerGen();
         }
 

@@ -44,14 +44,14 @@ public class VikorSolver : IVikorSolver
             matrix[i, 2] = info[i].TotalLoss;
         }
 
-        for (int i = 0; i < info.Count; i++)
-        {
-            for (int j = 0; j < 4; j++)
-            {
-                Console.Write($"{matrix[i, j]} ");
-            }
-            Console.WriteLine();
-        }
+        //for (int i = 0; i < info.Count; i++)
+        //{
+        //    for (int j = 0; j < 4; j++)
+        //    {
+        //        Console.Write($"{matrix[i, j]} ");
+        //    }
+        //    Console.WriteLine();
+        //}
 
         int n = matrix.GetLength(0); //alternatives count
         int m = matrix.GetLength(1); //criterias count
@@ -109,22 +109,22 @@ public class VikorSolver : IVikorSolver
 
         var bestAlternatives = GetBestAlternatives(results);
 
-        foreach (var result in results)
-        {
-            Console.WriteLine($"{result.Name}, S: {result.S}, R: {result.R}, Q: {result.Q}");
-        }
+        //foreach (var result in results)
+        //{
+        //    Console.WriteLine($"{result.Name}, S: {result.S}, R: {result.R}, Q: {result.Q}");
+        //}
 
-        foreach (var result in bestAlternatives)
-        {
-            Console.WriteLine($"Best alternative: {result.Name}, S: {result.S}, R: {result.R}, Q: {result.Q}");
-        }
+        //foreach (var result in bestAlternatives)
+        //{
+        //    Console.WriteLine($"Best alternative: {result.Name}, S: {result.S}, R: {result.R}, Q: {result.Q}");
+        //}
 
         return (results, bestAlternatives);
     }
 
     private bool AcceptableAdvantage(IList<AnalyticsResult> results, double DQ)
     {
-        Console.WriteLine($"Advantage {results[1].Q - results[0].Q >= DQ}");
+        //Console.WriteLine($"Advantage {results[1].Q - results[0].Q >= DQ}");
         return results[1].Q - results[0].Q >= DQ;
     }
 
@@ -133,7 +133,7 @@ public class VikorSolver : IVikorSolver
         var rangeByS = results.OrderBy(r => r.S).ToList();
         var rangeByR = results.OrderBy(r => r.R).ToList();
 
-        Console.WriteLine($"{rangeByS[0].Name} {rangeByR[0].Name} {results[0].Name}");
+        //Console.WriteLine($"{rangeByS[0].Name} {rangeByR[0].Name} {results[0].Name}");
 
         return rangeByS[0].Id == results[0].Id || rangeByR[0].Id == results[0].Id;
     }
@@ -144,8 +144,8 @@ public class VikorSolver : IVikorSolver
         var IsAcceptableAdvantage = AcceptableAdvantage(results, DQ);
         var IsAcceptableStability = AcceptableStability(results, DQ);
 
-        Console.WriteLine($"AcceptableAdvantage: {IsAcceptableAdvantage}");
-        Console.WriteLine($"AcceptableStability: {IsAcceptableStability}");
+        //Console.WriteLine($"AcceptableAdvantage: {IsAcceptableAdvantage}");
+        //Console.WriteLine($"AcceptableStability: {IsAcceptableStability}");
 
         if (IsAcceptableAdvantage && IsAcceptableStability)
         {

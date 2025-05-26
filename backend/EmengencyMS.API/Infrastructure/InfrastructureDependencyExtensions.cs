@@ -1,4 +1,5 @@
-﻿using Domain.Interfaces.Analytics;
+﻿using Domain.Entities;
+using Domain.Interfaces.Analytics;
 using Domain.Interfaces.Repositories;
 using Infrastructure.Algorithms;
 using Infrastructure.Repositories;
@@ -28,7 +29,10 @@ public static class InfrastructureDependencyExtensions
         services.AddAuthentication()
             .AddBearerToken(IdentityConstants.BearerScheme);
 
-        services.AddIdentityCore<ApplicationUser>().AddRoles<ApplicationRole>().AddEntityFrameworkStores<AppDbContext>().AddApiEndpoints();
+        services.AddIdentityCore<ApplicationUser>()
+            .AddRoles<ApplicationRole>()
+            .AddEntityFrameworkStores<AppDbContext>()
+            .AddApiEndpoints();
 
         services.AddDbContext<AppDbContext>(options =>
         {

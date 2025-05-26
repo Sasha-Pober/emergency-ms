@@ -3,6 +3,7 @@ import * as L from 'leaflet';
 import { EmergencyService } from '../../services/emergency/emergency.service';
 import { Emergency } from '../../models/Emergency';
 import { MapService } from '../../services/map/map.service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -35,7 +36,10 @@ export class MapComponent implements OnChanges {
       shadowSize: [41, 41]
     });
 
-  constructor(private emergencyService: EmergencyService, private mapService: MapService) { }
+  constructor(
+    private emergencyService: EmergencyService, 
+    private mapService: MapService,
+    private router: Router) { }
 
   ngOnChanges(changes: SimpleChanges): void {
     this.updateMarkers(this.filteredType, this.filteredSubType);
@@ -108,15 +112,6 @@ export class MapComponent implements OnChanges {
 
   private fetchEmergenciesByCoords(coords: {lat: number, lng: number}[]): void {
     console.log('Fetching emergencies by coordinates:', coords);
-    // this.emergencies = this.originalEmergencies.filter(emer => {
-    //   return (
-    //     emer.location.latitude! <= coords[0].lat &&
-    //     emer.location.latitude! >= coords[1].lat &&
-    //     emer.location.longitude! <= coords[0].lng &&
-    //     emer.location.longitude! >= coords[1].lng
-    //   );
-    // });
-    //this.updateMarkers(this.filteredType, this.filteredSubType);
   }
 
   private updateMarkers(type: number = 0, subType: number = 0): void {
@@ -152,10 +147,15 @@ export class MapComponent implements OnChanges {
     // Add new markers
     emergenciesQuery.forEach(emer => {
       L.marker([emer.location.latitude!, emer.location.longitude!], {
-        icon: this.mainIcon
+        icon: this.mainIcon,
       })
         .addTo(this.map)
-        .bindPopup(`<h3>${emer.title}</h3>${emer.description}<br> вул. ${emer.street.streetName}, ${emer.street.houseNr!}`);
+        .addEventListener('click', () => {
+          this.router.navigate(['main/emergencyInfo/', emer.id]);
+          console.log('Marker clicked:', emer.id);
+        })
+        .bindPopup(`<h3>${emer.title}</h3>${emer.description}<br> вул. ${emer.street.streetName}, ${emer.street.houseNr!}<br>
+          <a href="/emergency/${emer.id}">Детальніше</a>`);
     });
   }
 

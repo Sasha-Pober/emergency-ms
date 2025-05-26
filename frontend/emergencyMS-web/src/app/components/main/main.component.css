@@ -9,6 +9,7 @@
   justify-content: space-between;
   flex-wrap: wrap-reverse;
   align-items: center;
+  font-size: 14px;
   background-color: #f8f9fa; /* Light gray background */
   padding: 1% 2%;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
@@ -28,7 +29,7 @@
 }
 
 .filter-row label {
-  font-size: 18px;;
+  font-size: 18px;
   font-weight: bold;
   margin: 0 2%;
 }
@@ -53,15 +54,29 @@
 
 .header-buttons {
   display: flex;
+  justify-content: center;
+  font-size: 14px;
   gap: 1%;
 }
 
-.header-buttons button {
+/* .header-buttons button {
   padding: 4% 5%;
   font-size: 14px;
   font-weight: bold;
   color: white;
   background-color: #007bff;
+  border: none;
+  border-radius: 1em;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+} */
+
+.analytics-button, .login-button, .logout-button, .dashboard-button {
+  background-color: #007bff;
+  padding: 0.5rem;
+  font-size: 14px;
+  font-weight: bold;
+  color: white;
   border: none;
   border-radius: 1em;
   cursor: pointer;
