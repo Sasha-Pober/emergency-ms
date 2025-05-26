@@ -4,6 +4,9 @@ import { EmergencyTypeEntity } from '../../models/types/EmergencyTypeEntity';
 import { EmergencySubType } from '../../models/types/EmergencySubType';
 import { AuthService } from '../../services/auth/auth.service';
 import { Router } from '@angular/router';
+import { TypeService } from '../../services/type/type.service';
+import { AnalyticsService } from '../../services/analytics/analytics.service';
+import { AnalyticsResponse } from '../../models/Analytics/AnalyticsResponse';
 
 @Component({
   selector: 'app-main',
@@ -13,6 +16,7 @@ import { Router } from '@angular/router';
 export class MainComponent implements OnInit {
   emergencyTypes: EmergencyTypeEntity[] = [];
   emergencySubTypes: EmergencySubType[] = []; 
+
   selectedType: number = 0;
   selectedSubType: number = 0;
 
@@ -20,8 +24,9 @@ export class MainComponent implements OnInit {
   isLoggedIn: boolean = false;
 
   constructor(
-    private emergencyService: EmergencyService, 
     private authService: AuthService, 
+    private typeService: TypeService,
+    private analyticsService: AnalyticsService,
     private router: Router) {}
 
   ngOnInit(): void {
@@ -31,13 +36,13 @@ export class MainComponent implements OnInit {
   }
 
   fetchEmergencyTypes(): void {
-    this.emergencyService.getEmergencyTypes().subscribe(types => {
+    this.typeService.getEmergencyTypes().subscribe(types => {
       this.emergencyTypes = types;
     });
   }
 
   fetchEmergencySubTypes(): void {
-    this.emergencyService.getEmergencySubTypes().subscribe(types => {
+    this.typeService.getEmergencySubTypes().subscribe(types => {
       this.emergencySubTypes = types;
     });
   }
@@ -68,5 +73,9 @@ export class MainComponent implements OnInit {
 
   goToDashboard(): void {
     this.router.navigate(['/dashboard']);
+  }
+
+  goToAnalytics(): void {
+    this.router.navigate(['/analytics']);
   }
 }

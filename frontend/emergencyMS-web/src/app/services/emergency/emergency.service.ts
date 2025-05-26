@@ -22,14 +22,6 @@ export class EmergencyService {
     return this.http.get<Emergency[]>(`${this.apiUrl}/api/emergencies`, { params });
   }
 
-  getEmergencyTypes(): Observable<EmergencyTypeEntity[]> {
-    return this.http.get<EmergencyTypeEntity[]>(`${this.apiUrl}/api/emergencies/types`);
-  }
-
-  getEmergencySubTypes(): Observable<EmergencyTypeEntity[]> {
-    return this.http.get<EmergencyTypeEntity[]>(`${this.apiUrl}/api/emergencies/subtypes`);
-  }
-
   createEmergency(emergency: CreateEmergency): Observable<CreateEmergency> {
 
     const headers = {

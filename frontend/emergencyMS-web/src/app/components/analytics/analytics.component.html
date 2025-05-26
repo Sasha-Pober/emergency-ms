@@ -1,0 +1,30 @@
+<table class="stats-table">
+  <thead>
+    <tr>
+    <th>Область</th> 
+      <th>Загальна кількість загиблих</th>
+      <th>Загальна кількість постраждалих</th>
+      <th>Економічні втрати</th>
+      <th>Часу витрачено на ліквідацію</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let emergency of rangedEmergencies.results"
+    [ngClass]="{ 'highlight-row': isBestAlternative(emergency.regionId) }">
+      <td>{{ emergency.regionName }}</td>
+      <td>{{ emergency.totalCasualties }}</td>
+      <td>{{ emergency.totalInjured }}</td>
+      <td>{{ emergency.totalLoss }}</td>
+      <td>{{ emergency.totalHours }}</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="most-dangerous-regions">
+    <h2>Найбільш небезпечні регіони:</h2>
+    <ul>
+      <li *ngFor="let region of rangedEmergencies.bestAlternatives">
+        {{ region.regionName }}: {{ region.totalCasualties }} загиблих, {{ region.totalInjured }} постраждалих
+      </li>
+    </ul>
+</div>

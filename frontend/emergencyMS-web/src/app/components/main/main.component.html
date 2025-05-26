@@ -20,6 +20,7 @@
     </div>
 
     <!-- Buttons -->
+    <button class="analytics-button" (click)="goToAnalytics()">Аналітика</button>
     <div class="header-buttons">
       <button *ngIf="!isLoggedIn" class="login-button" (click)="navigateToLogin()">Увійти</button>
       <button *ngIf="isLoggedIn" class="dashboard-button" (click)="goToDashboard()">До панелі керування</button>
