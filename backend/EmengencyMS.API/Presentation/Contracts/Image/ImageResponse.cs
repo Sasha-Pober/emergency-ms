@@ -1,6 +1,6 @@
-﻿namespace Domain.Entities;
+﻿namespace Presentation.Contracts.Image;
 
-public class Image
+internal class ImageResponse
 {
     public int Id { get; set; }
     public int EmergencyId { get; set; }

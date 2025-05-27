@@ -26,4 +26,13 @@ internal class ImageRepository(SqlConnection connection) : IImageRepository
         var parameters = new { FileName = fileName, Url = url };
         await connection.ExecuteAsync(query, parameters);
     }
+
+    public Task<IEnumerable<Image>> GetImagesByEmergencyId(int id)
+    {
+        return connection.QueryAsync<Image>(
+            "[dbo].[GetImagesByEmergencyId]",
+            new { EmergencyId = id },
+            commandType: System.Data.CommandType.StoredProcedure
+        );
+    }
 }

@@ -19,4 +19,5 @@ public class EmergencyDTO
     public LocationDTO Location { get; set; }
     public SourceDTO Source { get; set; }
     public StreetDTO Street { get; set; }
+    public List<ImageDTO> Images { get; set; }
 }

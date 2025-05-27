@@ -1,5 +1,48 @@
-<div>
-  <h1>Emergency Details</h1>
-  <p *ngIf="emergencyId">Emergency ID: {{ emergencyId }}</p>
-  <p *ngIf="!emergencyId">No emergency ID provided.</p>
+<div class="emergency-detail-container">
+  <h1>{{ emergency.title || 'Деталі надзвичайної ситуації' }}</h1>
+
+  <div class="detail-section">
+    <p *ngIf="emergency?.description" class="description">{{ emergency.description }}</p>
+    <div class="detail-item">
+      <label>Тип:</label>
+      {{ emergency.emergencyType }}
+    </div>
+    <div class="detail-item">
+      <label>Підтип:</label>
+      {{ emergency.emergencySubType }}
+    </div>
+    <div class="detail-item">
+      <label>Дата події:</label>
+      {{ emergency.accidentDate | date: 'longDate' }}
+    </div>
+    <div class="detail-item">
+      <label>Кількість загиблих:</label>
+      {{ emergency.casualties }}
+    </div>
+    <div class="detail-item">
+      <label>Кількість постраждалих:</label>
+      {{ emergency.injured }}
+    </div>
+    <div class="detail-item">
+      <label>Економічні втрати:</label>
+      {{ emergency.economicLoss | currency: 'UAH':'symbol':'':'uk' }}
+    </div>
+    <div class="detail-item">
+      <label>Тривалість ліквідації (годин):</label>
+      {{ emergency?.duration }}
+    </div>
+    <div class="detail-item">
+      <label>Місцезнаходження:</label>
+      вул. {{ emergency.street.streetName }}, {{ emergency.street.houseNr }}
+    </div>
+  </div>
+
+  <div class="photos-section" *ngIf="emergency?.images?.length">
+    <h2>Фотографії</h2>
+    <div class="photos-container">
+      <a href="{{ photo.imagePath }}" *ngFor="let photo of emergency.images">
+        <img [src]="photo.imagePath" />
+      </a>
+    </div>
+  </div>
 </div>

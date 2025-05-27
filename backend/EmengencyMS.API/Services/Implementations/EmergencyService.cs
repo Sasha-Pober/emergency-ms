@@ -5,24 +5,36 @@ using Services.Mappings;
 
 namespace Services.Implementations;
 
-internal class EmergencyService(IEmergencyRepository repository)
+internal class EmergencyService(IEmergencyRepository emergencyRepository, IImageRepository imageRepository)
     : IEmergencyService
 {
     public async Task<int> CreateEmergency(EmergencyDTO emergency)
     {
         var emergencyEntity = emergency.MapToEntity();
-        return await repository.CreateEmergency(emergencyEntity);
+        return await emergencyRepository.CreateEmergency(emergencyEntity);
     }
 
     public async Task<IEnumerable<EmergencyDTO>> GetAllEmergencies(int page, int pagesize)
     {
-        var emergencies = await repository.GetEmergencies(page, pagesize);
+        var emergencies = await emergencyRepository.GetEmergencies(page, pagesize);
         return emergencies.Select(x => x.MapToDTO());
     }
 
     public async Task<IEnumerable<EmergencyDTO>> GetEmergenciesForPeriod(DateTime startDate, DateTime endDate)
     {
-        var emergencies = await repository.GetEmergenciesForPeriod(startDate, endDate);
+        var emergencies = await emergencyRepository.GetEmergenciesForPeriod(startDate, endDate);
         return emergencies.Select(x => x.MapToDTO());
+    }
+
+    public async Task<EmergencyDTO?> GetEmergencyById(int id)
+    {
+        var result = await emergencyRepository.GetEmergencyByIdAsync(id);
+        var mappedEmergency = result.MapToDTO();
+        if (result != null)
+        {
+            var images = await imageRepository.GetImagesByEmergencyId(id);
+            mappedEmergency.Images = images.Select(img => img.MapToDTO()).ToList();
+        }
+        return mappedEmergency;
     }
 }

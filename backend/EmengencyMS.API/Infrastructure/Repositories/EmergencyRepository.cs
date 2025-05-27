@@ -60,4 +60,19 @@ internal class EmergencyRepository(SqlConnection connection) : IEmergencyReposit
         );
 
     }
+
+    public async Task<Emergency> GetEmergencyByIdAsync(int id)
+    {
+        using var multi = await connection.QueryMultipleAsync(
+            "[dbo].[GetEmergencyById]",
+            new { Id = id },
+            commandType: System.Data.CommandType.StoredProcedure
+        );
+        var emergency = await multi.ReadSingleAsync<Emergency>();
+        emergency.Location = await multi.ReadSingleAsync<Location>();
+        emergency.Source = await multi.ReadSingleAsync<Source>();
+        emergency.Street = await multi.ReadSingleAsync<Street>();
+
+        return emergency ?? throw new KeyNotFoundException($"Emergency with ID {id} not found.");
+    }
 }

@@ -5,6 +5,7 @@ import { Emergency } from '../../models/Emergency';
 import { EmergencyTypeEntity } from '../../models/types/EmergencyTypeEntity';
 import { CreateEmergency } from '../../requests/CreateEmergency';
 import { AuthService } from '../auth/auth.service';
+import { EmergencyWithImages } from '../../models/EmergencyWithImages';
 
 @Injectable({
   providedIn: 'root'
@@ -39,6 +40,10 @@ export class EmergencyService {
       .set('endDate', endDate);
 
     return this.http.get<Emergency[]>(`${this.apiUrl}/period`, { params });
+  }
+
+  getEmergencyById(id: number): Observable<EmergencyWithImages> {
+    return this.http.get<EmergencyWithImages>(`${this.apiUrl}/api/emergencies/${id}`);
   }
 
   private ConvertToFormData(emergency: CreateEmergency): FormData {
