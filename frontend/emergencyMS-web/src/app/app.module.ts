@@ -12,6 +12,11 @@ import { UserDashboardComponent } from './components/user-dashboard/user-dashboa
 import { CreateEmergencyComponent } from './components/create-emergency/create-emergency.component';
 import { EmergencyDetailComponent } from './components/emergency-detail/emergency-detail.component';
 import { AnalyticsComponent } from './components/analytics/analytics.component';
+import uk from '@angular/common/locales/uk';
+import { registerLocaleData } from '@angular/common';
+
+registerLocaleData(uk);
+
 
 @NgModule({
   declarations: [

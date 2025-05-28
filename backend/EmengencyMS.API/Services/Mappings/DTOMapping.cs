@@ -109,4 +109,15 @@ internal static class DTOMapping
             SourceTypes = type.SourceTypes.Select(x => x.MapToDTO()),
         };
     }
+
+    internal static ImageDTO MapToDTO(this Image image)
+    {
+        return new ImageDTO
+        {
+            Id = image.Id,
+            EmergencyId = image.EmergencyId,
+            FileName = image.FileName,
+            ImagePath = image.ImagePath
+        };
+    }
 }

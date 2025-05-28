@@ -40,6 +40,19 @@ namespace Presentation.Controllers
             return CreatedAtAction(nameof(GetAllEmergencies), new { id = emergency.Id }, emergency);
         }
 
+        [HttpGet("{id:int}")]
+        [ProducesResponseType(typeof(EmergencyResponse), 200)]
+        [ProducesResponseType(404)]
+        public async Task<IActionResult> GetEmergencyById(int id)
+        {
+            var emergency = await emergencyService.GetEmergencyById(id);
+            if (emergency == null)
+            {
+                return NotFound();
+            }
+            return Ok(emergency.MapToResponseWithImages());
+        }
+
         [HttpGet("period")]
         public async Task<IActionResult> GetEmergenciesForPeriod([FromQuery] DateTime startDate, [FromQuery] DateTime endDate)
         {

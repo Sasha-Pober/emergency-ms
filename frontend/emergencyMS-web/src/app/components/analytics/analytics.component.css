@@ -2,7 +2,7 @@
   width: 100%;
   border-collapse: collapse;
   margin: 1rem 0;
-  font-size: 1rem;
+  font-size: 1.5vw;
   text-align: left;
 }
 
@@ -48,7 +48,7 @@
   background-color: #f9f9f9; /* Light gray background */
   border: 1px solid #ddd; /* Subtle border */
   border-radius: 8px; /* Rounded corners */
-  font-size: 1rem;
+  font-size: 1.5vw;
   color: #333; /* Dark text color */
 }
 
@@ -70,7 +70,7 @@
 
 .most-dangerous-regions h3 {
   margin-bottom: 0.75rem;
-  font-size: 1.25rem;
+  font-size: 1.5vw;
   font-weight: bold;
   color: #d9534f; /* Highlighted title color */
 }

@@ -17,10 +17,10 @@ export class TypeService {
   }
 
   getEmergencyTypes(): Observable<EmergencyTypeEntity[]> {
-      return this.httpClient.get<EmergencyTypeEntity[]>(`${this.apiUrl}/api/types`);
+      return this.httpClient.get<EmergencyTypeEntity[]>(`${this.apiUrl}/api/emergency/types`);
     }
   
     getEmergencySubTypes(): Observable<EmergencyTypeEntity[]> {
-      return this.httpClient.get<EmergencyTypeEntity[]>(`${this.apiUrl}/api/subtypes`);
+      return this.httpClient.get<EmergencyTypeEntity[]>(`${this.apiUrl}/api/emergency/subtypes`);
     }
 }

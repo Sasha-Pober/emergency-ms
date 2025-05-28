@@ -8,21 +8,21 @@ namespace Presentation.Controllers;
 [Route("api")]
 public class TypeController(ITypeService typeService) : ControllerBase
 {
-    [HttpGet]
+    [HttpGet("types")]
     public async Task<IActionResult> GetAllTypes()
     {
         var types = await typeService.GetAllTypesAsync();
         return Ok(types);
     }
 
-    [HttpGet("types")]
+    [HttpGet("emergency/types")]
     public async Task<IActionResult> GetEmergencyTypes()
     {
         var result = await typeService.GetEmergencyTypes();
         return Ok(result.Select(x => x.MapToResponse()));
     }
 
-    [HttpGet("subtypes")]
+    [HttpGet("emergency/subtypes")]
     public async Task<IActionResult> GetEmergencySubTypes()
     {
         var result = await typeService.GetEmergencySubTypes();

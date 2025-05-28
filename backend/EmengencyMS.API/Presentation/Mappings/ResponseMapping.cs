@@ -1,5 +1,6 @@
 ﻿using Presentation.Contracts.Analytics;
 using Presentation.Contracts.Emergency;
+using Presentation.Contracts.Image;
 using Presentation.Contracts.Location;
 using Presentation.Contracts.Source;
 using Presentation.Contracts.Street;
@@ -30,6 +31,29 @@ internal static class ResponseMapping
             Location = dto.Location.MapLocation(),
             Source = dto.Source.MapSource(),
             Street = dto.Street.MapToResponse(),
+        };
+    }
+
+    internal static EmergencyResponseWithImages MapToResponseWithImages(this EmergencyDTO dto)
+    {
+        return new EmergencyResponseWithImages
+        {
+            Id = dto.Id,
+            Title = dto.Title,
+            EmergencyType = dto.EmergencyTypeId,
+            EmergencySubType = dto.EmergencySubTypeId,
+            Description = dto.Description,
+            AccidentDate = dto.AccidentDate,
+            DateEntered = dto.DateEntered.HasValue ? dto.DateEntered : null,
+            Severity = dto.Severity,
+            Casualties = dto.Casualties,
+            Injured = dto.Injured,
+            EconomicLoss = dto.EconomicLoss,
+            Duration = dto.Duration,
+            Location = dto.Location.MapLocation(),
+            Source = dto.Source.MapSource(),
+            Street = dto.Street.MapToResponse(),
+            Images = dto.Images.Select(x => x.MapToResponse()).ToList()
         };
     }
 
@@ -114,6 +138,17 @@ internal static class ResponseMapping
             SubTypes = type.SubTypes.Select(t => t.MapToResponse()),
             RegionTypes = type.RegionTypes.Select(t => t.MapToResponse()),
             SourceTypes = type.SourceTypes.Select(t => t.MapToResponse()),
+        };
+    }
+
+    internal static ImageResponse MapToResponse(this ImageDTO dto)
+    {
+        return new ImageResponse
+        {
+            Id = dto.Id,
+            EmergencyId = dto.EmergencyId,
+            FileName = dto.FileName,
+            ImagePath = dto.ImagePath
         };
     }
 
