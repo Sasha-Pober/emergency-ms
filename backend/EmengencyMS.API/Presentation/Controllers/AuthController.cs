@@ -1,44 +1,48 @@
-﻿namespace Presentation.Controllers;
+﻿using Domain.Entities;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Presentation.Contracts.User;
+using Services.Interfaces.JWT;
 
-//[ApiController]
-//public class AuthController : ControllerBase
-//{
-//    private readonly UserManager<ApplicationUser> _userManager;
-//    private readonly SignInManager<ApplicationUser> _signInManager;
+namespace Presentation.Controllers;
 
-//    public AuthController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager)
-//    {
-//        _userManager = userManager;
-//        _signInManager = signInManager;
-//    }
+[ApiController]
+[Route("api/auth")]
+public class AuthController : ControllerBase
+{
+    private readonly UserManager<ApplicationUser> _userManager;
+    private readonly IJwtTokenService _tokenService;
 
-//    [HttpPost("register")]
-//    public async Task<IActionResult> Register([FromBody] RegisterRequest request)
-//    {
-//        var user = new ApplicationUser { UserName = request.Username, Email = request.Email };
-//        var result = await _userManager.CreateAsync(user, request.Password);
-//        if (!result.Succeeded)
-//            return BadRequest(result.Errors);
+    public AuthController(UserManager<ApplicationUser> userManager, IJwtTokenService tokenService)
+    {
+        _userManager = userManager;
+        _tokenService = tokenService;
+    }
 
-//        return Ok("User registered");
-//    }
+    [HttpPost("register")]
+    public async Task<IActionResult> Register([FromBody] RegisterRequest request)
+    {
+        var user = new ApplicationUser { UserName = request.Username, Email = request.Email };
 
-//    [HttpPost("login")]
-//    public async Task<IActionResult> Login([FromBody] LoginRequest request)
-//    {
-//        var user = await _userManager.FindByEmailAsync(request.Email);
-//        if (user == null || !await _userManager.CheckPasswordAsync(user, request.Password))
-//            return Unauthorized();
+        var result = await _userManager.CreateAsync(user, request.Password);
 
-//        await _signInManager.SignInAsync(user, true);
+        if (!result.Succeeded)
+            return BadRequest(result.Errors);
 
-//        return Ok();
-//    }
+        return Ok("User registered");
+    }
 
-//    [HttpPost("logout")]
-//    public async Task<IActionResult> Logout()
-//    {
-//        await _signInManager.SignOutAsync();
-//        return Ok("Logged out");
-//    }
-//}
+    [HttpPost("login")]
+    public async Task<IActionResult> Login([FromBody] LoginRequest request)
+    {
+        var user = await _userManager.FindByEmailAsync(request.Email);
+
+        if (user == null || !await _userManager.CheckPasswordAsync(user, request.Password))
+            return Unauthorized();
+
+        var roles = await _userManager.GetRolesAsync(user);
+        var token = _tokenService.CreateAccessToken(user, roles);
+
+        return Ok(new { accessToken = token });
+    }
+}

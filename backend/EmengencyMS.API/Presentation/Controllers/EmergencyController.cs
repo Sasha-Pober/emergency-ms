@@ -21,7 +21,7 @@ namespace Presentation.Controllers
         }
 
         [HttpPost]
-        [Authorize(AuthenticationSchemes = "Identity.Bearer", Roles = "Manager")]
+        [Authorize(Roles = "Manager")]
         [Consumes("multipart/form-data")]
         public async Task<IActionResult> CreateEmergency([FromForm] CreateEmergency request)
         {
