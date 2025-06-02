@@ -1,6 +1,8 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Services.Implementations;
+using Services.Implementations.JWT;
 using Services.Interfaces;
+using Services.Interfaces.JWT;
 
 namespace Services;
 
@@ -12,5 +14,6 @@ public static class ServicesDependecyExtensions
         services.AddScoped<IImageService, ImageService>();
         services.AddScoped<ITypeService, TypeService>();
         services.AddScoped<IAnalyticsService, AnalyticsService>();
+        services.AddScoped<IJwtTokenService, JwtTokenService>();
     }
 }

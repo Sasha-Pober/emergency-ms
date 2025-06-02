@@ -1,4 +1,4 @@
-﻿using Domain.Entities;
+﻿using DotNetEnv;
 using Infrastructure;
 using Presentation;
 
@@ -12,6 +12,7 @@ namespace EmergencyMS.API
 
         public Startup(IWebHostEnvironment environment)
         {
+            Env.Load("../../../../.env");
             _сonfiguration = new ConfigurationBuilder().AddEnvironmentVariables()
                 .AddJsonFile("appsettings.json", false, true).Build();
         }
@@ -57,8 +58,8 @@ namespace EmergencyMS.API
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
-                endpoints.MapIdentityApi<ApplicationUser>();
             });
+
         }
     }
 }
