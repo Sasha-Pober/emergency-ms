@@ -19,6 +19,8 @@ internal static class DatabaseMapper
         table.Columns.Add("EconomicLoss", typeof(decimal));
         table.Columns.Add("Duration", typeof(double));
         table.Columns.Add("Description", typeof(string));
+        table.Columns.Add("IsApproved", typeof(bool));
+
 
         table.Rows.Add(
             emergency.Title,
@@ -31,7 +33,8 @@ internal static class DatabaseMapper
             emergency.Injured,
             emergency.EconomicLoss,
             emergency.Duration,
-            emergency.Description
+            emergency.Description,
+            emergency.IsApproved
         );
 
         return table;

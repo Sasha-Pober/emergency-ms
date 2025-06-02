@@ -43,6 +43,22 @@ internal class EmergencyRepository(SqlConnection connection) : IEmergencyReposit
         );
     }
 
+    public Task<IEnumerable<Emergency>> GetUnapprovedEmergencies()
+    {
+
+        return connection.QueryAsync<Emergency, Location, Source, Street, Emergency>(
+        "[dbo].[GetUnapprovedEmergencies]",
+        (emergency, location, source, street) =>
+        {
+            emergency.Location = location;
+            emergency.Source = source;
+            emergency.Street = street;
+            return emergency;
+        },
+        commandType: System.Data.CommandType.StoredProcedure
+        );
+    }
+
     public Task<IEnumerable<Emergency>> GetEmergenciesForPeriod(DateTime startDate, DateTime endDate)
     {
 

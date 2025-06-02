@@ -20,6 +20,12 @@ internal class EmergencyService(IEmergencyRepository emergencyRepository, IImage
         return emergencies.Select(x => x.MapToDTO());
     }
 
+    public async Task<IEnumerable<EmergencyDTO>> GetUnapprovedEmergencies()
+    {
+        var emergencies = await emergencyRepository.GetUnapprovedEmergencies();
+        return emergencies.Select(x => x.MapToDTO());
+    }
+
     public async Task<IEnumerable<EmergencyDTO>> GetEmergenciesForPeriod(DateTime startDate, DateTime endDate)
     {
         var emergencies = await emergencyRepository.GetEmergenciesForPeriod(startDate, endDate);

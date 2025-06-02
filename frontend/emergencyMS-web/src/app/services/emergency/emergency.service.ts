@@ -11,6 +11,7 @@ import { EmergencyWithImages } from '../../models/EmergencyWithImages';
   providedIn: 'root'
 })
 export class EmergencyService {
+
   private readonly apiUrl = 'http://localhost:5030';
 
   constructor(private http: HttpClient, private authService: AuthService) { }
@@ -40,6 +41,10 @@ export class EmergencyService {
       .set('endDate', endDate);
 
     return this.http.get<Emergency[]>(`${this.apiUrl}/period`, { params });
+  }
+
+  getUnapprovedEmergencies(): Observable<Emergency[]> {
+    return this.http.get<Emergency[]>(`${this.apiUrl}/api/emergencies/unapproved`);
   }
 
   getEmergencyById(id: number): Observable<EmergencyWithImages> {

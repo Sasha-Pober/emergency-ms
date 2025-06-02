@@ -16,6 +16,7 @@ public class Emergency
     public double? Duration { get; set; }
     public int? SourceId { get; set; }
     public string? Description { get; set; }
+    public bool IsApproved { get; set; }
     public Location Location { get; set; }
     public Source Source { get; set; }
     public Street Street { get; set; }
