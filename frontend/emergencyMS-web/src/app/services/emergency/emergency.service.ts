@@ -12,6 +12,7 @@ import { EmergencyWithImages } from '../../models/EmergencyWithImages';
 })
 export class EmergencyService {
 
+
   private readonly apiUrl = 'http://localhost:5030';
 
   constructor(private http: HttpClient, private authService: AuthService) { }
@@ -35,6 +36,11 @@ export class EmergencyService {
     return this.http.post<CreateEmergency>(`${this.apiUrl}/api/emergencies`, formData, { headers });
   }
 
+  suggestEmergency(emergency: any) {
+    const formData = this.ConvertToFormData(emergency);
+    return this.http.post<CreateEmergency>(`${this.apiUrl}/api/emergencies/suggest`, formData, {});
+  }
+
   getEmergenciesForPeriod(startDate: string, endDate: string): Observable<Emergency[]> {
     const params = new HttpParams()
       .set('startDate', startDate)
@@ -45,6 +51,14 @@ export class EmergencyService {
 
   getUnapprovedEmergencies(): Observable<Emergency[]> {
     return this.http.get<Emergency[]>(`${this.apiUrl}/api/emergencies/unapproved`);
+  }
+
+  approveEmergency(emergencyId: number) {
+    return this.http.post(`${this.apiUrl}/api/emergencies/${emergencyId}/approve`, null);
+  }
+
+  deleteEmergency(emergencyId: number) {
+    return this.http.delete(`${this.apiUrl}/api/emergencies/${emergencyId}`);
   }
 
   getEmergencyById(id: number): Observable<EmergencyWithImages> {
@@ -69,7 +83,7 @@ export class EmergencyService {
 
     // Append nested objects
     this.appendFormData(formData, 'Location.Name', emergency.location.name);
-    this.appendFormData(formData, 'Location.RegionTypeId', emergency.location.regionTypeId);
+    this.appendFormData(formData, 'Location.RegionId', emergency.location.regionId);
     this.appendFormData(formData, 'Location.Latitude', emergency.location.latitude);
     this.appendFormData(formData, 'Location.Longitude', emergency.location.longitude);
 

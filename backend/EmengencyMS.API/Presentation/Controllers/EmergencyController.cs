@@ -49,6 +49,13 @@ namespace Presentation.Controllers
             return CreatedAtAction(nameof(GetAllEmergencies), new { id = emergency.Id }, emergency);
         }
 
+        [HttpDelete("{id:int}")]
+        public async Task<IActionResult> DeleteEmergency(int id)
+        {
+            await emergencyService.DeleteEmergency(id);
+            return NoContent();
+        }
+
         [HttpPost("suggest")]
         [Consumes("multipart/form-data")]
         public async Task<IActionResult> SuggestEmergency([FromForm] CreateEmergency request)
@@ -71,6 +78,14 @@ namespace Presentation.Controllers
             }
 
             return CreatedAtAction(nameof(GetAllEmergencies), new { id = emergencyId }, emergency);
+        }
+
+        [HttpPost("{id:int}/approve")]
+        public async Task<IActionResult> ApproveEmergency(int id)
+        {
+            await emergencyService.ApproveEmergency(id);
+
+            return Ok(new { Id = id });
         }
 
         [HttpGet("{id:int}")]

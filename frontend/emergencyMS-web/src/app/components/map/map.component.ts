@@ -14,6 +14,7 @@ import { Router } from '@angular/router';
 export class MapComponent implements OnChanges {
   @Input() filteredType: number = 0; // Input for filtering emergencies by type
   @Input() filteredSubType: number = 0; // Input for filtering emergencies by type
+  @Input() filteredYear: number = 0; // Input for filtering emergencies by year
 
   private map: L.Map | any;
   private geoJson: L.GeoJSON | any;
@@ -37,12 +38,12 @@ export class MapComponent implements OnChanges {
     });
 
   constructor(
-    private emergencyService: EmergencyService, 
+    private emergencyService: EmergencyService,
     private mapService: MapService,
     private router: Router) { }
 
   ngOnChanges(changes: SimpleChanges): void {
-    this.updateMarkers(this.filteredType, this.filteredSubType);
+    this.updateMarkers(this.filteredType, this.filteredSubType, this.filteredYear);
   }
 
   ngOnInit(): void {
@@ -96,8 +97,7 @@ export class MapComponent implements OnChanges {
     layer.bringToBack();
   }
 
-  zoomToFeature(e : any): void {
-    this.fetchEmergenciesByCoords([e.target._bounds._northEast, e.target._bounds._southWest]);
+  zoomToFeature(e: any): void {
     this.map.fitBounds(e.target.getBounds());
   }
 
@@ -110,20 +110,13 @@ export class MapComponent implements OnChanges {
     });
   }
 
-  private fetchEmergenciesByCoords(coords: {lat: number, lng: number}[]): void {
-    console.log('Fetching emergencies by coordinates:', coords);
-  }
-
-  private updateMarkers(type: number = 0, subType: number = 0): void {
+  private updateMarkers(type: number = 0, subType: number = 0, year: number = 0): void {
     let emergenciesQuery: Emergency[] = this.emergencies;
 
     if (!this.map) {
       console.error('Map is not initialized');
       return;
     }
-
-    console.log('Filtered Type:', this.filteredType);
-    console.log('Filtered SubType:', this.filteredSubType);
 
     // Clear existing markers
     this.map.eachLayer((layer: L.Marker) => {
@@ -133,16 +126,12 @@ export class MapComponent implements OnChanges {
     });
 
     emergenciesQuery = this.emergencies.filter(dat => {
-      if (type !== 0 && subType !== 0) {
-        return dat.emergencyType === type && dat.emergencySubType === subType;
-      } else if (type !== 0) {
-        return dat.emergencyType === type;
-      } else if (subType !== 0) {
-        return dat.emergencySubType === subType;
-      }
-      return true;
+      const matchesType = type === 0 || dat.emergencyType === type;
+      const matchesSubType = subType === 0 || dat.emergencySubType === subType;
+      const matchesYear = year === 0 || new Date(dat.accidentDate).getFullYear() ===year;
+
+      return matchesType && matchesSubType && matchesYear;
     });
-    console.log('Filtered Emergencies:', emergenciesQuery);
 
     // Add new markers
     emergenciesQuery.forEach(emer => {
@@ -165,7 +154,7 @@ export class MapComponent implements OnChanges {
       zoomControl: true,
       zoom: 6,
       minZoom: 6,
-      maxBounds: [[44,22], [52, 40]],
+      maxBounds: [[44, 22], [52, 40]],
       maxBoundsViscosity: 1.0,
     });
 

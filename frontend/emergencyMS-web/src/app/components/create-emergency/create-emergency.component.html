@@ -1,5 +1,6 @@
 <div class="new-emergency-form">
-  <h1>Додати нову надзвичайну ситуацію</h1>
+  <h1 *ngIf="type === 'create'">Створити надзвичайну ситуацію</h1>
+  <h1 *ngIf="type === 'suggest'">Запропонувати надзвичайну ситуацію</h1>
   <form (ngSubmit)="onSubmit()" #emergencyForm="ngForm">
     <h2>Загальні відомості</h2>
     <!-- Emergency Title -->
@@ -135,7 +136,7 @@
       <select
         id="regionType"
         name="regionType"
-        [(ngModel)]="emergency.location.regionTypeId"
+        [(ngModel)]="emergency.location.regionId"
       >
         <option value="" disabled>Обрати</option>
         <option *ngFor="let type of types.regionTypes" [value]="type.id">{{type.name}}</option>
@@ -234,7 +235,7 @@
 
     <!-- Submit Button -->
     <button type="submit" [disabled]="!emergencyForm.form.valid">
-      Додати
+       {{ type === 'create' ? 'Створити' : 'Запропонувати' }}
     </button>
   </form>
 </div>

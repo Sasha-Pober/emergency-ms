@@ -22,6 +22,7 @@ public class CreateEmergency
     public CreateLocation Location { get; set; }
     public CreateSource Source { get; set; }
     public CreateStreet Street { get; set; }
-    public IList<IFormFile> Images { get; set; }
+
+    public IList<IFormFile>? Images { get; set; }
 
 }

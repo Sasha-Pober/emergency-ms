@@ -91,4 +91,22 @@ internal class EmergencyRepository(SqlConnection connection) : IEmergencyReposit
 
         return emergency ?? throw new KeyNotFoundException($"Emergency with ID {id} not found.");
     }
+
+    public Task ApproveEmergencyAsync(int id)
+    {
+        return connection.ExecuteAsync(
+            "[dbo].[ApproveEmergency]",
+            new { Id = id },
+            commandType: System.Data.CommandType.StoredProcedure
+        );
+    }
+
+    public Task DeleteEmergencyAsync(int id)
+    {
+        return connection.ExecuteAsync(
+            "[dbo].[DeleteEmergency]",
+            new { Id = id },
+            commandType: System.Data.CommandType.StoredProcedure
+        );
+    }
 }

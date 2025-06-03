@@ -23,4 +23,28 @@ export class ApproveEmergenciesComponent implements OnInit {
       }
     );
   }
+
+  approveEmergency(emergencyId: number): void {
+  this.emergencyService.approveEmergency(emergencyId).subscribe(
+    () => {
+      // Remove the approved emergency from the list
+      this.unapprovedEmergencies = this.unapprovedEmergencies.filter(e => e.id !== emergencyId);
+    },
+    (error) => {
+      console.error('Error approving emergency:', error);
+    }
+  );
+}
+
+  deleteEmergency(emergencyId: number): void {
+  this.emergencyService.deleteEmergency(emergencyId).subscribe(
+    () => {
+      // Remove the deleted emergency from the list
+      this.unapprovedEmergencies = this.unapprovedEmergencies.filter(e => e.id !== emergencyId);
+    },
+    (error) => {
+      console.error('Error deleting emergency:', error);
+    }
+  );
+}
 }

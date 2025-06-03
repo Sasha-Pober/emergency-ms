@@ -9,10 +9,6 @@ import { Router } from '@angular/router';
 export class UserDashboardComponent {
   constructor(private router: Router) {}
 
-  navigateToCreateEmergency(): void {
-    this.router.navigate(['/createEmergency']); // Adjust the route if necessary
-  }
-
   clearView(): void {
     this.router.navigate(['/dashboard']);
   }
