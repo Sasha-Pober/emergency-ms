@@ -1,8 +1,9 @@
-import { Component, OnInit, Type } from '@angular/core';
+import { Component, Input, OnInit, Type } from '@angular/core';
 import { CreateEmergency } from '../../requests/CreateEmergency';
 import { TypeService } from '../../services/type/type.service';
 import { TypeEntity } from '../../models/types/TypeEntity';
 import { EmergencyService } from '../../services/emergency/emergency.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-create-emergency',
@@ -10,12 +11,20 @@ import { EmergencyService } from '../../services/emergency/emergency.service';
   styleUrl: './create-emergency.component.css'
 })
 export class CreateEmergencyComponent implements OnInit {
+   type: string = '';
 
   ngOnInit(): void {
+    this.type = this.route.snapshot.url[this.route.snapshot.url.length - 1].path;
     this.fetchTypes();
+
+    console.log('Type from route:', this.type);
   }
 
-  constructor(private typeService: TypeService, private emergencyService: EmergencyService) { }
+  constructor(
+    private typeService: TypeService, 
+    private emergencyService: EmergencyService, 
+    private route: ActivatedRoute,
+    private router: Router) { }
 
   emergency: CreateEmergency = {
     title: '',
@@ -29,7 +38,7 @@ export class CreateEmergencyComponent implements OnInit {
     duration: 0,
     location: {
       name: '',
-      regionTypeId: 0,
+      regionId: 0,
       latitude: 0,
       longitude: 0
     },
@@ -69,16 +78,21 @@ export class CreateEmergencyComponent implements OnInit {
   onSubmit(): void {
     console.log('Emergency Data:', this.emergency);
     console.log('Selected Files:', this.emergency.images);
-    this.emergencyService.createEmergency(this.emergency).subscribe({
-      next: (response) => {
-        console.log('Emergency created successfully:', response);
-        alert('Emergency created successfully');
-        this.clearForm();
-      },
-      error: (error) => {
-        console.error('Error creating emergency:', error);
-      }
-    });
+    if (this.type === 'create') {
+      this.emergencyService.createEmergency(this.emergency).subscribe(
+        () => console.log('Emergency created successfully'),
+        (error) => console.error('Error creating emergency:', error)
+      );
+    } else if (this.type === 'suggest') {
+      this.emergencyService.suggestEmergency(this.emergency).subscribe(
+        () => {
+          window.alert('Новину про надзвичайну ситуацію успішно надіслано на розгляд!');
+          this.router.navigate(['/main']);
+        },
+        (error) => console.error('Error suggesting emergency:', error)
+      );
+    }
+    this.clearForm();
   }
 
   private clearForm(): void {
@@ -94,7 +108,7 @@ export class CreateEmergencyComponent implements OnInit {
       duration: 0,
       location: {
         name: '',
-        regionTypeId: 0,
+        regionId: 0,
         latitude: 0,
         longitude: 0
       },

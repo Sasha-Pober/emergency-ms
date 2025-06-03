@@ -21,6 +21,7 @@ internal static class EntityMapping
             Severity = emergencyDTO.Severity,
             Injured = emergencyDTO.Injured,
             Duration = emergencyDTO.Duration,
+            IsApproved = emergencyDTO.IsApproved,
             Location = emergencyDTO.Location.MapToEntity(),
             Source = emergencyDTO.Source.MapToEntity(),
             Street = emergencyDTO.Street.MapToEntity()

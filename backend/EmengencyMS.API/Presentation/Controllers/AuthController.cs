@@ -12,11 +12,16 @@ public class AuthController : ControllerBase
 {
     private readonly UserManager<ApplicationUser> _userManager;
     private readonly IJwtTokenService _tokenService;
+    private readonly int expiryTime;
 
     public AuthController(UserManager<ApplicationUser> userManager, IJwtTokenService tokenService)
     {
         _userManager = userManager;
         _tokenService = tokenService;
+
+        expiryTime = Environment.GetEnvironmentVariable("JWT_EXPIRYTIME") != null
+            ? int.Parse(Environment.GetEnvironmentVariable("JWT_EXPIRYTIME"))
+            : 3600; // Default to 1 hour if not set
     }
 
     [HttpPost("register")]
@@ -43,6 +48,11 @@ public class AuthController : ControllerBase
         var roles = await _userManager.GetRolesAsync(user);
         var token = _tokenService.CreateAccessToken(user, roles);
 
-        return Ok(new { accessToken = token });
+        return Ok(new
+        {
+            accessToken = token,
+            tokenType = "Bearer",
+            expiresIn = expiryTime
+        });
     }
 }

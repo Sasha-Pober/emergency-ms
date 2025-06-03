@@ -43,6 +43,22 @@ internal class EmergencyRepository(SqlConnection connection) : IEmergencyReposit
         );
     }
 
+    public Task<IEnumerable<Emergency>> GetUnapprovedEmergencies()
+    {
+
+        return connection.QueryAsync<Emergency, Location, Source, Street, Emergency>(
+        "[dbo].[GetUnapprovedEmergencies]",
+        (emergency, location, source, street) =>
+        {
+            emergency.Location = location;
+            emergency.Source = source;
+            emergency.Street = street;
+            return emergency;
+        },
+        commandType: System.Data.CommandType.StoredProcedure
+        );
+    }
+
     public Task<IEnumerable<Emergency>> GetEmergenciesForPeriod(DateTime startDate, DateTime endDate)
     {
 
@@ -74,5 +90,23 @@ internal class EmergencyRepository(SqlConnection connection) : IEmergencyReposit
         emergency.Street = await multi.ReadSingleAsync<Street>();
 
         return emergency ?? throw new KeyNotFoundException($"Emergency with ID {id} not found.");
+    }
+
+    public Task ApproveEmergencyAsync(int id)
+    {
+        return connection.ExecuteAsync(
+            "[dbo].[ApproveEmergency]",
+            new { Id = id },
+            commandType: System.Data.CommandType.StoredProcedure
+        );
+    }
+
+    public Task DeleteEmergencyAsync(int id)
+    {
+        return connection.ExecuteAsync(
+            "[dbo].[DeleteEmergency]",
+            new { Id = id },
+            commandType: System.Data.CommandType.StoredProcedure
+        );
     }
 }

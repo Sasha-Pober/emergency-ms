@@ -20,6 +20,12 @@ internal class EmergencyService(IEmergencyRepository emergencyRepository, IImage
         return emergencies.Select(x => x.MapToDTO());
     }
 
+    public async Task<IEnumerable<EmergencyDTO>> GetUnapprovedEmergencies()
+    {
+        var emergencies = await emergencyRepository.GetUnapprovedEmergencies();
+        return emergencies.Select(x => x.MapToDTO());
+    }
+
     public async Task<IEnumerable<EmergencyDTO>> GetEmergenciesForPeriod(DateTime startDate, DateTime endDate)
     {
         var emergencies = await emergencyRepository.GetEmergenciesForPeriod(startDate, endDate);
@@ -36,5 +42,15 @@ internal class EmergencyService(IEmergencyRepository emergencyRepository, IImage
             mappedEmergency.Images = images.Select(img => img.MapToDTO()).ToList();
         }
         return mappedEmergency;
+    }
+
+    public async Task ApproveEmergency(int id)
+    {
+        await emergencyRepository.ApproveEmergencyAsync(id);
+    }
+
+    public async Task DeleteEmergency(int id)
+    {
+        await emergencyRepository.DeleteEmergencyAsync(id);
     }
 }

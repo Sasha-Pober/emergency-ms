@@ -8,7 +8,7 @@ namespace Presentation.Mappings;
 
 internal static class DTOMapping
 {
-    internal static EmergencyDTO MapToDTO(this CreateEmergency entity)
+    internal static EmergencyDTO MapToDTO(this CreateEmergency entity, bool IsApproved = false)
     {
         return new EmergencyDTO
         {
@@ -23,6 +23,7 @@ internal static class DTOMapping
             Injured = entity.Injured,
             EconomicLoss = entity.EconomicLoss,
             Duration = entity.Duration,
+            IsApproved = IsApproved,
             Location = entity.Location.MapToDTO(),
             Source = entity.Source.MapToDTO(),
             Street = entity.Street.MapToDTO()

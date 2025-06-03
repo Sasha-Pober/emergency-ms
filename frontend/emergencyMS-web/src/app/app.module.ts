@@ -14,6 +14,7 @@ import { EmergencyDetailComponent } from './components/emergency-detail/emergenc
 import { AnalyticsComponent } from './components/analytics/analytics.component';
 import uk from '@angular/common/locales/uk';
 import { registerLocaleData } from '@angular/common';
+import { ApproveEmergenciesComponent } from './components/approve-emergencies/approve-emergencies.component';
 
 registerLocaleData(uk);
 
@@ -27,7 +28,8 @@ registerLocaleData(uk);
     UserDashboardComponent,
     CreateEmergencyComponent,
     EmergencyDetailComponent,
-    AnalyticsComponent
+    AnalyticsComponent,
+    ApproveEmergenciesComponent
   ],
   imports: [
     BrowserModule,

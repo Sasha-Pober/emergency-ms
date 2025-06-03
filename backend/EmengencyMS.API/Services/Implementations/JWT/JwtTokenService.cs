@@ -12,11 +12,16 @@ internal class JwtTokenService : IJwtTokenService
 {
     private readonly IConfiguration _configuration;
     private readonly IRsaKeyProvider _rsaKeyProvider;
+    private readonly int _expiryTime;
 
     public JwtTokenService(IConfiguration configuration, IRsaKeyProvider rsaKeyProvider)
     {
         _configuration = configuration;
         _rsaKeyProvider = rsaKeyProvider;
+
+        _expiryTime = Environment.GetEnvironmentVariable("JWT_EXPIRYTIME") != null
+            ? int.Parse(Environment.GetEnvironmentVariable("JWT_EXPIRYTIME"))
+            : 3600; // Default to 1 hour if not set
     }
 
     public string CreateAccessToken(ApplicationUser user, IList<string> roles)
@@ -36,7 +41,7 @@ internal class JwtTokenService : IJwtTokenService
             issuer: "API",
             audience: "emergerncyMS",
             claims: claims,
-            expires: DateTime.UtcNow.AddMinutes(1),
+            expires: DateTime.UtcNow.AddMinutes(_expiryTime),
             signingCredentials: credentials);
 
         return new JwtSecurityTokenHandler().WriteToken(token);

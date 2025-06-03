@@ -13,14 +13,13 @@ export class AuthService {
 
   login(username: string, password: string): Observable<LoginResponse> {
     const loginData = {email: username, password: password };
-    return this.http.post<LoginResponse>(`${this.Url}/login`, loginData);
+    return this.http.post<LoginResponse>(`${this.Url}/api/auth/login`, loginData);
   }
 
   saveToken(response: LoginResponse): void {
-    localStorage.setItem('tokenType', response.tokenType);
-    localStorage.setItem('accessToken', response.accessToken);
-    localStorage.setItem('refreshToken', response.refreshToken);
 
+    localStorage.setItem('accessToken', response.accessToken);
+    localStorage.setItem('tokenType', response.tokenType);
     const expiresAt = new Date().getTime() + response.expiresIn * 1000;
     localStorage.setItem('expiresAt', expiresAt.toString());
   }
@@ -31,9 +30,9 @@ export class AuthService {
     return tokenType && accessToken ? `${tokenType} ${accessToken}` : null;
   }
 
-  getRefreshToken(): string | null {
-    return localStorage.getItem('refreshToken');
-  }
+  // getRefreshToken(): string | null {
+  //   return localStorage.getItem('refreshToken');
+  // }
 
   isTokenExpired(): boolean {
     const expiresAt = localStorage.getItem('expiresAt');
@@ -44,12 +43,12 @@ export class AuthService {
   logout(): void {
     localStorage.removeItem('tokenType');
     localStorage.removeItem('accessToken');
-    localStorage.removeItem('refreshToken');
+    // localStorage.removeItem('refreshToken');
     localStorage.removeItem('expiresAt');
   }
 
   register(registerData: { email: string; password: string }): Observable<any> {
-    return this.http.post(`${this.Url}/register`, registerData);
+    return this.http.post(`${this.Url}/api/auth/register`, registerData);
   }
 
   isLoggedIn(): boolean {

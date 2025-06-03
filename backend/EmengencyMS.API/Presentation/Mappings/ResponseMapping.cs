@@ -28,6 +28,7 @@ internal static class ResponseMapping
             Injured = dto.Injured,
             EconomicLoss = dto.EconomicLoss,
             Duration = dto.Duration,
+            IsApproved = dto.IsApproved,
             Location = dto.Location.MapLocation(),
             Source = dto.Source.MapSource(),
             Street = dto.Street.MapToResponse(),

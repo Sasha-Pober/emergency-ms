@@ -1,0 +1,38 @@
+<div class="approve-emergencies-container">
+  <h1>Непідтверджені надзвичайні ситуації</h1>
+  <table class="emergencies-table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Назва</th>
+        <th>Опис</th>
+        <th>Дата події</th>
+        <th>Тип НС</th>
+        <th>Підтип НС</th>
+        <th>Тривалість ліквідації</th>
+        <th>Координати</th>
+        <th>Вулиця</th>
+        <th>Джерело інформації</th>
+        <th>Дії</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let emergency of unapprovedEmergencies">
+        <td>{{ emergency.id }}</td>
+        <td>{{ emergency.title }}</td>
+        <td>{{ emergency.description }}</td>
+        <td>{{ emergency.accidentDate | date: 'shortDate' }}</td>
+        <td>{{ emergency.emergencyType }}</td>
+        <td>{{ emergency.emergencySubType }}</td>
+        <td>{{ emergency.duration }}</td>
+        <td>{{ emergency.location.latitude }}, {{ emergency.location.longitude }}</td>
+        <td>{{ emergency.street.streetName }}, {{emergency.street.houseNr}}</td>
+        <td>{{emergency.source.Name}} <a href="{{emergency.source.Url}}">Посилання</a></td>
+        <td>
+          <button (click)="approveEmergency(emergency.id)">Підтвердити</button>
+          <button (click)="deleteEmergency(emergency.id)">Відхилити</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

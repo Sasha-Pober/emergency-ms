@@ -21,7 +21,7 @@
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  flex-grow: 3;
+  flex-grow: 2;
 }
 
 .filter-row {
@@ -54,7 +54,7 @@
 
 .header-buttons {
   justify-content: flex-end;
-  flex-grow: 1;
+  flex-grow: 2;
 }
 
 .header-buttons button {

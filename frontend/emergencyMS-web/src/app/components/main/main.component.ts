@@ -14,11 +14,14 @@ import { AnalyticsResponse } from '../../models/Analytics/AnalyticsResponse';
   styleUrls: ['./main.component.css']
 })
 export class MainComponent implements OnInit {
+  years = Array.from({length: 2025-1980 + 1}, (_, i) => 1980 + i);
+
   emergencyTypes: EmergencyTypeEntity[] = [];
   emergencySubTypes: EmergencySubType[] = []; 
 
   selectedType: number = 0;
   selectedSubType: number = 0;
+  selectedYear: number = 0;
 
   isSidebarOpen: boolean = true; 
   isLoggedIn: boolean = false;
@@ -57,12 +60,21 @@ export class MainComponent implements OnInit {
     this.selectedSubType = parseInt(target.value);
   }
 
+  onYearChange(event: Event): void {
+    const target = event.target as HTMLSelectElement;
+    this.selectedYear = parseInt(target.value);
+  }
+
   toggleSidebar(): void {
     this.isSidebarOpen = !this.isSidebarOpen;
   }
 
   navigateToLogin(): void {
     this.router.navigate(['/login']);
+  }
+
+  navigateToSuggest(): void {
+    this.router.navigate(['/emergency/suggest']);
   }
 
   logout(): void {

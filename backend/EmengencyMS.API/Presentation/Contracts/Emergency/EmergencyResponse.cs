@@ -18,6 +18,7 @@ internal class EmergencyResponse
     public int? Injured { get; set; }
     public decimal? EconomicLoss { get; set; }
     public double? Duration { get; set; }
+    public bool IsApproved { get; set; }
     public LocationResponse Location { get; set; }
     public SourceResponse Source { get; set; }
     public StreetResponse Street { get; set; }

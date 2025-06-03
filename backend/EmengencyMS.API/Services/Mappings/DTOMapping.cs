@@ -24,6 +24,7 @@ internal static class DTOMapping
             Injured = emergency.Injured,
             Duration = emergency.Duration,
             SourceId = emergency.SourceId,
+            IsApproved = emergency.IsApproved,
             Location = emergency.Location.MapToDTO(),
             Source = emergency.Source.MapToDTO(),
             Street = emergency.Street.MapToDTO()
