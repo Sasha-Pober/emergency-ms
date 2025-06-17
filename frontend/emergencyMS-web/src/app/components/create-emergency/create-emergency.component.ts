@@ -11,20 +11,6 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrl: './create-emergency.component.css'
 })
 export class CreateEmergencyComponent implements OnInit {
-   type: string = '';
-
-  ngOnInit(): void {
-    this.type = this.route.snapshot.url[this.route.snapshot.url.length - 1].path;
-    this.fetchTypes();
-
-    console.log('Type from route:', this.type);
-  }
-
-  constructor(
-    private typeService: TypeService, 
-    private emergencyService: EmergencyService, 
-    private route: ActivatedRoute,
-    private router: Router) { }
 
   emergency: CreateEmergency = {
     title: '',
@@ -53,6 +39,83 @@ export class CreateEmergencyComponent implements OnInit {
     },
     images: []
   };
+
+  type: string = '';
+  emergencyId: number = 0;
+
+  public get dateString(): string {
+    let dateToShow : Date = new Date(this.emergency.accidentDate);
+    dateToShow.setHours(this.emergency.accidentDate.getHours() + 3);
+
+    return dateToShow.toISOString().split('T')[0];
+  }
+
+  public set dateString(value: string) {
+    console.log('Setting accident date:', value);
+    this.emergency.accidentDate = new Date(value);
+  }
+
+
+  ngOnInit(): void {
+    this.type = this.route.snapshot.url[this.route.snapshot.url.length - 1].path;
+
+    this.route.queryParams.subscribe(params => {
+      if (Object.keys(params).length > 0) {
+
+        if (params['id']) {
+          this.emergencyId = params['id'] as number;
+        }
+      }
+    });
+
+    if (this.type === 'edit') {
+
+      this.emergencyService.getEmergencyById(this.emergencyId).subscribe(emergency => {
+        this.emergency = {
+          title: emergency.title,
+          description: emergency.description,
+          emergencyType: emergency.emergencyType!,
+          emergencySubType: emergency.emergencySubType!,
+          accidentDate: new Date(emergency.accidentDate),
+          severity: emergency.severity,
+          casualties: emergency.casualties,
+          injured: emergency.injured,
+          economicLoss: emergency.economicLoss,
+          duration: emergency.duration,
+          location: {
+            name: emergency.location.name,
+            regionId: emergency.location.regionId!,
+            latitude: emergency.location.latitude,
+            longitude: emergency.location.longitude
+          },
+          source: {
+            name: emergency.source.name,
+            url: emergency.source.url!,
+            sourceTypeId: emergency.source.sourceTypeId!
+          },
+          street: {
+            streetName: emergency.street.streetName,
+            houseNr: emergency.street.houseNr
+          },
+          imagesEntities: emergency.images!,
+          images: [],
+          imagesToDelete: [],
+        }
+        console.log('Emergency for edit:', this.emergency.accidentDate);
+      });
+
+    }
+
+    this.fetchTypes();
+
+    console.log('Type from route:', this.type);
+  }
+
+  constructor(
+    private typeService: TypeService,
+    private emergencyService: EmergencyService,
+    private route: ActivatedRoute,
+    private router: Router) { }
 
   selectedFiles: File[] = [];
   types: TypeEntity = {
@@ -92,7 +155,24 @@ export class CreateEmergencyComponent implements OnInit {
         (error) => console.error('Error suggesting emergency:', error)
       );
     }
+    else if (this.type === 'edit') {
+      this.emergencyService.updateEmergency(this.emergency, this.emergencyId).subscribe(
+        () =>{
+          console.log('Emergency updated successfully')
+          this.router.navigate(['dashboard/emergency/approve'])
+        },
+      );
+    }
     this.clearForm();
+  }
+
+
+  deleteImage(name: string): void {
+    this.emergency.imagesToDelete?.push(name);
+
+    this.emergency.imagesEntities = this.emergency.imagesEntities?.filter(image => image.fileName !== name);
+
+    console.log('Images to delete:', this.emergency.imagesToDelete!);
   }
 
   private clearForm(): void {

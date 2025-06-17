@@ -35,4 +35,15 @@ internal class ImageRepository(SqlConnection connection) : IImageRepository
             commandType: System.Data.CommandType.StoredProcedure
         );
     }
+
+    public Task DeleteImages(int id, List<string> imagesToDelete)
+    {
+        var imagesDataTable = imagesToDelete.ToImageDeleteDataTable();
+
+        return connection.ExecuteAsync(
+            "[dbo].[DeleteImages]",
+            new { Images = imagesDataTable.AsTableValuedParameter("[dbo].[ArrayOfVarchar]") },
+            commandType: System.Data.CommandType.StoredProcedure
+        );
+    }
 }

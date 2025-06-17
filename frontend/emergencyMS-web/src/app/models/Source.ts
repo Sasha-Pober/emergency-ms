@@ -1,6 +1,6 @@
 export interface Source {
-    Id: number
-    Name?: string 
-    Url?: string 
-    SourceTypeId? : number 
+    id: number
+    name?: string 
+    url?: string 
+    sourceTypeId? : number 
 }

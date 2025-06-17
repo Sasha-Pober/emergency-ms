@@ -53,6 +53,16 @@
   transition: background-color 0.3s ease;
 }
 
+
+.image-container img{
+  width: 50%;
+}
+
+.delete-image-button {
+  width: 50%;
+  margin: 1% 0;
+}
+
 .new-emergency-form form button:hover {
   background-color: #0056b3;
 }

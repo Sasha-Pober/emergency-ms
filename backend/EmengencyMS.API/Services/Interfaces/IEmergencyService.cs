@@ -11,4 +11,5 @@ public interface IEmergencyService
     Task<IEnumerable<EmergencyDTO>> GetEmergenciesForPeriod(DateTime startDate, DateTime endDate);
     Task<EmergencyDTO?> GetEmergencyById(int id);
     Task<IEnumerable<EmergencyDTO>> GetUnapprovedEmergencies();
+    Task UpdateEmergency(EmergencyDTO emergency);
 }

@@ -154,7 +154,7 @@ export class MapComponent implements OnChanges {
       zoomControl: true,
       zoom: 6,
       minZoom: 6,
-      maxBounds: [[44, 22], [52, 40]],
+      maxBounds: [[44, 22], [53, 40]],
       maxBoundsViscosity: 1.0,
     });
 
