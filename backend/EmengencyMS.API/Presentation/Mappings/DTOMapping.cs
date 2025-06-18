@@ -59,4 +59,57 @@ internal static class DTOMapping
             HouseNr = street.HouseNr
         };
     }
+
+
+    internal static EmergencyDTO MapToDTO(this UpdateEmergency entity, bool IsApproved = false)
+    {
+        return new EmergencyDTO
+        {
+            Title = entity.Title,
+            Description = entity.Description,
+            EmergencyTypeId = entity.EmergencyType,
+            EmergencySubTypeId = entity.EmergencySubType,
+            AccidentDate = entity.AccidentDate,
+            DateEntered = DateTime.Now,
+            Severity = entity.Severity,
+            Casualties = entity.Casualties,
+            Injured = entity.Injured,
+            EconomicLoss = entity.EconomicLoss,
+            Duration = entity.Duration,
+            IsApproved = IsApproved,
+            Location = entity.Location.MapToDTO(),
+            Source = entity.Source.MapToDTO(),
+            Street = entity.Street.MapToDTO()
+        };
+    }
+
+    internal static LocationDTO MapToDTO(this UpdateLocation location)
+    {
+        return new LocationDTO
+        {
+            Name = location.Name,
+            RegionId = location.RegionId,
+            Latitude = location.Latitude,
+            Longitude = location.Longitude
+        };
+    }
+
+    internal static SourceDTO MapToDTO(this UpdateSource source)
+    {
+        return new SourceDTO
+        {
+            Name = source.Name,
+            Url = source.Url,
+            SourceTypeId = source.SourceTypeId
+        };
+    }
+
+    internal static StreetDTO MapToDTO(this UpdateStreet street)
+    {
+        return new StreetDTO
+        {
+            StreetName = street.StreetName,
+            HouseNr = street.HouseNr
+        };
+    }
 }

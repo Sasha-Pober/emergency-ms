@@ -11,4 +11,5 @@ public interface IEmergencyRepository
     Task<IEnumerable<Emergency>> GetEmergenciesForPeriod(DateTime startDate, DateTime endDate);
     Task<Emergency> GetEmergencyByIdAsync(int id);
     Task<IEnumerable<Emergency>> GetUnapprovedEmergencies();
+    Task UpdateEmergencyAsync(Emergency emergency);
 }

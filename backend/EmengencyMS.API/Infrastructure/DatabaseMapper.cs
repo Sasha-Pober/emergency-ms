@@ -94,4 +94,15 @@ internal static class DatabaseMapper
         return table;
     }
 
+    internal static DataTable ToImageDeleteDataTable(this IList<string> imagePaths)
+    {
+        var table = new DataTable();
+        table.Columns.Add("Name", typeof(string));
+        foreach (var path in imagePaths)
+        {
+            table.Rows.Add(path);
+        }
+        return table;
+    }
+
 }

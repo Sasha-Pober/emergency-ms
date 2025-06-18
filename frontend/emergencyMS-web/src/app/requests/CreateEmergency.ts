@@ -1,3 +1,4 @@
+import { Image } from "../models/Image";
 import { CreateLocation } from "./CreateLocation";
 import { CreateSource } from "./CreateSource";
 import { CreateStreet } from "./CreateStreet";
@@ -8,7 +9,7 @@ export interface CreateEmergency {
     emergencyType: number;
     emergencySubType?: number;
     accidentDate: Date;
-    severity?: number; // Range validation can be handled in the form
+    severity?: number;
     casualties?: number;
     injured?: number;
     economicLoss?: number;
@@ -16,5 +17,7 @@ export interface CreateEmergency {
     location: CreateLocation;
     source: CreateSource;
     street: CreateStreet;
-    images: File[]; // Angular uses File for file uploads
+    images: File[];
+    imagesEntities?: Image[];
+    imagesToDelete?: string[];
 }

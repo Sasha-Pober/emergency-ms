@@ -18,7 +18,8 @@ const routes: Routes = [
   {path: 'dashboard', component: UserDashboardComponent, children: 
     [
       {path: 'emergency/create', component: CreateEmergencyComponent},
-      {path: 'approveEmergency', component: ApproveEmergenciesComponent}
+      {path: 'emergency/approve', component: ApproveEmergenciesComponent},
+      {path: 'emergency/edit', component: CreateEmergencyComponent}
     ], canActivate: [AuthGuard]},
   { path: '**', redirectTo: 'main' }
 ];

@@ -11,6 +11,19 @@ internal class ImageService(IImageRepository imageRepository) : IImageService
 {
     private readonly string _uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images");
 
+    public Task DeleteImages(int id, List<string> imagesToDelete)
+    {
+        foreach (var fileName in imagesToDelete)
+        {
+            var filePath = Path.Combine(_uploadsFolder, fileName);
+            if (File.Exists(filePath))
+            {
+                File.Delete(filePath);
+            }
+        }
+        return imageRepository.DeleteImages(id, imagesToDelete);
+    }
+
     public async Task<string> UploadImage(IFormFile file)
     {
         var fileName = Guid.NewGuid() + Path.GetExtension(file.FileName);

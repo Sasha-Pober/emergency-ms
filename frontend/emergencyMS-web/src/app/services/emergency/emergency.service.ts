@@ -11,8 +11,7 @@ import { EmergencyWithImages } from '../../models/EmergencyWithImages';
   providedIn: 'root'
 })
 export class EmergencyService {
-
-
+  
   private readonly apiUrl = 'http://localhost:5030';
 
   constructor(private http: HttpClient, private authService: AuthService) { }
@@ -54,11 +53,23 @@ export class EmergencyService {
   }
 
   approveEmergency(emergencyId: number) {
-    return this.http.post(`${this.apiUrl}/api/emergencies/${emergencyId}/approve`, null);
+    return this.http.post(`${this.apiUrl}/api/emergencies/${emergencyId}/approve`, null, {headers: {
+      Authorization: this.authService.getToken() || ''
+    }});
   }
 
   deleteEmergency(emergencyId: number) {
-    return this.http.delete(`${this.apiUrl}/api/emergencies/${emergencyId}`);
+    return this.http.delete(`${this.apiUrl}/api/emergencies/${emergencyId}`, {headers: {
+      Authorization: this.authService.getToken() || ''
+    }});
+  }
+
+  updateEmergency(emergencyForEdit: CreateEmergency, emergencyId: number): Observable<void> {
+    return this.http.put<void>(`${this.apiUrl}/api/emergencies/${emergencyId}`, this.ConvertToFormData(emergencyForEdit), {
+      headers: {
+        Authorization: this.authService.getToken() || ''
+      }
+    });
   }
 
   getEmergencyById(id: number): Observable<EmergencyWithImages> {
@@ -74,7 +85,7 @@ export class EmergencyService {
     this.appendFormData(formData, 'Description', emergency.description);
     this.appendFormData(formData, 'EmergencyType', emergency.emergencyType);
     this.appendFormData(formData, 'EmergencySubType', emergency.emergencySubType);
-    this.appendFormData(formData, 'AccidentDate', emergency.accidentDate);
+    this.appendFormData(formData, 'AccidentDate', emergency.accidentDate.toISOString());
     this.appendFormData(formData, 'Severity', emergency.severity);
     this.appendFormData(formData, 'Casualties', emergency.casualties);
     this.appendFormData(formData, 'Injured', emergency.injured);
@@ -100,6 +111,13 @@ export class EmergencyService {
         formData.append('Images', file);
       });
     }
+
+    if (emergency.imagesToDelete && emergency.imagesToDelete.length > 0) {
+      emergency.imagesToDelete.forEach((name) => {
+        formData.append('ImagesToDelete', name);
+      });
+    }
+
     return formData;
   }
 

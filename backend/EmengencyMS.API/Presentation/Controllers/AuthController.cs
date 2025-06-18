@@ -27,7 +27,7 @@ public class AuthController : ControllerBase
     [HttpPost("register")]
     public async Task<IActionResult> Register([FromBody] RegisterRequest request)
     {
-        var user = new ApplicationUser { UserName = request.Username, Email = request.Email };
+        var user = new ApplicationUser { UserName = request.Email, Email = request.Email };
 
         var result = await _userManager.CreateAsync(user, request.Password);
 

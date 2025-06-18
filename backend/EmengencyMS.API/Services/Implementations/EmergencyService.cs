@@ -53,4 +53,9 @@ internal class EmergencyService(IEmergencyRepository emergencyRepository, IImage
     {
         await emergencyRepository.DeleteEmergencyAsync(id);
     }
+
+    public async Task UpdateEmergency(EmergencyDTO emergency)
+    {
+        await emergencyRepository.UpdateEmergencyAsync(emergency.MapToEntity());
+    }
 }

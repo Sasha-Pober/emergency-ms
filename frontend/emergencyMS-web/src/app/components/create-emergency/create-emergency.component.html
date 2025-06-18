@@ -6,35 +6,19 @@
     <!-- Emergency Title -->
     <div>
       <label for="title">Назва:</label>
-      <input
-        type="text"
-        id="title"
-        name="title"
-        [(ngModel)]="emergency.title"
-        required
-      />
+      <input type="text" id="title" name="title" [(ngModel)]="emergency.title" required />
     </div>
 
     <!-- Emergency Description -->
     <div>
       <label for="description">Опис:</label>
-      <textarea
-        id="description"
-        name="description"
-        [(ngModel)]="emergency.description"
-        required
-      ></textarea>
+      <textarea id="description" name="description" [(ngModel)]="emergency.description" required></textarea>
     </div>
 
     <!-- Emergency Type -->
     <div>
       <label for="emergencyType">Тип НС:</label>
-      <select
-        id="emergencyType"
-        name="emergencyType"
-        [(ngModel)]="emergency.emergencyType"
-        required
-      >
+      <select id="emergencyType" name="emergencyType" [(ngModel)]="emergency.emergencyType" required>
         <option value="" disabled>Обрати</option>
         <option *ngFor="let type of types.types" [value]="type.id">{{type.name}}</option>
       </select>
@@ -43,12 +27,7 @@
     <!-- Emergency SubType -->
     <div>
       <label for="emergencySubType">Підтип:</label>
-      <select
-        id="emergencySubType"
-        name="emergencySubType"
-        [(ngModel)]="emergency.emergencySubType"
-        required
-      >
+      <select id="emergencySubType" name="emergencySubType" [(ngModel)]="emergency.emergencySubType" required>
         <option value="" disabled>Обрати</option>
         <option *ngFor="let type of types.subTypes" [value]="type.id">{{type.name}}</option>
       </select>
@@ -57,164 +36,84 @@
     <!-- Accident Date -->
     <div>
       <label for="accidentDate">Дата ситуації:</label>
-      <input
-        type="date"
-        id="accidentDate"
-        name="accidentDate"
-        [(ngModel)]="emergency.accidentDate"
-        required
-      />
+      <input type="date" id="accidentDate" name="accidentDate" [(ngModel)]="dateString" required />
     </div>
 
     <!-- Severity -->
     <div>
       <label for="severity">Серйозність ситуації (1-10):</label>
-      <input
-        type="number"
-        id="severity"
-        name="severity"
-        [(ngModel)]="emergency.severity"
-        min="1"
-        max="10"
-      />
+      <input type="number" id="severity" name="severity" [(ngModel)]="emergency.severity" min="1" max="10" />
     </div>
 
     <!-- Casualties -->
     <div>
       <label for="casualties">Кількість загиблих:</label>
-      <input
-        id="casualties"
-        name="casualties"
-        [(ngModel)]="emergency.casualties"
-      />
+      <input id="casualties" name="casualties" [(ngModel)]="emergency.casualties" />
     </div>
 
     <!-- Injured -->
     <div>
       <label for="injured">Кількість поранених:</label>
-      <input
-        id="injured"
-        name="injured"
-        [(ngModel)]="emergency.injured"
-      />
+      <input id="injured" name="injured" [(ngModel)]="emergency.injured" />
     </div>
 
     <!-- Economic Loss -->
     <div>
       <label for="economicLoss">Економічні втрати:</label>
-      <input
-        id="economicLoss"
-        name="economicLoss"
-        [(ngModel)]="emergency.economicLoss"
-      />
+      <input id="economicLoss" name="economicLoss" [(ngModel)]="emergency.economicLoss" />
     </div>
 
     <!-- Duration -->
     <div>
       <label for="duration">Тривалість ліквідації наслідків (годин):</label>
-      <input
-        id="duration"
-        name="duration"
-        [(ngModel)]="emergency.duration"
-      />
+      <input id="duration" name="duration" [(ngModel)]="emergency.duration" />
     </div>
 
     <h2>Місце події</h2>
     <!-- Location -->
     <div>
       <label for="locationName">Назва локації інциденту:</label>
-      <input
-        type="text"
-        id="locationName"
-        name="locationName"
-        [(ngModel)]="emergency.location.name"
-        required
-      />
+      <input type="text" id="locationName" name="locationName" [(ngModel)]="emergency.location.name" required />
     </div>
     <div>
-      <label for="regionType">Тип локації:</label>
-      <select
-        id="regionType"
-        name="regionType"
-        [(ngModel)]="emergency.location.regionId"
-      >
+      <label for="regionType">Регіон:</label>
+      <select id="regionType" name="regionType" [(ngModel)]="emergency.location.regionId">
         <option value="" disabled>Обрати</option>
         <option *ngFor="let type of types.regionTypes" [value]="type.id">{{type.name}}</option>
       </select>
     </div>
     <div>
       <label for="latitude">Широта:</label>
-      <input
-        type="number"
-        id="latitude"
-        name="latitude"
-        [(ngModel)]="emergency.location.latitude"
-        step="0.000001"
-      />
+      <input type="number" id="latitude" name="latitude" [(ngModel)]="emergency.location.latitude" step="0.000001" />
     </div>
     <div>
       <label for="longitude">Довгота:</label>
-      <input
-        type="number"
-        id="longitude"
-        name="longitude"
-        [(ngModel)]="emergency.location.longitude"
-        step="0.000001"
-      />
+      <input type="number" id="longitude" name="longitude" [(ngModel)]="emergency.location.longitude" step="0.000001" />
     </div>
 
     <!-- Street -->
     <div>
       <label for="streetName">Вулиця:</label>
-      <input
-        type="text"
-        id="streetName"
-        name="streetName"
-        [(ngModel)]="emergency.street.streetName"
-        required
-      />
+      <input type="text" id="streetName" name="streetName" [(ngModel)]="emergency.street.streetName" required />
     </div>
     <div>
       <label for="houseNr">Номер будинку:</label>
-      <input
-        type="number"
-        id="houseNr"
-        name="houseNr"
-        [(ngModel)]="emergency.street.houseNr"
-        required
-      />
+      <input type="number" id="houseNr" name="houseNr" [(ngModel)]="emergency.street.houseNr" required />
     </div>
 
     <h2>Джерело інформації</h2>
     <!-- Source -->
     <div>
       <label for="sourceName">Назва джерела інформації:</label>
-      <input
-        type="text"
-        id="sourceName"
-        name="sourceName"
-        [(ngModel)]="emergency.source.name"
-        required
-      />
+      <input type="text" id="sourceName" name="sourceName" [(ngModel)]="emergency.source.name" required />
     </div>
     <div>
       <label for="sourceUrl">Посилання:</label>
-      <input
-        type="url"
-        id="sourceUrl"
-        name="sourceUrl"
-        [(ngModel)]="emergency.source.url"
-        required
-      />
+      <input type="url" id="sourceUrl" name="sourceUrl" [(ngModel)]="emergency.source.url" required />
     </div>
     <div>
       <label for="sourceType">Тип джерела інформації:</label>
-      <select
-        id="sourceType"
-        name="sourceType"
-        [(ngModel)]="emergency.source.sourceTypeId"
-        required
-      >
+      <select id="sourceType" name="sourceType" [(ngModel)]="emergency.source.sourceTypeId" required>
         <option value="" disabled>Обрати</option>
         <option *ngFor="let type of types.sourceTypes" [value]="type.id">{{type.name}}</option>
       </select>
@@ -222,20 +121,25 @@
 
     <h2>Додаткові дані</h2>
     <!-- Photo Upload -->
+
+    <div *ngIf="emergency.imagesEntities && emergency.imagesEntities.length > 0" class="images-preview">
+      <h3>Завантажені фото:</h3>
+      <div *ngFor="let image of emergency.imagesEntities" class="image-container">
+        <a href="{{image.imagePath}}"><img [src]="image.imagePath"/></a>
+        <button type="button" class="delete-image-button" title="Видалити фото" (click)="deleteImage(image.fileName)">
+          <span class="material-icons">close</span>
+        </button>
+      </div>
+    </div>
+
     <div>
       <label for="photos">Завантажити фото:</label>
-      <input
-        type="file"
-        id="photos"
-        name="photos"
-        (change)="onFileSelected($event)"
-        multiple
-      />
+      <input type="file" id="photos" name="photos" (change)="onFileSelected($event)" multiple />
     </div>
 
     <!-- Submit Button -->
     <button type="submit" [disabled]="!emergencyForm.form.valid">
-       {{ type === 'create' ? 'Створити' : 'Запропонувати' }}
+      {{ type === 'create' ? 'Створити' : 'Запропонувати' }}
     </button>
   </form>
 </div>

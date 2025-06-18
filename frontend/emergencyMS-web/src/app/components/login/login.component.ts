@@ -15,19 +15,29 @@ export class LoginComponent {
   confirmPassword: string = '';
   errorMessage: string = '';
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(private authService: AuthService, private router: Router) { }
 
   toggleMode(): void {
-    this.isLoginMode = !this.isLoginMode; 
-    this.errorMessage = ''; 
+    this.isLoginMode = !this.isLoginMode;
+    this.errorMessage = '';
   }
 
   login(): void {
     this.authService.login(this.username, this.password).subscribe({
       next: (response) => {
         this.authService.saveToken(response);
-        this.router.navigate(['/dashboard']); // Navigate to the dashboard after successful login
-      },
+
+        const decodedPayload = this.decodeJwt(response.accessToken);
+        const roles = decodedPayload["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"] || [];
+
+        if (roles.includes('Manager') && roles) {
+          this.router.navigate(['/dashboard']); // Navigate to the dashboard after successful login
+        }
+        else {
+          this.router.navigate(['/']); // Navigate to the home page if not a manager
+        }
+      }
+      ,
       error: (error) => {
         this.errorMessage = 'Неправильний логін або пароль';
         console.error('Login error:', error);
@@ -52,5 +62,11 @@ export class LoginComponent {
         console.error('Register error:', error);
       }
     });
+  }
+
+  decodeJwt(token: string): any {
+    const payload = token.split('.')[1]; // Extract the payload part of the JWT
+    const decodedPayload = atob(payload); // Decode the base64 string
+    return JSON.parse(decodedPayload); // Parse the JSON string into an object
   }
 }

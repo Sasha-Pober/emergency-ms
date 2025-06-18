@@ -141,7 +141,6 @@ export class MapComponent implements OnChanges {
         .addTo(this.map)
         .addEventListener('click', () => {
           this.router.navigate(['main/emergencyInfo/', emer.id]);
-          console.log('Marker clicked:', emer.id);
         })
         .bindPopup(`<h3>${emer.title}</h3>${emer.description}<br> вул. ${emer.street.streetName}, ${emer.street.houseNr!}<br>
           <a href="/emergency/${emer.id}">Детальніше</a>`);
@@ -154,7 +153,7 @@ export class MapComponent implements OnChanges {
       zoomControl: true,
       zoom: 6,
       minZoom: 6,
-      maxBounds: [[44, 22], [52, 40]],
+      maxBounds: [[44, 22], [53, 40]],
       maxBoundsViscosity: 1.0,
     });
 

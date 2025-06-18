@@ -27,10 +27,17 @@
         <td>{{ emergency.duration }}</td>
         <td>{{ emergency.location.latitude }}, {{ emergency.location.longitude }}</td>
         <td>{{ emergency.street.streetName }}, {{emergency.street.houseNr}}</td>
-        <td>{{emergency.source.Name}} <a href="{{emergency.source.Url}}">Посилання</a></td>
+        <td>{{emergency.source.name}} <a href="{{emergency.source.url}}" target="_blank">Посилання</a></td>
         <td>
-          <button (click)="approveEmergency(emergency.id)">Підтвердити</button>
-          <button (click)="deleteEmergency(emergency.id)">Відхилити</button>
+          <button mat-icon-button (click)="editEmergency(emergency.id)" title="Редагувати">
+            <span class="material-icons">edit</span>
+          </button>
+          <button mat-icon-button (click)="approveEmergency(emergency.id)" title="Підтвердити">
+            <span class="material-icons">check</span>
+          </button>
+          <button mat-icon-button (click)="deleteEmergency(emergency.id)" title="Відхилити">
+            <span class="material-icons">close</span>
+          </button>
         </td>
       </tr>
     </tbody>

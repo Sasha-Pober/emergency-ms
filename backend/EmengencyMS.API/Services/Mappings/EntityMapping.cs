@@ -10,6 +10,7 @@ internal static class EntityMapping
     {
         return new Emergency
         {
+            Id = emergencyDTO.Id,
             Title = emergencyDTO.Title,
             DateEntered = emergencyDTO.DateEntered,
             Description = emergencyDTO.Description,

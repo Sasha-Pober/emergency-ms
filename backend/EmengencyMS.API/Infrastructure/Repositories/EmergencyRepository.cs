@@ -109,4 +109,23 @@ internal class EmergencyRepository(SqlConnection connection) : IEmergencyReposit
             commandType: System.Data.CommandType.StoredProcedure
         );
     }
+
+    public Task UpdateEmergencyAsync(Emergency emergency)
+    {
+        var emergencyTable = emergency.ToEmergencyDataTable();
+        var locationTable = emergency.Location.ToLocationDataTable(emergency.Street);
+        var sourceTable = emergency.Source.ToSourceDataTable();
+
+        return connection.ExecuteAsync(
+            "[dbo].[UpdateEmergency]",
+            new
+            {
+                Id = emergency.Id,
+                Emergency = emergencyTable.AsTableValuedParameter("dbo.EmergencyUDT"),
+                Location = locationTable.AsTableValuedParameter("dbo.LocationUDT"),
+                Source = sourceTable.AsTableValuedParameter("dbo.SourceUDT")
+            },
+            commandType: System.Data.CommandType.StoredProcedure
+        );
+    }
 }
