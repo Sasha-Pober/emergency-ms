@@ -27,7 +27,7 @@
         <td>{{ emergency.duration }}</td>
         <td>{{ emergency.location.latitude }}, {{ emergency.location.longitude }}</td>
         <td>{{ emergency.street.streetName }}, {{emergency.street.houseNr}}</td>
-        <td>{{emergency.source.name}} <a href="{{emergency.source.url}}">Посилання</a></td>
+        <td>{{emergency.source.name}} <a href="{{emergency.source.url}}" target="_blank">Посилання</a></td>
         <td>
           <button mat-icon-button (click)="editEmergency(emergency.id)" title="Редагувати">
             <span class="material-icons">edit</span>

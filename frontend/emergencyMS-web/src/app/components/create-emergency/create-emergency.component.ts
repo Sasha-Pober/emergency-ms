@@ -51,7 +51,6 @@ export class CreateEmergencyComponent implements OnInit {
   }
 
   public set dateString(value: string) {
-    console.log('Setting accident date:', value);
     this.emergency.accidentDate = new Date(value);
   }
 
@@ -101,14 +100,10 @@ export class CreateEmergencyComponent implements OnInit {
           images: [],
           imagesToDelete: [],
         }
-        console.log('Emergency for edit:', this.emergency.accidentDate);
       });
 
     }
-
     this.fetchTypes();
-
-    console.log('Type from route:', this.type);
   }
 
   constructor(
@@ -139,11 +134,9 @@ export class CreateEmergencyComponent implements OnInit {
   }
 
   onSubmit(): void {
-    console.log('Emergency Data:', this.emergency);
-    console.log('Selected Files:', this.emergency.images);
     if (this.type === 'create') {
       this.emergencyService.createEmergency(this.emergency).subscribe(
-        () => console.log('Emergency created successfully'),
+        () => window.alert('Новину про надзвичайну ситуацію успішно додано!'),
         (error) => console.error('Error creating emergency:', error)
       );
     } else if (this.type === 'suggest') {
@@ -158,7 +151,7 @@ export class CreateEmergencyComponent implements OnInit {
     else if (this.type === 'edit') {
       this.emergencyService.updateEmergency(this.emergency, this.emergencyId).subscribe(
         () =>{
-          console.log('Emergency updated successfully')
+          window.alert('Новину про надзвичайну ситуацію успішно оновлено!');
           this.router.navigate(['dashboard/emergency/approve'])
         },
       );

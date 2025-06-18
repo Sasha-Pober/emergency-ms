@@ -7,22 +7,31 @@ public class VikorSolver : IVikorSolver
 {
     public AnalyticsResponse GetAnalytics(IEnumerable<RegionAnalytics> info)
     {
-        IList<double> weights = [0.4, 0.2, 0.2, 0.2];
+        IList<double> weights = [0.4, 0.3, 0.2, 0.1];
 
         double v = 0.5;
 
         var (results, bestAlternatives) = CalculateVIKOR(info.ToList(), weights, v);
 
         var resultOrder = info.Join(results, info => info.RegionId, result => result.Id,
-            (info, result) => new RegionAnalytics
+            (info, result) => (info, result)).OrderBy(x => x.result.Q).Select(x =>
+            new RegionAnalytics
             {
-                RegionId = info.RegionId,
-                RegionName = info.RegionName,
-                TotalCasualties = info.TotalCasualties,
-                TotalInjured = info.TotalInjured,
-                TotalLoss = info.TotalLoss,
-                TotalHours = info.TotalHours
+                RegionId = x.info.RegionId,
+                RegionName = x.info.RegionName,
+                TotalCasualties = x.info.TotalCasualties,
+                TotalInjured = x.info.TotalInjured,
+                TotalLoss = x.info.TotalLoss,
+                TotalHours = x.info.TotalHours
             }).ToList();
+
+
+        //foreach (var result in resultOrder)
+        //{
+        //    Console.WriteLine($"Region: {result.RegionName}, TotalCasualties: {result.TotalCasualties}, " +
+        //                      $"TotalInjured: {result.TotalInjured}, TotalLoss: {result.TotalLoss}, " +
+        //                      $"TotalHours: {result.TotalHours}");
+        //}
 
         return new AnalyticsResponse
         {
@@ -40,8 +49,8 @@ public class VikorSolver : IVikorSolver
         {
             matrix[i, 0] = info[i].TotalCasualties;
             matrix[i, 1] = info[i].TotalInjured;
-            matrix[i, 3] = info[i].TotalHours;
             matrix[i, 2] = info[i].TotalLoss;
+            matrix[i, 3] = info[i].TotalHours;
         }
 
         //for (int i = 0; i < info.Count; i++)

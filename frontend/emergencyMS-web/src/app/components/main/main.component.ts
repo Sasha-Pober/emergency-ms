@@ -14,7 +14,7 @@ import { AnalyticsResponse } from '../../models/Analytics/AnalyticsResponse';
   styleUrls: ['./main.component.css']
 })
 export class MainComponent implements OnInit {
-  years = Array.from({length: 2025-1980 + 1}, (_, i) => 1980 + i);
+  years = Array.from({length: 2025-2000 + 1}, (_, i) => 2000 + i);
 
   emergencyTypes: EmergencyTypeEntity[] = [];
   emergencySubTypes: EmergencySubType[] = []; 

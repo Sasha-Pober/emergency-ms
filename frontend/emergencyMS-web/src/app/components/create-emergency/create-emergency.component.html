@@ -76,7 +76,7 @@
       <input type="text" id="locationName" name="locationName" [(ngModel)]="emergency.location.name" required />
     </div>
     <div>
-      <label for="regionType">Тип локації:</label>
+      <label for="regionType">Регіон:</label>
       <select id="regionType" name="regionType" [(ngModel)]="emergency.location.regionId">
         <option value="" disabled>Обрати</option>
         <option *ngFor="let type of types.regionTypes" [value]="type.id">{{type.name}}</option>
